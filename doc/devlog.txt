@@ -20,3 +20,10 @@ P #05: Fin
 
 fabihaT -- 2019-05-07 18:00
 - created devlog
+
+fabihaT -- 2019-05-13 1:45
+- updated sitemap (maiR)
+  - added timeout 
+- updated component map (rachelN)
+- fixed database schema
+- updated roles (made more specific)
