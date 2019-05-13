@@ -29,3 +29,6 @@ fabihaT -- 2019-05-13 1:45
 - fixed database schema
 - updated roles (made more specific)
 - added timeline
+
+imadB -- 20190-05-13 9:50
+- created simple chatroom server using sockets
