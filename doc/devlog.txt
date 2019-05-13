@@ -22,9 +22,10 @@ fabihaT -- 2019-05-07 18:00
 - created devlog
 
 fabihaT -- 2019-05-13 1:45
-- updated sitemap (maiR)
+- addressed feedback on design doc
+- updated sitemap
   - added timeout 
-- updated component map (rachelN)
+- updated component map
 - fixed database schema
 - updated roles (made more specific)
 - added timeline
