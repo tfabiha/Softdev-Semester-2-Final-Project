@@ -27,3 +27,4 @@ fabihaT -- 2019-05-13 1:45
 - updated component map (rachelN)
 - fixed database schema
 - updated roles (made more specific)
+- added timeline
