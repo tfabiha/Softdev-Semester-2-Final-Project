@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, url_for, redirect
 from flask_socketio import SocketIO, join_room, leave_room, emit, send
 
 app = Flask(__name__)
@@ -36,12 +36,19 @@ def user():
 
 @app.route("/login")
 def login():
+    if "user" in session:
+        return redirect(url_for("user")
     return render_template("login.html")
 
 @app.route("/signup")
 def signup():
     return render_template("signup.html")
-
+    
+@app.route("/logout", methods = ['GET'])
+def logout():
+    if "user" in session:
+        session.pop("user")
+return redirect(url_for("/"))
 
 if __name__ == '__main__':
     socketio.run(app, debug = True)
