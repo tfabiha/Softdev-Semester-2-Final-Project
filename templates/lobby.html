@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<div class="container justify-content-center">
+
+  <div class="row">
+    <div class="col-sm-4" style="margin: 20px; width: 100%;">
+      <div class="row">
+        <div class="col-sm">
+          <h2>Join a Game</h2>
+          <form>
+            <div class="form-row">
+              <div class="col-9">
+                <input type="text" class="form-control" id="invitation_code" aria-describedby="invitation_code_help" placeholder="Enter invitation code">
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-2" style="right: 0px;">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-sm" style="height:30px;"></div>
+      <div class="row">
+        <div class="col-sm">
+          <h2>Create a Game</h2>
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" id="game_name" placeholder="Enter name">
+            </div>
+            <div class="form-row align-items-center" style="margin-top: -5px; margin-bottom: 9px;">
+              <div class="col-auto my-1">
+                <label class="mr-sm-2 sr-only" for="max_players">Preference</label>
+                <select class="custom-select mr-sm-4" id="max_players">
+                  <option selected>Players...</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+              <div class="col-auto my-1 px-lg-5">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="private_game" style="vertical-align: center;">
+                  <label class="custom-control-label" for="private_game" data-toggle="tooltip" data-placement="right" title="You will receive an invitation code to invite other players">Private Game</label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top:10px;">Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm" style="margin: 20px; width: 100%;">
+      <div class="row">
+        <div class="col-sm">
+          <h2>Ongoing Games</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <b>CerealKillers</b>
+        </div>
+        <div class="col-sm">
+          <t data-toggle="tooltip" data-placement="right" title="This game is full">4/4</t>
+        </div>
+        <div class="col-sm">
+          <button type="button" class="btn btn-light btn-sm"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Spectate"></i></button>
+          <button type="button" class="btn btn-secondary btn-sm" disabled>Join</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <b>Smol Beans</b>
+        </div>
+        <div class="col-sm">
+          <t data-toggle="tooltip" data-placement="right">3/4</t>
+        </div>
+        <div class="col-sm">
+          <button type="button" class="btn btn-light btn-sm"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Spectate"></i></button>
+          <button type="button" class="btn btn-secondary btn-sm">Join</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
