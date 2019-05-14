@@ -2,8 +2,8 @@
 <html>
 <head>
 
+<title>{% block title %}{% endblock %} </title>
 {% block head %}
-<title>{% block title %}{% endblock %}</title>
 {% endblock %}
 
 <meta charset="utf-8">
@@ -37,7 +37,7 @@
     {% block guest %}
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {% block user %}user{% endblock %}
+          {% block user %}{% endblock %}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Profile</a>
