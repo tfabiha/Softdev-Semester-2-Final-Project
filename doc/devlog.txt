@@ -30,5 +30,13 @@ fabihaT -- 2019-05-13 1:45
 - updated roles (made more specific)
 - added timeline
 
-imadB -- 20190-05-13 9:50
+imadB -- 2019-05-13 9:50
 - created simple chatroom server using sockets
+
+rachelN -- 2019-05-14 0:52
+- created a few (very) basic templates, will work on styling later
+- static/base.css
+- templates/base.html
+           /lobby.html
+           /login.html
+
