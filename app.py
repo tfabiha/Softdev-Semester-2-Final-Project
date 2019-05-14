@@ -22,5 +22,26 @@ def message(msg):
     if len(msg) != 0:
         send(msg, room = rooms[request.sid])
 
+@app.route("/base")
+def base():
+    return render_template("base.html")
+
+@app.route("/lobby")
+def lobby():
+    return render_template("lobby.html")
+
+@app.route("/user")
+def user():
+    return render_template("user.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+
 if __name__ == '__main__':
     socketio.run(app, debug = True)
