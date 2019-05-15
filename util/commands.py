@@ -1,6 +1,6 @@
 import sqlite3
 
-DB_FILE = "database.db"
+DB_FILE = "data/database.db"
 def add_user(username, password_hash):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -16,4 +16,17 @@ def get_id(username):
     c.execute(command,(username))
     id = c.fetchall()
     db.close()
-    return id[0]
+    return id[0][0]
+
+def all_users():
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    command = "SELECT username, password FROM users;"
+    c.execute(command)
+    all = c.fetchall()
+    db.close()
+    dict = {}
+    for item in all:
+        dict[item[0]] = item[1]
+    return dict
+    

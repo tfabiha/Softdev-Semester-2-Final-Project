@@ -36,19 +36,21 @@ def user():
 
 @app.route("/login")
 def login():
-    if "user" in session:
-        return redirect(url_for("user")
+    if 'user' in session:
+        return redirect(url_for('user'))
     return render_template("login.html")
+                        
 
 @app.route("/signup")
-def signup():
+def signup():          
     return render_template("signup.html")
     
 @app.route("/logout", methods = ['GET'])
 def logout():
-    if "user" in session:
-        session.pop("user")
-return redirect(url_for("/"))
+    if 'user' in session:
+        session.pop('user')
+    return redirect(url_for('/'))
+                        
 
 if __name__ == '__main__':
     socketio.run(app, debug = True)
