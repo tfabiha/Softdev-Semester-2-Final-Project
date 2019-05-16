@@ -1,9 +1,10 @@
 import sqlite3
 
-db = sqlite3.connect("database.db")
-c = db.cursor()
-command = "CREATE TABLE users(usernmae TEXT, password TEXT, wins INT, losses INT)"
-c.execute(command)
+def create_table():
+    db = sqlite3.connect("data/database.db")
+    c = db.cursor()
+    command = "CREATE TABLE IF NOT EXISTS users(username TEXT, password TEXT, wins INT, losses INT)"
+    c.execute(command)
 
-db.commit()
-db.close()
+    db.commit()
+    db.close()
