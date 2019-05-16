@@ -9,6 +9,11 @@ app = Flask(__name__) #create instance of class flask
 app.secret_key = os.urandom(32)
 socketio = SocketIO(app)
 
+if os.environ['PWD'] == '/var/www/ccereal/ccereal':
+    DIR = os.path.dirname(__file__) or '.'
+    DIR += '/'
+else: DIR = ""
+
 rooms = {}
 
 db.create_table()
