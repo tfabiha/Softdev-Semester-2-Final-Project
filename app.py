@@ -47,7 +47,7 @@ def lobby():
 @app.route('/join_game', methods = ['POST'])
 def join_game():
     invitation_code = request.form['invitation_code']
-    return "somethingsomethinggame"
+    return redirect("/game")
 
 @app.route('/create_game', methods = ['POST'])
 def create_game():
@@ -66,7 +66,13 @@ def create_game():
     if flash:
         return redirect(url_for('lobby'))
     flash(''.join([random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")for n in range(32)]),category="inv_code")
-    return redirect("/lobby")
+    return redirect("/game")
+
+
+@app.route('/game')
+def game():
+    return render_template("game.html")
+
 
 @app.route('/user')
 def user():
