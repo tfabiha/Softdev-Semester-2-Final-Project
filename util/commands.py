@@ -3,9 +3,7 @@ from passlib.hash import sha256_crypt
 
 from util import db
 
-DB_FILE = "data/database.db"
-if os.environ['PWD'] == '/var/www/ccereal/ccereal':
-    DB_FILE = "/var/www/ccereal/ccereal/data/database.db"
+DB_FILE = "/var/www/ccereal/ccereal/data/data.db"
 
 def add_user(username, password, wins=0, losses=0):
     db = sqlite3.connect(DB_FILE)
