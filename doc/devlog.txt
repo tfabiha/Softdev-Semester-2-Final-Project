@@ -33,14 +33,25 @@ fabihaT -- 2019-05-13 1:45
 imadB -- 2019-05-13 9:50
 - created simple chatroom server using sockets
 
+maiR -- 2019-05-14 11:13
+- Created database table and wrote functions for db
+
 rachelN -- 2019-05-14 0:52
 - created a few (very) basic templates, will work on styling later
 - static/base.css
 - templates/base.html
            /lobby.html
            /login.html
+	   
+maiR -- 2019-05-15 20:32
+- Worked on basic login and log out on flask
+- got all the images of the cereals for the cards
 
 rachelN -- 2019-05-15 22:45
 - made and updated templates and css 
 - templates/register.html
 - flask routing for login, registration, creating game invite code
+
+maiR -- 2019-05-16 13:06
+- created basic template for game page and updated flask routing
+- added button for register
