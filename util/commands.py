@@ -4,11 +4,8 @@ from passlib.hash import sha256_crypt
 from util import db
 
 if os.environ['PWD'] == '/var/www/ccereal/ccereal':
-    DIR = os.path.dirname(__file__) or '.'
-    DIR += '/'
-else: DIR = ""
-
-DB_FILE = DIR + "data/database.db"
+    DB_FILE = DIR + "/var/www/ccereal/ccereal/data/database.db"
+else: DB_FILE = "/data/database.db"
 
 def add_user(username, password, wins=0, losses=0):
     db = sqlite3.connect(DB_FILE)

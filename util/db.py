@@ -1,10 +1,8 @@
 import os, sqlite3
 
 if os.environ['PWD'] == '/var/www/ccereal/ccereal':
-    DIR = os.path.dirname(__file__) or '.'
-    DIR += '/'
-else: DIR = ""
-DB_FILE = DIR + "data/database.db"
+    DB_FILE = DIR + "/var/www/ccereal/ccereal/data/database.db"
+else: DB_FILE = "/data/database.db"
 
 def create_table():
     db = sqlite3.connect(DB_FILE)

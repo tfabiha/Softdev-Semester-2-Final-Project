@@ -10,9 +10,8 @@ app.secret_key = os.urandom(32)
 socketio = SocketIO(app)
 
 if os.environ['PWD'] == '/var/www/ccereal/ccereal':
-    DIR = os.path.dirname(__file__) or '.'
-    DIR += '/'
-else: DIR = ""
+    DB_FILE = DIR + "/var/www/ccereal/ccereal/data/database.db"
+else: DB_FILE = "/data/database.db"
 
 rooms = {}
 
