@@ -9,7 +9,7 @@ app = Flask(__name__) #create instance of class flask
 app.secret_key = os.urandom(32)
 socketio = SocketIO(app)
 
-DB_FILE = "/data/database.db"
+DB_FILE = "data/database.db"
 if os.environ['PWD'] == '/var/www/ccereal/ccereal':
     DB_FILE = "/var/www/ccereal/ccereal/data/database.db"
 
