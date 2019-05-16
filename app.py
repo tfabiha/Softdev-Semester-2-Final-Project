@@ -8,7 +8,7 @@ rooms = {}
 
 @app.route("/")
 def root():
-    return render_template("index.html")
+    return render_template("index.html", guest='user' not in session)
 
 @socketio.on('joinRoom')
 def joinRoom(roomInfo):
@@ -24,26 +24,33 @@ def message(msg):
 
 @app.route("/base")
 def base():
-    return render_template("base.html")
+    guest = 'user' not in session
+    return render_template("base.html", guest = guest)
 
 @app.route("/lobby")
 def lobby():
-    return render_template("lobby.html")
+    guest = 'user' not in session
+    return render_template("lobby.html", guest=guest)
 
 @app.route("/user")
 def user():
-    return render_template("user.html")
+    guest = 'user' not in session
+    if 'user' not in session:
+        pass
+    return render_template("user.html", guest=guest, user = session['ser'])
 
 @app.route("/login")
 def login():
+    guest = 'user' not in session
     if 'user' in session:
         return redirect(url_for('user'))
-    return render_template("login.html")
+    return render_template("login.html", guest=guest)
                         
 
 @app.route("/signup")
-def signup():          
-    return render_template("signup.html")
+def signup():
+    guest = 'user' not in session
+    return render_template("signup.html", guest=guest)
     
 @app.route("/logout", methods = ['GET'])
 def logout():
