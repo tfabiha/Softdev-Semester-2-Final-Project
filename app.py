@@ -53,9 +53,18 @@ def join_game():
 def create_game():
     print(request.form)
     game_name = request.form['game_name']
-    max_players = request.form['max_players']
+    max_players = int(request.form['max_players'])
     private_game = 'private_game' in request.form
-    print(game_name,max_players,private_game)
+    print(game_name)
+    print(max_players)
+    print(private_game)
+    if game_name == "":
+        flash("Enter a name")
+    if max_players == 0:
+        max_players = 2
+        flash("Max players has defaulted to " + str(max_players))
+    if flash:
+        return redirect(url_for('lobby'))
     flash(''.join([random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")for n in range(32)]),category="inv_code")
     return redirect("/lobby")
 
@@ -122,7 +131,7 @@ def logout():
     if 'user' in session:
         session.pop('user')
     return redirect(url_for('/'))
-                        
+
 
 if __name__ == '__main__':
     socketio.run(app, debug = True)
