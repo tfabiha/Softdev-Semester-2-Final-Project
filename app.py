@@ -59,10 +59,10 @@ def create_game():
     print(max_players)
     print(private_game)
     if game_name == "":
-        flash("Enter a name")
+        flash("Enter a name",category="create_game_error")
     if max_players == 0:
         max_players = 2
-        flash("Max players has defaulted to " + str(max_players))
+        flash("Max players has defaulted to " + str(max_players),category="create_game_error")
     if flash:
         return redirect(url_for('lobby'))
     flash(''.join([random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")for n in range(32)]),category="inv_code")
@@ -78,7 +78,7 @@ def game():
 def user():
     guest = 'user' not in session
     if guest:
-        pass
+        return redirect("/login")
     user = None
     if not guest: user = session['user']
     return render_template("user.html", guest=guest, user = user)
