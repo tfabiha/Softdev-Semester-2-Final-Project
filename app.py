@@ -56,12 +56,8 @@ def create_game():
     max_players = request.form['max_players']
     private_game = 'private_game' in request.form
     print(game_name,max_players,private_game)
-
-    if private_game:
-        flash(''.join([random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")for n in range(32)]),category="inv_code")
-        return redirect("/lobby")
-    return "somethingsomethinggame"
-
+    flash(''.join([random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")for n in range(32)]),category="inv_code")
+    return redirect("/lobby")
 
 @app.route('/user')
 def user():
