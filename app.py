@@ -43,11 +43,19 @@ def lobby():
     if not guest: user = session['user']
     return render_template("lobby.html", guest=guest, user = user)
 
+@app.route('/game/<code>')
+def game(code):
+    guest = 'user' not in session
+    user = None
+    if not guest: user = session['user']
+    return render_template("game.html", guest=guest, user = user, code = code)
 
 @app.route('/join_game', methods = ['POST'])
 def join_game():
-    invitation_code = request.form['invitation_code']
-    return redirect("/game")
+    print(request.form)
+    inv_code = request.form['inv_code']
+    return redirect('/game/{code}'.format(code=inv_code))
+
 
 @app.route('/create_game', methods = ['POST'])
 def create_game():
@@ -60,19 +68,13 @@ def create_game():
     print(private_game)
     if game_name == "":
         flash("Enter a name",category="create_game_error")
+        return redirect(url_for('lobby'))
+    inv_code = ''.join([random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")for n in range(32)])
     if max_players == 0:
         max_players = 2
-        flash("Max players has defaulted to " + str(max_players),category="create_game_error")
-    if flash:
-        return redirect(url_for('lobby'))
-    flash(''.join([random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")for n in range(32)]),category="inv_code")
-    return redirect("/game")
-
-
-@app.route('/game')
-def game():
-    return render_template("game.html")
-
+        flash("Max players has defaulted to " + str(max_players))
+        return redirect('/game/{code}'.format(code=inv_code))
+    return redirect('/game/{code}'.format(code=inv_code))
 
 @app.route('/user')
 def user():

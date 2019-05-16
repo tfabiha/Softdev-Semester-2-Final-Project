@@ -20,7 +20,7 @@ Game Lobby
           <form action ="/join_game" method="POST">
             <div class="form-row">
               <div class="col-9">
-                <input type="text" class="form-control" id="invitation_code" aria-describedby="invitation_code_help" placeholder="Enter invitation code">
+                <input type="text" class="form-control" id="inv_code" name="inv_code" placeholder="Enter invitation code">
               </div>
               <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-2" style="right: 0px;">Submit</button>
@@ -33,6 +33,21 @@ Game Lobby
       <div class="row">
         <div class="col-sm">
           <h2>Create a Game</h2>
+          <div class ="container-fluid center" id="errorBox" style="padding: 0;">
+            {% with msgs = get_flashed_messages(category_filter=["create_game_error"]) %}
+            {% if msgs %}
+            {% for message in msgs %}
+            <div class="alert alert-info alert-dismissible" id="alertBox" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" data-toggle="collapse" data-target="#demo">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+          </div>
+
           <form action ="/create_game" method="POST">
             <div class="form-group">
               <input type="text" class="form-control" id="game_name" name="game_name" placeholder="Enter name">
@@ -41,7 +56,7 @@ Game Lobby
               <div class="col-auto my-1">
                 <label class="mr-sm-2 sr-only" for="max_players">Preference</label>
                 <select class="custom-select mr-sm-4" id="max_players" name="max_players">
-                  <option selected>Players...</option>
+                  <option value="0" selected>Players...</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -76,12 +91,7 @@ Game Lobby
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-4">
-          <b>CerealKillers</b>
-        </div>
-      </div>
-      <div class="row">
-  <div class="col-sm-4"><b>CerealKillers</b></div>
+        <div class="col-sm-4"><b>CerealKillers</b></div>
         <div class="col-sm"><t data-toggle="tooltip" data-placement="right" title="This game is full">4/4</t></div>
         <div class="col-sm"><button type="button" class="btn btn-light btn-sm"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Spectate"></i></button><button type="button" class="btn btn-secondary btn-sm" disabled>Join</button></div>
       </div>
