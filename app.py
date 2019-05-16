@@ -1,4 +1,4 @@
-import os
+import os, random
 from flask import Flask, render_template, request, session, url_for, redirect, flash
 from flask_socketio import SocketIO, join_room, leave_room, emit, send
 
@@ -43,6 +43,26 @@ def lobby():
     if not guest: user = session['user']
     return render_template("lobby.html", guest=guest, user = user)
 
+
+@app.route('/join_game', methods = ['POST'])
+def join_game():
+    invitation_code = request.form['invitation_code']
+    return "somethingsomethinggame"
+
+@app.route('/create_game', methods = ['POST'])
+def create_game():
+    print(request.form)
+    game_name = request.form['game_name']
+    max_players = request.form['max_players']
+    private_game = 'private_game' in request.form
+    print(game_name,max_players,private_game)
+
+    if private_game:
+        flash(''.join([random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")for n in range(32)]),category="inv_code")
+        return redirect("/lobby")
+    return "somethingsomethinggame"
+
+
 @app.route('/user')
 def user():
     guest = 'user' not in session
@@ -63,17 +83,13 @@ def login():
 def login_auth():
     username = request.form['username']
     password = request.form['password']
-    print(username,password)
-    print(commands.auth_user(username, password))
     if commands.auth_user(username, password):
         session['user'] = username
-        flash("You have successfully logged in.")
+        flash("You have logged in")
         return redirect('/')
     else:
         flash("Invalid username and password combination")
         return render_template('login.html')
-
-
 
 @app.route('/signup')
 def signup():
@@ -86,21 +102,23 @@ def register_auth():
     password = request.form['password']
     retyped_pass = request.form['repass']
     if username == "":
-        flash("Please make sure to enter a username!")
+        flash("Enter a username")
         return redirect(url_for('signup'))
     elif password == "":
-        flash("Please make sure to enter a password!")
+        flash("Enter a password")
         return redirect(url_for('signup'))
     elif password != retyped_pass:
-        flash("Please make sure the passwords you enter are the same.")
+        flash("Passwords do not match")
         return redirect(url_for('signup'))
     else:
         if commands.add_user(username, password):
-            flash("You have successfully registered.")
+            flash("You have successfully registered")
         else:
-            flash("Please enter another username. The one you entered is already in the database.")
+            flash("This username is already in use")
             return redirect(url_for('signup'))
-    return redirect('/login')
+    commands.auth_user(username, password)
+    session['user'] = username
+    return redirect('/')
 
 
 @app.route('/logout', methods = ['GET'])

@@ -17,7 +17,7 @@ Game Lobby
       <div class="row">
         <div class="col-sm">
           <h2>Join a Game</h2>
-          <form>
+          <form action ="/join_game" method="POST">
             <div class="form-row">
               <div class="col-9">
                 <input type="text" class="form-control" id="invitation_code" aria-describedby="invitation_code_help" placeholder="Enter invitation code">
@@ -33,14 +33,14 @@ Game Lobby
       <div class="row">
         <div class="col-sm">
           <h2>Create a Game</h2>
-          <form>
+          <form action ="/create_game" method="POST">
             <div class="form-group">
-              <input type="text" class="form-control" id="game_name" placeholder="Enter name">
+              <input type="text" class="form-control" id="game_name" name="game_name" placeholder="Enter name">
             </div>
             <div class="form-row align-items-center" style="margin-top: -5px; margin-bottom: 9px;">
               <div class="col-auto my-1">
                 <label class="mr-sm-2 sr-only" for="max_players">Preference</label>
-                <select class="custom-select mr-sm-4" id="max_players">
+                <select class="custom-select mr-sm-4" id="max_players" name="max_players">
                   <option selected>Players...</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -49,17 +49,27 @@ Game Lobby
               </div>
               <div class="col-auto my-1 px-lg-5">
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="private_game" style="vertical-align: center;">
+                  <input type="checkbox" class="custom-control-input" id="private_game" name="private_game" style="vertical-align: center;">
                   <label class="custom-control-label" for="private_game" data-toggle="tooltip" data-placement="right" title="You will receive an invitation code to invite other players">Private Game</label>
                 </div>
               </div>
             </div>
             <button type="submit" class="btn btn-primary" style="margin-top:10px;">Create</button>
           </form>
-        </div>
+          {% set msgs = get_flashed_messages(category_filter=["inv_code"]) %}
+          {% for msg in msgs %}
+          <div class="alert" style="margin: 20px 0; padding:0;">
+            <div class="row">
+              <div class="col-sm-4">Invite Code:</div>
+              <div class="col-sm-8" style="word-break: break-all">{{ msg }}</div>
+            </div>
+          </div>
+          {% endfor %}
+          </div>
       </div>
     </div>
-    <div class="col-sm" style="margin: 20px; width: 100%;">
+
+            <div class="col-sm" style="margin: 20px; width: 100%;">
       <div class="row">
         <div class="col-sm">
           <h2>Ongoing Games</h2>
