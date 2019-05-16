@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
+{% endblock %}
+
+{% block title %}
+{% block user %}{% endblock %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container justify-content-center">
+
+
+  <div class="row">
+    <div class="col-sm">
+      Wins
+    </div>
+    <div class="col-sm">
+      Losses
+    </div>
+  </div>
+
+</div>
+{% endblock %}

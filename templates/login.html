@@ -4,9 +4,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 {% endblock %}
 
-{% block title %}
-{% block user %}{% endblock %}
-{% endblock %}
+{% block title %}Login{% endblock %}
 
 
 {% block content %}
@@ -25,7 +23,7 @@
     </div>
 
     <div style="margin-bottom: 25px;"><i>Don't have an account? Register <a href="/signup">here</a>!</i></div>
-    <button type="submit" class="btn btn-primary" value="Login">Submit</button>
+    <button type="submit" class="btn btn-primary" value="login">Submit</button>
 
   </form>
   </div>
