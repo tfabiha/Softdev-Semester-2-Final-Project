@@ -84,14 +84,14 @@ def signup():
 def register_auth():
     username = request.form['username']
     password = request.form['password']
-    confirmed_pass = request.form['repass']
+    retyped_pass = request.form['repass']
     if username == "":
         flash("Please make sure to enter a username!")
         return redirect(url_for('signup'))
     elif password == "":
         flash("Please make sure to enter a password!")
         return redirect(url_for('signup'))
-    elif password != confirmed_pass: # checks to make sure two passwords entered are the same
+    elif password != retyped_pass:
         flash("Please make sure the passwords you enter are the same.")
         return redirect(url_for('signup'))
     else:
