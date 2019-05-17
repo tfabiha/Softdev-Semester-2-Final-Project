@@ -58,10 +58,10 @@ maiR -- 2019-05-16 13:06
 
 rachelN -- 2019-05-16 13:15
 - flash error messages
+- more flask routing
 
 rachelN -- 2019-05-16 22:45
-- more flask routing
-- fixed more templates
+- fixed / updated more templates
 - apache stuff!! 
 
 rachelN -- 2019-05-17 11:00
