@@ -2,7 +2,7 @@ import os, random
 from flask import Flask, render_template, request, session, url_for, redirect, flash
 from flask_socketio import SocketIO, join_room, leave_room, emit, send
 
-from util import config, commands
+from util import config, db
 
 app = Flask(__name__) #create instance of class flask
 
@@ -125,7 +125,7 @@ def login_auth():
     '''
     username = request.form['username']
     password = request.form['password']
-    if commands.auth_user(username, password):
+    if db.auth_user(username, password):
         session['user'] = username
         flash("You have logged in")
         return redirect('/')
@@ -159,12 +159,12 @@ def register_auth():
         flash("Passwords do not match")
         return redirect(url_for('signup'))
     else:
-        if commands.add_user(username, password):
+        if db.add_user(username, password):
             flash("You have successfully registered")
         else:
             flash("This username is already in use")
             return redirect(url_for('signup'))
-    commands.auth_user(username, password)
+    db.auth_user(username, password)
     session['user'] = username
     return redirect('/')
 
