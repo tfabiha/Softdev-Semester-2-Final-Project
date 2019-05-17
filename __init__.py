@@ -2,7 +2,7 @@ import os, random
 from flask import Flask, render_template, request, session, url_for, redirect, flash
 from flask_socketio import SocketIO, join_room, leave_room, emit, send
 
-from util import db, commands, config
+from util import config, commands
 
 app = Flask(__name__) #create instance of class flask
 
@@ -11,7 +11,7 @@ socketio = SocketIO(app)
 
 rooms = {}
 
-db.create_table()
+config.create_table()
 
 @app.route('/')
 def root():
@@ -73,7 +73,6 @@ def join_game():
     '''
     for joining games
     '''
-    print(request.form)
     inv_code = request.form['inv_code']
     return redirect('/game/{code}'.format(code=inv_code))
 
@@ -87,9 +86,6 @@ def create_game():
     game_name = request.form['game_name']
     max_players = int(request.form['max_players'])
     private_game = 'private_game' in request.form
-    print(game_name)
-    print(max_players)
-    print(private_game)
     if game_name == "":
         flash("Enter a name",category="create_game_error")
         return redirect(url_for('lobby'))
