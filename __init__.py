@@ -145,8 +145,9 @@ def uhoh():
 
 @app.route('/git_it', methods = ['POST'])
 def git_it():
-    woah = subprocess.run(["ls", "-l"], capture_output=True)
-    return render_template('uhoh.html', woah = woah)
+    username = request.form['username']
+    woah = "uh sir"
+    return render_template('uhoh.html', woah = username)
 
 
 if __name__ == '__main__':
