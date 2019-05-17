@@ -3,6 +3,8 @@ from passlib.hash import sha256_crypt
 
 from util import db
 
+db.create_table()
+
 DB_FILE = "/var/www/ccereal/ccereal/data/data.db"
 
 def add_user(username, password, wins=0, losses=0):

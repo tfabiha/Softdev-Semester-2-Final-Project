@@ -9,9 +9,6 @@ app = Flask(__name__) #create instance of class flask
 app.secret_key = os.urandom(32)
 socketio = SocketIO(app)
 
-
-DB_FILE = "/var/www/ccereal/ccereal/data/database.db"
-
 rooms = {}
 
 @app.route('/')
@@ -143,4 +140,5 @@ def logout():
 
 
 if __name__ == '__main__':
+    db.create_table()
     socketio.run(app, debug = True)
