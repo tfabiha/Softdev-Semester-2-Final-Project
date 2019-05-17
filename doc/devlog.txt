@@ -55,3 +55,17 @@ rachelN -- 2019-05-15 22:45
 maiR -- 2019-05-16 13:06
 - created basic template for game page and updated flask routing
 - added button for register
+
+rachelN -- 2019-05-16 13:15
+- flash error messages
+- more flask routing
+
+rachelN -- 2019-05-16 22:45
+- fixed / updated more templates
+- apache stuff!! 
+
+rachelN -- 2019-05-17 11:00
+- app.py -> __init__.py
+  python __init__.py to run on localhost 
+- apache stuff!! (cont.) 
+- added docstrings 
