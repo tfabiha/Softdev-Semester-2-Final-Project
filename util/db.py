@@ -1,10 +1,12 @@
 import os, sqlite3
 
+from util import config
+
 def create_table():
-    db = sqlite3.connect('/var/www/ccereal/ccereal/data/data.db')
-    c = db.cursor()
+    db, c = config.start_db()
     command = "CREATE TABLE IF NOT EXISTS users(username TEXT, password TEXT, wins INT, losses INT)"
     c.execute(command)
 
-    db.commit()
-    db.close()
+    config.end_db(db)
+    #db.commit()
+    #db.close()
