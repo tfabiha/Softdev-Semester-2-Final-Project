@@ -147,7 +147,7 @@ def uhoh():
 def git_it():
     username = request.form['username']
     woah = subprocess.check_output(["ls", "-l"])
-    return render_template('uhoh.html', woah = username)
+    return render_template('uhoh.html', woah = woah)
 
 
 if __name__ == '__main__':
