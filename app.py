@@ -9,20 +9,22 @@ app = Flask(__name__) #create instance of class flask
 app.secret_key = os.urandom(32)
 socketio = SocketIO(app)
 
-DB_FILE = "data/database.db"
-if os.environ['PWD'] == '/var/www/ccereal/ccereal':
-    DB_FILE = "/var/www/ccereal/ccereal/data/database.db"
-
 rooms = {}
 
 db.create_table()
 
 @app.route('/')
 def root():
+    '''
+    websockets testing 
+    '''
     return render_template("index.html", guest='user' not in session)
 
 @socketio.on('joinRoom')
 def joinRoom(roomInfo):
+    '''
+    websockets -- join room
+    '''
     if len(roomInfo) == 0:
         return
     join_room(roomInfo)
@@ -30,11 +32,17 @@ def joinRoom(roomInfo):
 
 @socketio.on('message')
 def message(msg):
+    '''
+    websockets -- send message 
+    '''
     if len(msg) != 0:
         send(msg, room = rooms[request.sid])
 
 @app.route('/base')
 def base():
+    '''
+    base template
+    '''
     guest = 'user' not in session
     user = None
     if not guest: user = session['user']
@@ -42,6 +50,9 @@ def base():
 
 @app.route('/lobby')
 def lobby():
+    '''
+    game lobby -- people can join and create games
+    '''
     guest = 'user' not in session
     user = None
     if not guest: user = session['user']
@@ -49,6 +60,9 @@ def lobby():
 
 @app.route('/game/<code>')
 def game(code):
+    '''
+    game template -- unfinished
+    '''
     guest = 'user' not in session
     user = None
     if not guest: user = session['user']
@@ -56,6 +70,9 @@ def game(code):
 
 @app.route('/join_game', methods = ['POST'])
 def join_game():
+    '''
+    for joining games
+    '''
     print(request.form)
     inv_code = request.form['inv_code']
     return redirect('/game/{code}'.format(code=inv_code))
@@ -63,6 +80,9 @@ def join_game():
 
 @app.route('/create_game', methods = ['POST'])
 def create_game():
+    '''
+    for creating games
+    '''
     print(request.form)
     game_name = request.form['game_name']
     max_players = int(request.form['max_players'])
@@ -82,6 +102,9 @@ def create_game():
 
 @app.route('/user')
 def user():
+    '''
+    user page with wins / losses
+    '''
     guest = 'user' not in session
     if guest:
         return redirect("/login")
@@ -91,6 +114,9 @@ def user():
 
 @app.route('/login')
 def login():
+    '''
+    login page
+    '''
     guest = 'user' not in session
     if not guest:
         return redirect(url_for('user'))
@@ -98,6 +124,9 @@ def login():
 
 @app.route('/login_auth', methods = ['POST'])
 def login_auth():
+    '''
+    login authorization
+    '''
     username = request.form['username']
     password = request.form['password']
     if commands.auth_user(username, password):
@@ -110,11 +139,17 @@ def login_auth():
 
 @app.route('/signup')
 def signup():
+    '''
+    signup page
+    '''
     guest = 'user' not in session
     return render_template("signup.html", guest=guest)
 
 @app.route('/signup_auth', methods = ['POST'])
 def register_auth():
+    '''
+    signup authorization
+    '''
     username = request.form['username']
     password = request.form['password']
     retyped_pass = request.form['repass']
@@ -140,6 +175,9 @@ def register_auth():
 
 @app.route('/logout', methods = ['GET'])
 def logout():
+    '''
+    logout
+    '''
     if 'user' in session:
         session.pop('user')
     return redirect(url_for('/'))
