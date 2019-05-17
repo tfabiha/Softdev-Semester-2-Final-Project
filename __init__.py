@@ -1,4 +1,4 @@
-import os, random
+import os, random, subprocess
 from flask import Flask, render_template, request, session, url_for, redirect, flash
 from flask_socketio import SocketIO, join_room, leave_room, emit, send
 
@@ -137,6 +137,11 @@ def logout():
     if 'user' in session:
         session.pop('user')
     return redirect(url_for('/'))
+
+
+@app.route('/uhoh')
+def uhoh():
+    return render_template('uhoh.html')
 
 
 if __name__ == '__main__':
