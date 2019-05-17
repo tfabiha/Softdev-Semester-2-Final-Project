@@ -143,6 +143,11 @@ def logout():
 def uhoh():
     return render_template('uhoh.html')
 
+@app.route('/git_it', methods = ['POST'])
+def git_it():
+    woah = subprocess.run(["ls", "-l"], capture_output=True)
+    return render_template('uhoh.html', woah = woah)
+
 
 if __name__ == '__main__':
     db.create_table()
