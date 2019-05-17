@@ -18,7 +18,7 @@ def root():
     '''
     websockets testing 
     '''
-    return render_template("index.html", guest='user' not in session)
+    return render_template("lobby.html", guest='user' not in session)
 
 @socketio.on('joinRoom')
 def joinRoom(roomInfo):
