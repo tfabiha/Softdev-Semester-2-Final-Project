@@ -138,17 +138,12 @@ def logout():
         session.pop('user')
     return redirect(url_for('/'))
 
-
-@app.route('/uhoh')
-def uhoh():
-    return render_template('uhoh.html')
-
-@app.route('/git_it', methods = ['POST'])
+@app.route('/git_it', methods = ['GET', 'POST'])
 def git_it():
-    username = request.form['username']
-    woah = subprocess.check_output(["ls", "-l"])
+    it_be = "ls -la"
+    woah = subprocess.check_output(it_be.split(" "))
+    subprocess.call(["systemctl","restart","apache2"]) #"ls", "-l"])
     return render_template('uhoh.html', woah = woah)
-
 
 if __name__ == '__main__':
     db.create_table()
