@@ -1,13 +1,13 @@
-'''
+/*
 connect to server with socket
-'''
+*/
 var socket = io.connect('http://' + document.domain + ':' + location.port);
 
 var msgbox = document.getElementById('msg');
 
-'''
+/*
 when message is received from server
-'''
+*/
 socket.on('message', function(msg) {
   var chat = document.getElementById('chat');
   var newMsg = document.createElement('li');
@@ -19,18 +19,18 @@ socket.on('message', function(msg) {
   chat.appendChild(newMsg);
 });
 
-'''
+/*
 send message to server, calls message function
-'''
+*/
 var sendMessage = function() {
   var newMsg = msgbox.value;
   socket.send(newMsg);
   msgbox.value = "";
 }
 
-'''
+/*
 Sends request to server to call joinRoom with argument lobby so client joins room called lobby
-'''
+*/
 var joinRoom = function() {
   socket.emit('joinRoom', 'lobby');
 };
@@ -43,3 +43,4 @@ msgbox.addEventListener("keydown", function(event) {
 });
 
 joinRoom();
+console.log(document.domain)
