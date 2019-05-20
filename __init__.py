@@ -16,14 +16,14 @@ config.create_table()
 @app.route('/')
 def root():
     '''
-    websockets testing 
+    websockets testing
     '''
     return render_template("lobby.html", guest='user' not in session)
 
 @socketio.on('joinRoom')
 def joinRoom(roomInfo):
     '''
-    websockets -- join room
+    websockets -- make client join room, save room info based on the id of the socket
     '''
     if len(roomInfo) == 0:
         return
@@ -33,7 +33,7 @@ def joinRoom(roomInfo):
 @socketio.on('message')
 def message(msg):
     '''
-    websockets -- send message 
+    websockets -- send message to room that the client who sent it is in
     '''
     if len(msg) != 0:
         send(msg, room = rooms[request.sid])
@@ -66,7 +66,7 @@ def game(code):
     guest = 'user' not in session
     user = None
     if not guest: user = session['user']
-    return render_template("game.html", guest=guest, user = user, code = code)
+    return render_template("index.html")
 
 @app.route('/join_game', methods = ['POST'])
 def join_game():
