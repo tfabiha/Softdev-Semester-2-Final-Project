@@ -24,7 +24,7 @@ fabihaT -- 2019-05-07 18:00
 fabihaT -- 2019-05-13 1:45
 - addressed feedback on design doc
 - updated sitemap
-  - added timeout 
+  - added timeout
 - updated component map
 - fixed database schema
 - updated roles (made more specific)
@@ -42,13 +42,13 @@ rachelN -- 2019-05-14 0:52
 - templates/base.html
            /lobby.html
            /login.html
-	   
+
 maiR -- 2019-05-15 20:32
 - Worked on basic login and log out on flask
 - got all the images of the cereals for the cards
 
 rachelN -- 2019-05-15 22:45
-- made and updated templates and css 
+- made and updated templates and css
 - templates/register.html
 - flask routing for login, registration, creating game invite code
 
@@ -62,13 +62,16 @@ rachelN -- 2019-05-16 13:15
 
 rachelN -- 2019-05-16 22:45
 - fixed / updated more templates
-- apache stuff!! 
+- apache stuff!!
 
 rachelN -- 2019-05-17 11:00
 - app.py -> __init__.py
-  python __init__.py to run on localhost 
-- apache stuff!! (cont.) 
-- added docstrings 
+  python __init__.py to run on localhost
+- apache stuff!! (cont.)
+- added docstrings
 
 maiR -- 2019-05-20 13:17
 - added to index.html and sockets.js- made button for drawing card
+
+imadB -- 2019-05-20 13:20
+- added comments on sockets and made chatroom send to specific room
