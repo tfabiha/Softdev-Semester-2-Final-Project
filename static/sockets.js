@@ -13,7 +13,6 @@ socket.on('message', function(msg) {
 });
 
 var sendMessage = function() {
-  console.log("sending");
   var newMsg = msgbox.value;
   socket.send(newMsg);
   msgbox.value = "";
@@ -25,7 +24,6 @@ var joinRoom = function() {
 
 msgbox.addEventListener("keydown", function(event) {
   if(event.keyCode == 13){
-    console.log("send")
     event.preventDefault();
     sendMessage();
   }
