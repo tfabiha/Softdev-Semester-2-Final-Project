@@ -30,7 +30,7 @@ var sendMessage = function() {
 }
 
 /*
-Sends request to server to call joinRoom with argument lobby so client joins room called lobby
+Sends request to server to call joinRoom with argument lobby so client joins room based on code
 */
 var joinRoom = function() {
   socket.emit('joinRoom', window.location.pathname.slice(6, window.location.pathname.length));
