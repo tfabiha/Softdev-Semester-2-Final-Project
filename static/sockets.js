@@ -4,6 +4,7 @@ connect to server with socket
 var socket = io.connect('http://' + document.domain + ':' + location.port);
 
 var msgbox = document.getElementById('msg');
+var drawbutton = document.getElementById('draw');
 
 /*
 when message is received from server
@@ -41,5 +42,10 @@ msgbox.addEventListener("keydown", function(event) {
     sendMessage();
   }
 });
+
+var draw = function() {
+    console.log("draw card")
+}
+drawbutton.addEventListener("click", draw);
 
 joinRoom();

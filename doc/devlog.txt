@@ -69,3 +69,6 @@ rachelN -- 2019-05-17 11:00
   python __init__.py to run on localhost 
 - apache stuff!! (cont.) 
 - added docstrings 
+
+maiR -- 2019-05-20 13:17
+- added to index.html and sockets.js- made button for drawing card
