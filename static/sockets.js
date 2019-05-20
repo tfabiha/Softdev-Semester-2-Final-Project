@@ -32,7 +32,7 @@ var sendMessage = function() {
 Sends request to server to call joinRoom with argument lobby so client joins room called lobby
 */
 var joinRoom = function() {
-  socket.emit('joinRoom', 'lobby');
+  socket.emit('joinRoom', window.location.pathname.slice(6, window.location.pathname.length));
 };
 
 msgbox.addEventListener("keydown", function(event) {
@@ -43,4 +43,3 @@ msgbox.addEventListener("keydown", function(event) {
 });
 
 joinRoom();
-console.log(document.domain)
