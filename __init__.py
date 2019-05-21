@@ -10,6 +10,7 @@ app.secret_key = os.urandom(32)
 socketio = SocketIO(app)
 
 rooms = {}
+room_id = {}
 
 config.create_table()
 
@@ -27,9 +28,16 @@ def joinRoom(roomInfo):
     '''
     if len(roomInfo) == 0:
         return
-    join_room(roomInfo)
+    #join_room(roomInfo)
+    join_room(request.sid)
     rooms[request.sid] = roomInfo
 
+    if roomInfo in room_id:
+        room_id[roomInfo].append(request.sid)
+    else:
+        room_id[roomInfo] = [request.sid]
+        emit('myturn', "hi", room = request.sid)
+    
 @socketio.on('message')
 def message(msg):
     '''
@@ -37,6 +45,45 @@ def message(msg):
     '''
     if len(msg) != 0:
         send(msg, room = rooms[request.sid])
+
+@socketio.on('drawn')
+def drawn(msg):
+    print('msg received: card drawn')
+    print(room_id[ rooms[request.sid] ])
+    
+    for client in room_id[ rooms[request.sid] ]:
+        if client != request.sid:
+            emit('drawn', msg, room = client);
+
+@socketio.on('removed')
+def removed(msg):
+    print('msg received: card removed')
+    print(room_id[ rooms[request.sid] ])
+    
+    for client in room_id[ rooms[request.sid] ]:
+        if client != request.sid:
+            emit('removed', msg, room = client);
+
+@socketio.on('discarded')
+def discarded(msg):
+    print('msg received: card added to discard pile')
+    print(room_id[ rooms[request.sid] ])
+    
+    for client in room_id[ rooms[request.sid] ]:
+        emit('discarded', msg, room = client);
+
+@socketio.on('myturn')
+def myturn(msg):
+    print('msg received: must change turn')
+    print(room_id[ rooms[request.sid] ])
+
+    players = room_id[ rooms[request.sid] ]
+    currentPlayer = players.index( request.sid )
+    print(currentPlayer)
+    nextPlayer = (currentPlayer + 1 ) % ( len(players) )
+    print(nextPlayer)
+    
+    emit('myturn', msg, room = players[nextPlayer])
 
 @app.route('/base')
 def base():

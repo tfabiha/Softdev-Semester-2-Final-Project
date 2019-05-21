@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html>
-<body>
-  <h5>Chatroom</h5>
-  <ul id="chat">
-    <li>&nbsp;</li>
-    <li>&nbsp;</li>
-    <li>&nbsp;</li>
-    <li>&nbsp;</li>
-    <li>&nbsp;</li>
-    <li>&nbsp;</li>
-    <li>&nbsp;</li>
+  <body>
+
+    <p id="turn">NOT MY TURN</p>
+    
+    <button id="draw"> Draw Card </button>
+    
+    <p>My Hand</p>
+    <ul id="myhand">
+    </ul>
+    
+    <br>
+    
+    <p>Other Hand</p>
+    <ul id="otherhand">
   </ul>
-  <input type="text" id="msg">
-  </input> <br>
-  <button id="draw"> Draw Card </button>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
-  <script src="../static/sockets.js"></script>
-</body>
+    
+    <br>
+    
+    <p>Discard Pile</p>
+    <ul id="discardpile">
+    </ul>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+    <script src="../static/sockets.js"></script>
+  </body>
 </html>
