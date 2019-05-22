@@ -1,7 +1,7 @@
 /*
 connect to server with socket
 */
-var socket = io.connect('http://' + document.domain + ':' + location.port);
+var socket = io.connect('https://' + document.domain + ':' + location.port);
 
 var drawbutton = document.getElementById('draw');
 
