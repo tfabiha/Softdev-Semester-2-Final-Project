@@ -5,3 +5,11 @@ Jinja2==2.10.1
 MarkupSafe==1.1.1
 Werkzeug==0.15.2
 Flask-SocketIO==3.3.2
+
+cffi==1.12.3
+Flask-SocketIO==3.3.2
+greenlet==0.4.15
+pycparser==2.19
+python-engineio==3.5.1
+python-socketio==4.0.1
+six==1.12.0
