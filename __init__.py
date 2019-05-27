@@ -37,7 +37,12 @@ def joinRoom(roomInfo):
     else:
         room_id[roomInfo] = [request.sid]
         emit('myturn', "hi", room = request.sid)
-    
+
+@socketio.on('disconnect')
+def disconn():
+    roomInfo = rooms[request.sid]
+    room_id[roomInfo].pop(request.sid)
+        
 @socketio.on('message')
 def message(msg):
     '''
@@ -213,8 +218,7 @@ def register_auth():
             return redirect(url_for('signup'))
     db.auth_user(username, password)
     session['user'] = username
-    return redirect('/')
-
+    return redirect('/')    
 
 @app.route('/logout', methods = ['GET'])
 def logout():

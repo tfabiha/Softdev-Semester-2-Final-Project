@@ -1,0 +1,219 @@
+[
+    {
+	"card_name" : "babypink",
+	"card_type" : "baby_uni",
+	"quantity" : 1,
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babyorange",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babyyellow",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babygreen",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babyblue",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babypurple",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babyblack",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babywhite",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babybrown",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babydeath",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babynarwhal",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "babyshotgun",
+	"card_type" : "baby_uni",
+	"quantity" : 1
+	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
+    },
+    {
+	"card_name" : "basicred",
+	"card_type" : "basic_uni",
+	"quantity" : 3,
+	"description" : "Beards are like, so hot."
+    },
+    {
+	"card_name" : "basicorange",
+	"card_type" : "basic_uni",
+	"quantity" : 3,
+	"description" : "Pumpkin spice is the pumpkin spice of life."
+    },
+    {
+	"card_name" : "basicyellow",
+	"card_type" : "basic_uni",
+	"quantity" : 3,
+	"description" : "Dance like nobody’s watching."
+    },
+    {
+	"card_name" : "basicgreen",
+	"card_type" : "basic_uni",
+	"quantity" : 3,
+	"description" : "Vinyl records and mixtapes only."
+    },
+    {
+	"card_name" : "basicblue",
+	"card_type" : "basic_uni",
+	"quantity" : 3,
+	"description" : "Popped collars are for date nights only."
+    },
+    {
+	"card_name" : "basicindigo",
+	"card_type" : "basic_uni",
+	"quantity" : 3,
+	"description" : "💖🙌💅💖💁‍♀️💁‍♀️😂😂😂"
+    },
+    {
+	"card_name" : "basicpurple",
+	"card_type" : "basic_uni",
+	"quantity" : 3,
+	"description" : "#nomakeup #nofilter #sunnies #shameless #selfie #basic #TGIF #unicornhairdontcare"
+    },
+    {
+	"card_name" : "basicnarwhal",
+	"card_type" : "basic_uni",
+	"quantity" : 1,
+	"description" : "This card has no special powers, but it sure is cute!"
+    },
+    {
+	"card_name" : "rhinocorn",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may DESTROY a Unicorn card. If you do, immediately skip to your End of Turn phase."
+    },
+    {
+	"card_name" : "extremelyfertile",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may DISCARD a card. If you do, bring a Baby Unicorn card from the Nursery directly into your Stable."
+    },
+    {
+	"card_name" : "magicalkittencorn",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "This card cannot be destroyed or otherwise affected by Magic cards."
+    },
+    {
+	"card_name" : "stabby",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "If this card is sacrificed or destroyed, you may DESTROY a Unicorn card."
+    },
+    {
+	"card_name" : "puppicorn",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "Each time any player begins their turn, move this card to that player's Stable. This card cannot be sacrificed or destroyed."
+    },
+    {
+	"card_name" : "rainbow",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may bring a Basic Unicorn card from your hand directly into your Stable."
+    },
+    {
+	"card_name" : "zombie",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may DISCARD a Unicorn card. If you do, choose a Unicorn card from the discard pile and bring it directly into your Stable, then immediately skip to your End of Turn phase."
+    },
+    {
+	"card_name" : "extremelydestructive",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : " When this card enters your Stable, each player must SACRIFICE a Unicorn card."
+    },
+    {
+	"card_name" : "chainsaw",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may SACRIFICE or DESTROY an Upgrade or Downgrade card."
+    },
+    {
+	"card_name" : "llamacorn",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, each player must DISCARD a card. Shuffle the discard pile into the deck."
+    },
+    {
+	"card_name" : "americorn",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may DISCARD a card. If you do, bring a Baby Unicorn card from the Nursery directly into your Stable."
+    },
+    {
+	"card_name" : "ginormous",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "This card counts for 2 Unicorns. You cannot play any Instant cards."
+    },
+    {
+	"card_name" : "seductive",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, STEAL a Unicorn card. If this card leaves your Stable, return that Unicorn card to the Stable from which you stole it."
+    },
+    {
+	"card_name" : "angel",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may SACRIFICE this card. If you do, choose a Unicorn card from the discard pile and bring it directly into your Stable."
+    },
+    {
+	"card_name" : "queenbee",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "Basic Unicorn cards cannot enter any other player's Stable."
+    },
+    {
+	"card_name" : "greedyflying",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, DRAW a card. If this card would be sacrificed or destroyed, return it to your hand instead."
+    }
+
+]
