@@ -1,0 +1,57 @@
+[
+    {
+	"card_name" : "babypink",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+    {
+	"card_name" : "babyorange",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+    {
+	"card_name" : "babyyellow",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+    {
+	"card_name" : "babygreen",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+    {
+	"card_name" : "babyblue",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+    {
+	"card_name" : "babypurple",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+    {
+	"card_name" : "babyblack",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+    {
+	"card_name" : "babywhite",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+    {
+	"card_name" : "babybrown",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+    {
+	"card_name" : "babydeath",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+    {
+	"card_name" : "babynarwhal",
+	"card_type" : "bby_uni",
+	"quantity" : 1
+    },
+]

@@ -8,67 +8,67 @@
     {
 	"card_name" : "babyorange",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
 	"card_name" : "babyyellow",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
 	"card_name" : "babygreen",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
 	"card_name" : "babyblue",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
 	"card_name" : "babypurple",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
 	"card_name" : "babyblack",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
 	"card_name" : "babywhite",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
 	"card_name" : "babybrown",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
 	"card_name" : "babydeath",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
 	"card_name" : "babynarwhal",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
 	"card_name" : "babyshotgun",
 	"card_type" : "baby_uni",
-	"quantity" : 1
+	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead."
     },
     {
@@ -214,6 +214,276 @@
 	"card_type" : "magical_uni",
 	"quantity" : 1,
 	"description" : "When this card enters your Stable, DRAW a card. If this card would be sacrificed or destroyed, return it to your hand instead."
+    },
+    {
+	"card_name" : "annoying",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may choose any player. That player must DISCARD a card. If this card would be sacrificed or destroyed, return it to your hand instead."
+    },
+    {
+	"card_name" : "magicalflying",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may choose a Magic card from the discard pile and add it to your hand. If this card would be sacrificed or destroyed, return it to your hand instead."
+    },
+    {
+	"card_name" : "swiftflying",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may choose an Instant card from the discard pile and add it to your hand. If this card would be sacrificed or destroyed, return it to your hand instead."
+    },
+    {
+	"card_name" : "majesticflying",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may choose a Unicorn card from the discard pile and add it to your hand. If this card would be sacrificed or destroyed, return it to your hand instead."
+    },
+    {
+	"card_name" : "phoenix",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, DISCARD a card. If this card is sacrificed or destroyed, bring it directly back into your Stable if you have at least 1 card in your hand."
+    },
+    {
+	"card_name" : "unicornonthecob",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, DRAW 2 cards and DISCARD a card."
+    },
+    {
+	"card_name" : "blackknight",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "If 1 of your Unicorn cards would be destroyed, you may SACRIFICE this card instead."
+    },
+    {
+	"card_name" : "sharkwithahorn",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may SACRIFICE this card. If you do, DESTROY a Unicorn card."
+    },
+    {
+	"card_name" : "shabby",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may search the deck for a Downgrade card and add it to your hand. Shuffle the deck."
+    },
+    {
+	"card_name" : "narwhaltorpedo",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, SACRIFICE all Downgrade cards."
+    },
+    {
+	"card_name" : "alluring",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may STEAL an Upgrade card."
+    },
+    {
+	"card_name" : "mermaid",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may choose any player. Return a card in that player's Stable to their hand."
+    },
+    {
+	"card_name" : "classynarwhal",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may search the deck for an Upgrade card and add it to your hand. Shuffle the deck."
+    },
+    {
+	"card_name" : "thegreatnarwhal",
+	"card_type" : "magical_uni",
+	"quantity" : 1,
+	"description" : "When this card enters your Stable, you may search the deck for a card with 'Narwhal' in its name and add it to your hand. Shuffle the deck."
+    },
+    {
+	"card_name" : "unicornpoison",
+	"card_type" : "magic",
+	"quantity" : 3,
+	"description" : "DESTROY a Unicorn card."
+    },
+    {
+	"card_name" : "backkick",
+	"card_type" : "magic",
+	"quantity" : 3,
+	"description" : "Choose any player. Return a card in that player's Stable to their hand. That player must DISCARD a card."
+    },
+    {
+	"card_name" : "changeofluck",
+	"card_type" : "magic",
+	"quantity" : 2,
+	"description" : "DRAW 2 cards and DISCARD 3 cards, then take another turn."
+    },
+    {
+	"card_name" : "glittertornado",
+	"card_type" : "magic",
+	"quantity" : 2,
+	"description" : "Return a card in each player's Stable to that player's hand."
+    },
+    {
+	"card_name" : "unicornswap",
+	"card_type" : "magic",
+	"quantity" : 2,
+	"description" : "Move a Unicorn card in your Stable to any other player's Stable, then STEAL a Unicorn card from that player's Stable."
+    },
+    {
+	"card_name" : "retarget",
+	"card_type" : "magic",
+	"quantity" : 2,
+	"description" : "Move an Upgrade or Downgrade card from any player's Stable to any other player's Stable."
+    },
+    {
+	"card_name" : "unfairbargain",
+	"card_type" : "magic",
+	"quantity" : 2,
+	"description" : "Trade hands with any other player."
+    },
+    {
+	"card_name" : "twoforone",
+	"card_type" : "magic",
+	"quantity" : 2,
+	"description" : "SACRIFICE a card, then DESTROY 2 cards."
+    },
+    {
+	"card_name" : "unicornshrinkray",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "Choose any player. Move all of that player's Unicorn cards to the discard pile without triggering any of their effects, then bring the same number of Baby Unicorn cards from the Nursery directly into that player's Stable."
+    },
+    {
+	"card_name" : "targeteddestruction",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "SACRIFICE or DESTROY an Upgrade or Downgrade card."
+    },
+    {
+	"card_name" : "mysticalvortex",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "Each player must DISCARD a card. Shuffle the discard pile into the deck."
+    },
+    {
+	"card_name" : "gooddeal",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "DRAW 3 cards and DISCARD a card."
+    },
+    {
+	"card_name" : "shakeup",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "Shuffle this card, your hand, and the discard pile into the deck. DRAW 5 cards."
+    },
+    {
+	"card_name" : "blatantthievery",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "Choose any player and look at that player's hand. Choose a card from that player's hand and add it to your hand."
+    },
+    {
+	"card_name" : "resetbutton",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "Each player must SACRIFICE all Upgrade and Downgrade cards. Shuffle the discard pile into the deck."
+    },
+    {
+	"card_name" : "rainbowmane",
+	"card_type" : "upgrade",
+	"quantity" : 3,
+	"description" : "This card can only enter a Stable if there is a Basic Unicorn card in that Stable. If this card is in your Stable at the beginning of your turn, you may bring a Basic Unicorn card from your hand directly into your Stable."
+    },
+    {
+	"card_name" : "extratail",
+	"card_type" : "upgrade",
+	"quantity" : 3,
+	"description" : "This card can only enter a Stable if there is a Basic Unicorn card in that Stable. If this card is in your Stable at the beginning of your turn, you may DRAW an extra card."
+    },
+    {
+	"card_name" : "glitterbomb",
+	"card_type" : "upgrade",
+	"quantity" : 2,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may SACRIFICE a card. If you do, DESTROY a card."
+    },
+    {
+	"card_name" : "yay",
+	"card_type" : "upgrade",
+	"quantity" : 2,
+	"description" : "Cards you play cannot be Neigh'd."
+    },
+    {
+	"card_name" : "unicornlasso",
+	"card_type" : "upgrade",
+	"quantity" : 2,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may STEAL a Unicorn card. At the end of your turn, return that Unicorn card to the Stable from which you stole it."
+    },
+    {
+	"card_name" : "rainbowaura",
+	"card_type" : "upgrade",
+	"quantity" : 1,
+	"description" : "Your Unicorn cards cannot be destroyed."
+    },
+    {
+	"card_name" : "doubledutch",
+	"card_type" : "upgrade",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may play 2 cards during your Action phase."
+    },
+    {
+	"card_name" : "summoningritual",
+	"card_type" : "upgrade",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may DISCARD 2 Unicorn cards. If you do, bring a Unicorn card directly from the discard pile into your Stable."
+    },
+    {
+	"card_name" : "barbedwire",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "Each time a Unicorn card enters or leaves your stable, DISCARD a card."
+    },
+    {
+	"card_name" : "sadisticritual",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, SACRIFICE a Unicorn card, then DRAW a card."
+    },
+    {
+	"card_name" : "slowdown",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "You cannot play Instant cards."
+    },
+    {
+	"card_name" : "nannycam",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "Your hand must be visible to all players at all times."
+    },
+    {
+	"card_name" : "brokenstable",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "You cannot play Upgrade cards."
+    },
+    {
+	"card_name" : "blindinglight",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "Triggered effects of your Unicorn cards do not activate."
+    },
+    {
+	"card_name" : "neigh",
+	"card_type" : "instant",
+	"quantity" : 14,
+	"description" : "Play this card when any other player tries to play a card. Stop that player's card from being played and send it to the discard pile."
+    },
+        {
+	"card_name" : "superneigh",
+	"card_type" : "instant",
+	"quantity" : 1,
+	"description" : "Play this card when any other player tries to play a card. Stop that player's card from being played and send it to the discard pile. This card cannot be Neigh'd."
     }
-
+    
 ]
