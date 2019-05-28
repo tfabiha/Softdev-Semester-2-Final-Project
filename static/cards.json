@@ -342,7 +342,7 @@
 	"description" : "Basic Unicorn cards cannot enter any other player's Stable.",
 	"phases" :
 	{
-	    "all" : ["basic_banned_frm_others"],
+	    "all" : ["basic_banned_frm_others"]
 	}
     },
     {
@@ -668,7 +668,7 @@
 	"card_name" : "barbedwire",
 	"card_type" : "downgrade",
 	"quantity" : 1,
-	"description" : "Each time a Unicorn card enters or leaves your stable, DISCARD a card."
+	"description" : "Each time a Unicorn card enters or leaves your stable, DISCARD a card.",,
     },
     {
 	"card_name" : "sadisticritual",
