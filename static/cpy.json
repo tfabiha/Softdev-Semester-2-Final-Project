@@ -575,6 +575,20 @@
 	"effect" : ["other_discard_all_uni", "other_add_baby_to_stable"]
     },
     {
+	"card_name" : "targeteddestruction",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "SACRIFICE or DESTROY an Upgrade or Downgrade card.",
+	"effect" : ["sacrifice_destroy_up_down"]
+    },
+    {
+	"card_name" : "mysticalvortex",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "Each player must DISCARD a card. Shuffle the discard pile into the deck.",
+	"effect" : ["each_discard_all", "discard_to_deck", "shuffle_deck"]
+    },
+    {
 	"card_name" : "gooddeal",
 	"card_type" : "magic",
 	"quantity" : 1,
@@ -587,6 +601,116 @@
 	"quantity" : 1,
 	"description" : "Shuffle this card, your hand, and the discard pile into the deck. DRAW 5 cards.",
 	"effect" : ["this_to_deck", "hand_to_deck", "shuffle_deck", "draw", "draw", "draw", "draw", "draw"]
+    },
+    {
+	"card_name" : "blatantthievery",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "Choose any player and look at that player's hand. Choose a card from that player's hand and add it to your hand.",
+	"effect" : ["other_see_deck", "add_all_frm_other"]
+    },
+    {
+	"card_name" : "resetbutton",
+	"card_type" : "magic",
+	"quantity" : 1,
+	"description" : "Each player must SACRIFICE all Upgrade and Downgrade cards. Shuffle the discard pile into the deck.",
+	"effect" : ["each_sacrifice_all_up_down", "discard_to_deck", "shuffle_deck"]
+    },
+    {
+	"card_name" : "rainbowmane",
+	"card_type" : "upgrade",
+	"quantity" : 3,
+	"description" : "This card can only enter a Stable if there is a Basic Unicorn card in that Stable. If this card is in your Stable at the beginning of your turn, you may bring a Basic Unicorn card from your hand directly into your Stable."               
+    },
+    {
+	"card_name" : "extratail",
+	"card_type" : "upgrade",
+	"quantity" : 3,
+	"description" : "This card can only enter a Stable if there is a Basic Unicorn card in that Stable. If this card is in your Stable at the beginning of your turn, you may DRAW an extra card."
+    },
+    {
+	"card_name" : "glitterbomb",
+	"card_type" : "upgrade",
+	"quantity" : 2,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may SACRIFICE a card. If you do, DESTROY a card."
+    },
+    {
+	"card_name" : "yay",
+	"card_type" : "upgrade",
+	"quantity" : 2,
+	"description" : "Cards you play cannot be Neigh'd."
+    },
+    {
+	"card_name" : "unicornlasso",
+	"card_type" : "upgrade",
+	"quantity" : 2,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may STEAL a Unicorn card. At the end of your turn, return that Unicorn card to the Stable from which you stole it."
+    },
+    {
+	"card_name" : "rainbowaura",
+	"card_type" : "upgrade",
+	"quantity" : 1,
+	"description" : "Your Unicorn cards cannot be destroyed."
+    },
+    {
+	"card_name" : "doubledutch",
+	"card_type" : "upgrade",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may play 2 cards during your Action phase."
+    },
+    {
+	"card_name" : "summoningritual",
+	"card_type" : "upgrade",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, you may DISCARD 2 Unicorn cards. If you do, bring a Unicorn card directly from the discard pile into your Stable."
+    },
+    {
+	"card_name" : "barbedwire",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "Each time a Unicorn card enters or leaves your stable, DISCARD a card."
+    },
+    {
+	"card_name" : "sadisticritual",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "If this card is in your Stable at the beginning of your turn, SACRIFICE a Unicorn card, then DRAW a card."
+    },
+    {
+	"card_name" : "slowdown",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "You cannot play Instant cards."
+    },
+    {
+	"card_name" : "nannycam",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "Your hand must be visible to all players at all times."
+    },
+    {
+	"card_name" : "brokenstable",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "You cannot play Upgrade cards."
+    },
+    {
+	"card_name" : "blindinglight",
+	"card_type" : "downgrade",
+	"quantity" : 1,
+	"description" : "Triggered effects of your Unicorn cards do not activate."
+    },
+    {
+	"card_name" : "neigh",
+	"card_type" : "instant",
+	"quantity" : 14,
+	"description" : "Play this card when any other player tries to play a card. Stop that player's card from being played and send it to the discard pile."
+    },
+    {
+	"card_name" : "superneigh",
+	"card_type" : "instant",
+	"quantity" : 1,
+	"description" : "Play this card when any other player tries to play a card. Stop that player's card from being played and send it to the discard pile. This card cannot be Neigh'd."
     }
     
 ]
