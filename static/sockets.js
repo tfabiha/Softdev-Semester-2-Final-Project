@@ -118,6 +118,7 @@ drawbutton.addEventListener('click', function() {
     card.setAttribute("x", player_hand.length * 150);
     card.setAttribute("y", 400);
     card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
+    card.addEventListener("click", discard);
     player_hand.push(card);
     if(player_hand.length > 7) {
       turn.innerHTML = "DISCARD A CARD";
