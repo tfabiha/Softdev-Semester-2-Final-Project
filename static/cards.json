@@ -508,7 +508,7 @@
 	"description" : "When this card enters your Stable, you may search the deck for a card with 'Narwhal' in its name and add it to your hand. Shuffle the deck.",
 	"phases" :
 	{
-	    "enter" : ["choice", "add_narwhal_frm_deck", "shuffle_deck"]
+	    "enter" : ["choice", "add_narwhal_frm_deck", "shuffle_deck"],
 	}
     },
     {
@@ -626,7 +626,7 @@
 	"card_name" : "extratail",
 	"card_type" : "upgrade",
 	"quantity" : 3,
-	"description" : "This card can only enter a Stable if there is a Basic Unicorn card in that Stable. If this card is in your Stable at the beginning of your turn, you may DRAW an extra card.",
+	"description" : "This card can only enter a Stable if there is a Basic Unicorn card in that Stable. If this card is in your Stable at the beginning of your turn, you may DRAW an extra card."
     },
     {
 	"card_name" : "glitterbomb",
