@@ -24,7 +24,7 @@ var make_card = function(name, att, type){
     card.setAttribute("width",200);
     card.setAttribute("height",200);
     card.setAttribute("x", 0);
-    card.setAttribute("y", 200);
+    card.setAttribute("y", 250);
     card.setAttribute("name", name);
     card.setAttribute("att", att);
     card.setAttribute("type", type);
@@ -43,7 +43,7 @@ var discard = function(e) {
       player_hand[i].setAttribute("x", i * 150);
     }
     card.setAttribute("x", 400);
-    card.setAttribute("y", 200);
+    card.setAttribute("y", 250);
     mode = "draw";
     turn.innerHTML = "OPPONENT TURN";
     switch_turns()
@@ -94,7 +94,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
         card = deck.pop();
       }
       card.setAttribute("x", i * 150);
-  	  card.setAttribute("y", 400);
+  	  card.setAttribute("y", 500);
       card.setAttribute("player","t");
       card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
       card.addEventListener("click", discard);
@@ -142,7 +142,7 @@ drawbutton.addEventListener('click', function() {
     var card = deck.pop();
     if (myturn) {
       card.setAttribute("x", player_hand.length * 150);
-      card.setAttribute("y", 400);
+      card.setAttribute("y", 500);
       card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
       card.addEventListener("click", discard);
       player_hand.push(card);
@@ -170,7 +170,7 @@ drawbutton.addEventListener('click', function() {
               opponent_hand[i].setAttribute("x", i * 150);
             }
             c.setAttribute("x", 400);
-            c.setAttribute("y", 200);
+            c.setAttribute("y", 250);
             c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
             turn.innerHTML = "PLAYER TURN";
             switch_turns();
@@ -194,3 +194,20 @@ var switch_turns = function(){
     myturn = false;
 	}
 };
+
+
+// opponent hand - check for any instant / upgrade / downgrade / magic cards in hand
+// draw cards
+// discard cards
+// if there are any non uni cards play the cards or something (det. with rand int)
+
+
+// check if any players have 6 / 7 cards in their stable
+// if there's a player with that many cards they win
+
+
+//
+//
+//
+//
+//
