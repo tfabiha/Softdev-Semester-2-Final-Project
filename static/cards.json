@@ -1,6 +1,6 @@
 [
     {
-	"card_name" : "babypink",
+	"card_name" ; "babypink",
 	"card_type" : "baby_uni",
 	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead.",
@@ -561,7 +561,7 @@
 	"effect" : ["switch_hand"]
     },
     {
-	"card_name" ; "twoforone",
+	"card_name" : "twoforone",
 	"card_type" : "magic",
 	"quantity" : 2,
 	"description" : "SACRIFICE a card, then DESTROY 2 cards.",
