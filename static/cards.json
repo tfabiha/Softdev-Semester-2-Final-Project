@@ -342,7 +342,7 @@
 	"description" : "Basic Unicorn cards cannot enter any other player's Stable.",
 	"phases" :
 	{
-	    "all" : ["basic_banned_frm_others"]
+	    "all" : ["basic_banned_frm_others"],
 	}
     },
     {
@@ -508,7 +508,7 @@
 	"description" : "When this card enters your Stable, you may search the deck for a card with 'Narwhal' in its name and add it to your hand. Shuffle the deck.",
 	"phases" :
 	{
-	    "enter" : ["choice", "add_narwhal_frm_deck", "shuffle_deck"],
+	    "enter" : ["choice", "add_narwhal_frm_deck", "shuffle_deck"]
 	}
     },
     {
