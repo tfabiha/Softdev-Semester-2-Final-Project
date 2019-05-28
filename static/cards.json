@@ -342,7 +342,7 @@
 	"description" : "Basic Unicorn cards cannot enter any other player's Stable.",
 	"phases" :
 	{
-	    "all" ; ["basic_banned_frm_others"]
+	    "all" : ["basic_banned_frm_others"]
 	}
     },
     {
