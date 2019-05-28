@@ -1,18 +1,24 @@
 var drawbutton = document.getElementById('draw');
 var c = document.getElementById("c");
-
 var myturn = true;
 var turn = document.getElementById('turn');
+var desc = document.getElementById('desc');
 var effects = {}
 var deck = [];
 var nursery = [];
 var player_hand = [];
+var player_stable = [];
 var opponent_hand = [];
+var opponent_stable = [];
 var discard = [];
 var mode = "draw";
 var discarding = false;
 
-var make_card = function(name, att){
+var description_card = function (att, x, y) {
+
+}
+
+var make_card = function(name, att, type){
     var card = document.createElementNS("http://www.w3.org/2000/svg", "image");
     card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
     card.setAttribute("width",200);
@@ -21,6 +27,11 @@ var make_card = function(name, att){
     card.setAttribute("y", 200);
     card.setAttribute("name", name);
     card.setAttribute("att", att);
+    card.setAttribute("type", type);
+    card.setAttribute("player", "f")
+    card.addEventListener("mouseover", function(){if (card.getAttribute("player") == "t") {desc.innerHTML = att;}});
+  card.addEventListener("mouseout", function(){desc.innerHTML = "<br>";});
+
     return card
 };
 var discard = function(e) {
@@ -39,12 +50,20 @@ var discard = function(e) {
   }
 }
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
+
+  var dragHandler = d3.drag()
+    .on("drag", function () {
+      d3.select(this)
+        .attr("x", d3.event.x)
+        .attr("y", d3.event.y);
+  });
+
   var i;
   for (i = 0; i < d.length; i++) {
     effects[d[i]["card_name"]] = d[i]["phases"];
     var j;
     for (j = 0; j < d[i]["quantity"]; j++) {
-      var x = make_card(d[i]["card_name"], d[i]["description"]);
+      var x = make_card(d[i]["card_name"], d[i]["description"], d[i]["card_type"]);
       if (d[i]["card_type"] == "baby_uni") {
         x.setAttribute("x", 200);
         nursery.push(x);
@@ -76,8 +95,10 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
       }
       card.setAttribute("x", i * 150);
   	  card.setAttribute("y", 400);
+      card.setAttribute("player","t");
       card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
       card.addEventListener("click", discard);
+      dragHandler(d3.select(card.getAttribute("name")));
       player_hand.push(card);
     }
   }

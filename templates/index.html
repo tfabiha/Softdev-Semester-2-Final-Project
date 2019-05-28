@@ -1,16 +1,26 @@
-<!DOCTYPE html>
-<html>
-  <body>
+{% extends "base.html" %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+
+{% block title %}Game{% endblock %}
+
+{% block pop %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container justify-content-center">
+  <div>
     <p id="turn">PLAYER TURN</p>
-
-    <button id="draw"> Draw Card </button>
-
+    <p id="desc"></div>
+  <button id="draw"> Draw Card </button>
+  </div>
     <svg width = "1200" height = "600" id="c">
     </svg>
-
+</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="../static/sockets.js"></script>
-  </body>
-</html>
+{% endblock %}
