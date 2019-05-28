@@ -1,7 +1,7 @@
 var drawbutton = document.getElementById('draw');
 var c = document.getElementById("c");
 
-var myturn = false;
+var myturn = true;
 var turn = document.getElementById('turn');
 
 var deck = [];
@@ -10,6 +10,7 @@ var player_hand = [];
 var opponent_hand = [];
 var discard = [];
 var mode = "draw";
+var discarding = false;
 
 var make_card = function(name, att){
     var card = document.createElementNS("http://www.w3.org/2000/svg", "image");
@@ -33,7 +34,7 @@ var discard = function(e) {
     card.setAttribute("x", 400);
     card.setAttribute("y", 200);
     mode = "draw";
-    turn.innerHTML = "MY TURN";
+    turn.innerHTML = "OPPONENT TURN";
     switch_turns()
   }
 }
@@ -114,46 +115,60 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 });
 
 drawbutton.addEventListener('click', function() {
-    if (mode == "draw") {
-	var card = deck.pop();
-	card.setAttribute("x", player_hand.length * 150);
-	card.setAttribute("y", 400);
-	card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
-	card.addEventListener("click", discard);
-	if (myturn == true){
-	    player_hand.push(card);
-	    if (player_hand.length > 7) {
-		turn.innerHTML = "DISCARD A CARD";
-		mode = "discard";
-	    }
-	    if (player_hand.length <= 7) {
-	    switch_turns()
-	    }
-	}
-	if(myturn == false){
-	    opponent_hand.push(card);
-	    if (opponent_hand.length > 7) {
-		turn.innerHTML = "DISCARD A CARD";
-		mode = "discard";
-	    }
-	    if (opponent_hand.length <= 7) {
-	    switch_turns()
-	    }
-	}
+  console.log(myturn);
+  if (mode == "draw") {
+    var card = deck.pop();
+    if (myturn) {
+      card.setAttribute("x", player_hand.length * 150);
+      card.setAttribute("y", 400);
+      card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
+      card.addEventListener("click", discard);
+      player_hand.push(card);
+      if (player_hand.length > 7) {
+        turn.innerHTML = "DISCARD A CARD";
+    		mode = "discard";
+    	}
+    	if (player_hand.length <= 7) {
+        turn.innerHTML = "OPPONENT TURN";
+        switch_turns();
+    	}
+    }else{
+      if(!discarding){
+        card.setAttribute("x", opponent_hand.length * 150);
+        card.setAttribute("y", 0);
+        opponent_hand.push(card);
+        if (opponent_hand.length > 7) {
+          turn.innerHTML = "OPPONENT IS DISCARDING CARD";
+          discarding = true;
+          setTimeout(function() {
+            var c = opponent_hand[Math.floor(Math.random() * 8)];
+            opponent_hand = opponent_hand.filter(function(n) {return n != c});
+            var i;
+            for(i = 0; i < opponent_hand.length; i++) {
+              opponent_hand[i].setAttribute("x", i * 150);
+            }
+            c.setAttribute("x", 400);
+            c.setAttribute("y", 200);
+            c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
+            turn.innerHTML = "PLAYER TURN";
+            switch_turns();
+            discarding = false;
+          }, 1500);
+        }else{
+          turn.innerHTML = "PLAYER TURN";
+          switch_turns();
+        }
+      }
     }
+  }
+  console.log(myturn);
 });
 
 
-   var switch_turns = function(){
+var switch_turns = function(){
 	if (myturn == false){
-	    myturn = true;	   
+    myturn = true;
+	}else{
+    myturn = false;
 	}
-	if (myturn == true){
-	    myturn = false;
-	}
-    }
-
-
-
-
-
+};
