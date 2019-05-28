@@ -33,12 +33,8 @@ var make_card = function(name, att, type){
     card.setAttribute("att", att);
     card.setAttribute("type", type);
     card.setAttribute("player", "f")
-    card.addEventListener("mouseover", function(){if (card.getAttribute("player") == "t") {desc.innerHTML = att;}});
-  card.addEventListener("mouseover", function(){if (card.getAttribute("player") == "t") {card.setAttribute("width",400);card.setAttribute("height",400);}});
-
-  card.addEventListener("mouseout", function(){desc.innerHTML = "<br>";});
-card.addEventListener("mouseout", function(){card.setAttribute("width",200);card.setAttribute("height",200);});
-
+    card.addEventListener("mouseover", function(){if (card.getAttribute("player") == "t") {desc.innerHTML = att; card.setAttribute("width",400);card.setAttribute("height",400);}});
+    card.addEventListener("mouseout", function(){desc.innerHTML = "<br>"; card.setAttribute("width",200);card.setAttribute("height",200);});
     return card
 };
 
