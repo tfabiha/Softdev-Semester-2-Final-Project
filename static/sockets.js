@@ -120,16 +120,27 @@ drawbutton.addEventListener('click', function() {
 	card.setAttribute("y", 400);
 	card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
 	card.addEventListener("click", discard);
-	player_hand.push(card);
-	if (player_hand.length > 7) {
-	    turn.innerHTML = "DISCARD A CARD";
-	    mode = "discard";
-	}
-	if (player_hand.length <= 7) {
+	if (myturn == true){
+	    player_hand.push(card);
+	    if (player_hand.length > 7) {
+		turn.innerHTML = "DISCARD A CARD";
+		mode = "discard";
+	    }
+	    if (player_hand.length <= 7) {
 	    switch_turns()
+	    }
+	}
+	if(myturn == false){
+	    opponent_hand.push(card);
+	    if (opponent_hand.length > 7) {
+		turn.innerHTML = "DISCARD A CARD";
+		mode = "discard";
+	    }
+	    if (opponent_hand.length <= 7) {
+	    switch_turns()
+	    }
 	}
     }
-    
 });
 
 
