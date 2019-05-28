@@ -3,7 +3,7 @@ var c = document.getElementById("c");
 
 var myturn = true;
 var turn = document.getElementById('turn');
-
+var effects = {}
 var deck = [];
 var nursery = [];
 var player_hand = [];
@@ -41,6 +41,7 @@ var discard = function(e) {
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
   var i;
   for (i = 0; i < d.length; i++) {
+    effects[d[i]["card_name"]] = d[i]["phases"];
     var j;
     for (j = 0; j < d[i]["quantity"]; j++) {
       var x = make_card(d[i]["card_name"], d[i]["description"]);
