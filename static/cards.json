@@ -561,7 +561,7 @@
 	"effect" : ["switch_hand"]
     },
     {
-	"card_name" : "twoforone",
+	"card_name" ; "twoforone",
 	"card_type" : "magic",
 	"quantity" : 2,
 	"description" : "SACRIFICE a card, then DESTROY 2 cards.",
@@ -665,7 +665,7 @@
 	"description" : "If this card is in your Stable at the beginning of your turn, you may DISCARD 2 Unicorn cards. If you do, bring a Unicorn card directly from the discard pile into your Stable."
     },
     {
-	"card_name" ; "barbedwire",
+	"card_name" : "barbedwire",
 	"card_type" : "downgrade",
 	"quantity" : 1,
 	"description" : "Each time a Unicorn card enters or leaves your stable, DISCARD a card."
