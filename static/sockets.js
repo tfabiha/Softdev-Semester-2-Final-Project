@@ -15,8 +15,8 @@ var mode = "draw";
 var discarding = false;
 
 var opponent_y = 0;
-var gen_y = 250;
-var player_y = 500;
+var gen_y = 225;
+var player_y = 450;
 
 var description_card = function (att, x, y) {
 
