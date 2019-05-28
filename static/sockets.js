@@ -8,6 +8,8 @@ var deck = [];
 var nursery = [];
 var player_hand = [];
 var opponent_hand = [];
+var discard = [];
+var mode = "draw";
 
 var make_card = function(name, att){
     var card = document.createElementNS("http://www.w3.org/2000/svg", "image");
@@ -20,7 +22,20 @@ var make_card = function(name, att){
     card.setAttribute("att", att);
     return card
 };
-
+var discard = function(e) {
+  if (mode == "discard") {
+    var card = e.target;
+    player_hand = player_hand.filter(function(n) {return n != card});
+    var i;
+    for(i = 0; i < player_hand.length; i++) {
+      player_hand[i].setAttribute("x", i * 150);
+    }
+    card.setAttribute("x", 400);
+    card.setAttribute("y", 200);
+    mode = "draw";
+    turn.innerHTML = "MY TURN";
+  }
+}
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
   var i;
   for (i = 0; i < d.length; i++) {
@@ -59,6 +74,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
       card.setAttribute("x", i * 150);
   	  card.setAttribute("y", 400);
       card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
+      card.addEventListener("click", discard);
       player_hand.push(card);
     }
   }
@@ -97,9 +113,15 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 });
 
 drawbutton.addEventListener('click', function() {
-  var card = deck.pop();
-  player_hand.push(card);
-  if(player_hand.length > 5) {
-
+  if (mode == "draw") {
+    var card = deck.pop();
+    card.setAttribute("x", player_hand.length * 150);
+    card.setAttribute("y", 400);
+    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
+    player_hand.push(card);
+    if(player_hand.length > 7) {
+      turn.innerHTML = "DISCARD A CARD";
+      mode = "discard";
+    }
   }
 });
