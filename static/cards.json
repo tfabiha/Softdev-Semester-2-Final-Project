@@ -1,6 +1,6 @@
 [
     {
-	"card_name" ; "babypink",
+	"card_name" : "babypink",
 	"card_type" : "baby_uni",
 	"quantity" : 1,
 	"description" : "If this card would be sacrificed, destroyed, or returned to your hand, return it to the Nursery instead.",
