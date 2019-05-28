@@ -34,6 +34,7 @@ var discard = function(e) {
     card.setAttribute("y", 200);
     mode = "draw";
     turn.innerHTML = "MY TURN";
+    switch_turns()
   }
 }
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
@@ -113,16 +114,35 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 });
 
 drawbutton.addEventListener('click', function() {
-  if (mode == "draw") {
-    var card = deck.pop();
-    card.setAttribute("x", player_hand.length * 150);
-    card.setAttribute("y", 400);
-    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
-    card.addEventListener("click", discard);
-    player_hand.push(card);
-    if(player_hand.length > 7) {
-      turn.innerHTML = "DISCARD A CARD";
-      mode = "discard";
+    if (mode == "draw") {
+	var card = deck.pop();
+	card.setAttribute("x", player_hand.length * 150);
+	card.setAttribute("y", 400);
+	card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
+	card.addEventListener("click", discard);
+	player_hand.push(card);
+	if (player_hand.length > 7) {
+	    turn.innerHTML = "DISCARD A CARD";
+	    mode = "discard";
+	}
+	if (player_hand.length <= 7) {
+	    switch_turns()
+	}
     }
-  }
+    
 });
+
+
+   var switch_turns = function(){
+	if (myturn == false){
+	    myturn = true;	   
+	}
+	if (myturn == true){
+	    myturn = false;
+	}
+    }
+
+
+
+
+
