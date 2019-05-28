@@ -56,7 +56,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
       }else{
         card = deck.pop();
       }
-      card.setAttribute("x", 100 + i*200);
+      card.setAttribute("x", i * 150);
   	  card.setAttribute("y", 400);
       card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
       player_hand.push(card);
@@ -71,7 +71,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
       }else{
         card = deck.pop();
       }
-      card.setAttribute("x", 100 + i*200);
+      card.setAttribute("x", i * 150);
   	  card.setAttribute("y", 0);
       opponent_hand.push(card);
     }
@@ -93,5 +93,13 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
   	c.appendChild(card);
   	card = opponent_hand[i];
   	c.append(card);
+  }
+});
+
+drawbutton.addEventListener('click', function() {
+  var card = deck.pop();
+  player_hand.push(card);
+  if(player_hand.length > 5) {
+
   }
 });
