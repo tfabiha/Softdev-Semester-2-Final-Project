@@ -14,6 +14,10 @@ var discard = [];
 var mode = "draw";
 var discarding = false;
 
+var opponent_y = 0;
+var gen_y = 250;
+var player_y = 500;
+
 var description_card = function (att, x, y) {
 
 }
@@ -24,7 +28,7 @@ var make_card = function(name, att, type){
     card.setAttribute("width",200);
     card.setAttribute("height",200);
     card.setAttribute("x", 0);
-    card.setAttribute("y", 250);
+    card.setAttribute("y", gen_y);
     card.setAttribute("name", name);
     card.setAttribute("att", att);
     card.setAttribute("type", type);
@@ -34,6 +38,7 @@ var make_card = function(name, att, type){
 
     return card
 };
+
 var discard = function(e) {
   if (mode == "discard") {
     var card = e.target;
@@ -43,12 +48,14 @@ var discard = function(e) {
       player_hand[i].setAttribute("x", i * 150);
     }
     card.setAttribute("x", 400);
-    card.setAttribute("y", 250);
+    card.setAttribute("y", gen_y);
+    card.setAttribute("player", "f");
     mode = "draw";
     turn.innerHTML = "OPPONENT TURN";
     switch_turns()
   }
 }
+
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
 
   var dragHandler = d3.drag()
@@ -94,7 +101,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
         card = deck.pop();
       }
       card.setAttribute("x", i * 150);
-  	  card.setAttribute("y", 500);
+  	  card.setAttribute("y", player_y);
       card.setAttribute("player","t");
       card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
       card.addEventListener("click", discard);
@@ -112,7 +119,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
         card = deck.pop();
       }
       card.setAttribute("x", i * 150);
-  	  card.setAttribute("y", 0);
+  	  card.setAttribute("y", opponent_y);
       opponent_hand.push(card);
     }
   }
@@ -142,7 +149,8 @@ drawbutton.addEventListener('click', function() {
     var card = deck.pop();
     if (myturn) {
       card.setAttribute("x", player_hand.length * 150);
-      card.setAttribute("y", 500);
+      card.setAttribute("y", player_y);
+      card.setAttribute("player", "t");
       card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
       card.addEventListener("click", discard);
       player_hand.push(card);
@@ -170,7 +178,7 @@ drawbutton.addEventListener('click', function() {
               opponent_hand[i].setAttribute("x", i * 150);
             }
             c.setAttribute("x", 400);
-            c.setAttribute("y", 250);
+            c.setAttribute("y", gen_y);
             c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
             turn.innerHTML = "PLAYER TURN";
             switch_turns();
