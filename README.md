@@ -77,7 +77,7 @@ Catatonic Cereal is a digitized version of the popular card game, Unstable Unico
 7. Change Server Name in ```./ccereal/doc/apachesaurus-rex/ccereal.conf``` to your IP address.
 8. Move the ```.conf and .wsgi files in ./ccereal/doc/apachesaurus-rex``` to their appropriate locations
     ```
-    $ mv ./ccereal/doc/apachesaurus-rex/ccereal.conf /etc/apache2/sites-enabled
+    $ mv ./ccereal/doc/apachesaurus-rex/ccereal.conf /etc/apache2/sites-enabled/
     $ mv ./ccereal/doc/apachesaurus-rex/ccereal.wsgi ./
     ```
 9. Enable and reload the site
