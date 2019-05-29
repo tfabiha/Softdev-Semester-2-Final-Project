@@ -80,12 +80,16 @@ Catatonic Cereal is a digitized version of the popular card game, Unstable Unico
     $ mv ./ccereal/doc/apachesaurus-rex/ccereal.conf /etc/apache2/sites-enabled/
     $ mv ./ccereal/doc/apachesaurus-rex/ccereal.wsgi ./
     ```
-9. Enable and reload the site
+9. Upgrade pip and install the dependencies using `requirements.txt`
+    ```
+    $ pip install --upgrade pip
+    $ pip install -r ./ccereal/requirements.txt
+10. Enable and reload the site
     ```
     $ a2ensite ccereal
     $ service apache2 reload
     ```
-10. Open the following on your browser
+11. Open the following on your browser
     ```
     <ip address>
     ```
