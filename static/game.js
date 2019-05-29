@@ -33,8 +33,41 @@ var make_card = function(name, att, type){
     card.setAttribute("att", att);
     card.setAttribute("type", type);
     card.setAttribute("player", "f")
-    card.addEventListener("mouseover", function(){if (card.getAttribute("player") == "t") {desc.innerHTML = att; card.setAttribute("width",400);card.setAttribute("height",400);}});
-    card.addEventListener("mouseout", function(){desc.innerHTML = "<br>"; card.setAttribute("width",200);card.setAttribute("height",200);});
+    card.addEventListener("mouseover", function()
+			  {
+			      if (card.getAttribute("player") == "t")
+			      {
+				  desc.innerHTML = att;
+				  card.setAttribute("width",400);
+				  card.setAttribute("height",400);
+			      }
+			      
+			      var adder = 0
+			      for (i = 0; i < player_hand.length; i++)
+			      {
+				  player_hand[i].setAttribute("x", 150 * i + adder);
+				  player_hand[i].setAttribute("align", "left");
+
+				  if (player_hand[i] == card)
+				  {
+				      adder = 150;
+				  }
+			      }
+			  }
+			 );
+    card.addEventListener("mouseout", function()
+			  {
+			      desc.innerHTML = "<br>";
+			      card.setAttribute("width",200);
+			      card.setAttribute("height",200);
+
+			      for (i = 0; i < player_hand.length; i++)
+			      {
+				  player_hand[i].setAttribute("x", 150 * i);
+				  player_hand[i].setAttribute("align", "left");
+			      }
+			  }
+			 );
     return card
 };
 
@@ -195,11 +228,14 @@ drawbutton.addEventListener('click', function() {
 
 
 var switch_turns = function(){
-	if (myturn == false){
-    myturn = true;
-	}else{
-    myturn = false;
-	}
+    if (myturn == false)
+    {
+	myturn = true;
+    }
+    else
+    {
+	myturn = false;
+    }
 };
 
 
