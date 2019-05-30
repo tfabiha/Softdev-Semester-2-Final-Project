@@ -3,7 +3,6 @@ var c = document.getElementById("c");
 var myturn = true;
 var turn = document.getElementById('turn');
 var desc = document.getElementById('desc');
-var effects = {}
 var deck = [];
 var nursery = [];
 var player_hand = [];
@@ -22,7 +21,7 @@ var description_card = function (att, x, y) {
 
 }
 
-var make_card = function(name, att, type){
+var make_card = function(name, type, att){
     var card = document.createElementNS("http://www.w3.org/2000/svg", "image");
     card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
     card.setAttribute("width",200);
@@ -30,8 +29,8 @@ var make_card = function(name, att, type){
     card.setAttribute("x", 0);
     card.setAttribute("y", gen_y);
     card.setAttribute("name", name);
-    card.setAttribute("att", att);
     card.setAttribute("type", type);
+    card.setAttribute("att", att);
     card.setAttribute("player", "f")
     card.addEventListener("mouseover", function()
 			  {
@@ -41,7 +40,7 @@ var make_card = function(name, att, type){
 				  card.setAttribute("width",400);
 				  card.setAttribute("height",400);
 			      }
-			      
+
 			      var adder = 0
 			      for (i = 0; i < player_hand.length; i++)
 			      {
@@ -82,12 +81,35 @@ var discard = function(e) {
     card.setAttribute("x", 400);
     card.setAttribute("y", gen_y);
     card.setAttribute("player", "f");
-    mode = "draw";
-    turn.innerHTML = "OPPONENT TURN";
-    switch_turns()
+    if (player_hand.length <= 7){
+      mode = "draw";
+      turn.innerHTML = "OPPONENT TURN";
+      switch_turns();
+    }
   }
 }
 
+var play = function(e) {
+  if (mode == "play") {
+    var card = e.target;
+    player_hand = player_hand.filter(function(n) {return n != card});
+    var i;
+    for(i = 0; i < player_hand.length; i++) {
+      player_hand[i].setAttribute("x", i * 150);
+    }
+    card.setAttribute("x", 400);
+    card.setAttribute("y", gen_y);
+    card.setAttribute("player", "f");
+    if (player_hand.length > 7) {
+      turn.innerHTML = "DISCARD A CARD";
+      mode = "discard";
+    }else{
+      turn.innerHTML = "OPPONENT TURN";
+      switch_turns();
+      mode = "draw";
+    }
+  }
+}
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
 
   var dragHandler = d3.drag()
@@ -99,10 +121,9 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 
   var i;
   for (i = 0; i < d.length; i++) {
-    effects[d[i]["card_name"]] = d[i]["phases"];
     var j;
     for (j = 0; j < d[i]["quantity"]; j++) {
-      var x = make_card(d[i]["card_name"], d[i]["description"], d[i]["card_type"]);
+      var x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["phases"]);
       if (d[i]["card_type"] == "baby_uni") {
         x.setAttribute("x", 200);
         nursery.push(x);
@@ -137,6 +158,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
       card.setAttribute("player","t");
       card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
       card.addEventListener("click", discard);
+      card.addEventListener("click", play);
       dragHandler(d3.select(card.getAttribute("name")));
       player_hand.push(card);
     }
@@ -177,33 +199,48 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 
 drawbutton.addEventListener('click', function() {
   console.log(myturn);
-  if (mode == "draw") {
-    var card = deck.pop();
+  if (mode == "draw" || mode == "play") {
     if (myturn) {
-      card.setAttribute("x", player_hand.length * 150);
-      card.setAttribute("y", player_y);
-      card.setAttribute("player", "t");
-      card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
-      card.addEventListener("click", discard);
-      player_hand.push(card);
-      if (player_hand.length > 7) {
-        turn.innerHTML = "DISCARD A CARD";
-    		mode = "discard";
-    	}
-    	if (player_hand.length <= 7) {
-        turn.innerHTML = "OPPONENT TURN";
-        switch_turns();
-    	}
+      if (mode == "play") {
+        var card = deck.pop();
+        card.setAttribute("x", player_hand.length * 150);
+        card.setAttribute("y", player_y);
+        card.setAttribute("player", "t");
+        card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
+        card.addEventListener("click", discard);
+        card.addEventListener("click", play);
+        player_hand.push(card);
+        if (player_hand.length > 7) {
+          mode = "discard";
+          turn.innerHTML = "PLEASE DISCARD A CARD";
+        }else{
+          turn.innerHTML = "OPPONENT TURN";
+          switch_turns();
+          mode = "draw";
+        }
+      }else{
+        var card = deck.pop();
+        card.setAttribute("x", player_hand.length * 150);
+        card.setAttribute("y", player_y);
+        card.setAttribute("player", "t");
+        card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
+        card.addEventListener("click", discard);
+        card.addEventListener("click", play);
+        player_hand.push(card);
+        mode = "play";
+        turn.innerHTML = "PLAY A CARD OR DRAW";
+      }
     }else{
       if(!discarding){
+        var card = deck.pop();
         card.setAttribute("x", opponent_hand.length * 150);
         card.setAttribute("y", 0);
         opponent_hand.push(card);
-        if (opponent_hand.length > 7) {
-          turn.innerHTML = "OPPONENT IS DISCARDING CARD";
-          discarding = true;
-          setTimeout(function() {
-            var c = opponent_hand[Math.floor(Math.random() * 8)];
+        turn.innerHTML = "OPPONENT IS PLAYING";
+        discarding = true;
+        setTimeout(function() {
+          if (Math.floor(Math.random() * 10) <= 4) {
+            var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
             opponent_hand = opponent_hand.filter(function(n) {return n != c});
             var i;
             for(i = 0; i < opponent_hand.length; i++) {
@@ -212,14 +249,57 @@ drawbutton.addEventListener('click', function() {
             c.setAttribute("x", 400);
             c.setAttribute("y", gen_y);
             c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
-            turn.innerHTML = "PLAYER TURN";
-            switch_turns();
-            discarding = false;
-          }, 1500);
-        }else{
-          turn.innerHTML = "PLAYER TURN";
-          switch_turns();
-        }
+            if (opponent_hand.length > 7) {
+              turn.innerHTML = "OPPONENT IS DISCARDING CARD";
+              setTimeout(function() {
+                var c = opponent_hand[Math.floor(Math.random() * 8)];
+                opponent_hand = opponent_hand.filter(function(n) {return n != c});
+                var i;
+                for(i = 0; i < opponent_hand.length; i++) {
+                  opponent_hand[i].setAttribute("x", i * 150);
+                }
+                c.setAttribute("x", 400);
+                c.setAttribute("y", gen_y);
+                c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
+                turn.innerHTML = "PLAYER TURN";
+                switch_turns();
+                discarding = false;
+              }, 1500);
+            }else{
+              turn.innerHTML = "PLAYER TURN";
+              switch_turns();
+              discarding = false;
+            }
+          }else{
+            var card = deck.pop();
+            card.setAttribute("x", opponent_hand.length * 150);
+            card.setAttribute("y", 0);
+            opponent_hand.push(card);
+            if (opponent_hand.length > 7) {
+              turn.innerHTML = "OPPONENT IS DISCARDING";
+              setTimeout(function() {
+                while(opponent_hand.length > 7) {
+                  var c = opponent_hand[Math.floor(Math.random() * 8)];
+                  opponent_hand = opponent_hand.filter(function(n) {return n != c});
+                  var i;
+                  for(i = 0; i < opponent_hand.length; i++) {
+                    opponent_hand[i].setAttribute("x", i * 150);
+                  }
+                  c.setAttribute("x", 400);
+                  c.setAttribute("y", gen_y);
+                  c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
+                }
+                turn.innerHTML = "PLAYER TURN";
+                switch_turns();
+                discarding = false;
+              }, 1500);
+            }else{
+              turn.innerHTML = "PLAYER TURN";
+              switch_turns();
+              discarding = false;
+            }
+          }
+        }, 1500);
       }
     }
   }
