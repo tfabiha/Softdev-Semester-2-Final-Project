@@ -2,7 +2,6 @@ var drawbutton = document.getElementById('draw');
 var c = document.getElementById("c");
 var myturn = true;
 var turn = document.getElementById('turn');
-var desc = document.getElementById('desc');
 var deck = [];
 var nursery = [];
 var player_hand = [];
@@ -17,15 +16,11 @@ var opponent_y = 0;
 var gen_y = 225;
 var player_y = 450;
 
-var description_card = function (att, x, y) {
-
-}
-
 var make_card = function(name, type, att){
     var card = document.createElementNS("http://www.w3.org/2000/svg", "image");
     card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
-    card.setAttribute("width",200);
-    card.setAttribute("height",200);
+    card.setAttribute("width",150);
+    card.setAttribute("height",150);
     card.setAttribute("x", 0);
     card.setAttribute("y", gen_y);
     card.setAttribute("name", name);
@@ -36,9 +31,8 @@ var make_card = function(name, type, att){
 			  {
 			      if (card.getAttribute("player") == "t") //"t" == true
 			      {
-				  desc.innerHTML = att;
-				  card.setAttribute("width",400);
-				  card.setAttribute("height",400);
+				  card.setAttribute("width",450);
+				  card.setAttribute("height",450);
 			      }
 
 			      var adder = 0
@@ -49,16 +43,15 @@ var make_card = function(name, type, att){
 
 				  if (player_hand[i] == card)
 				  {
-				      adder = 150;
+				      adder = 275;
 				  }
 			      }
 			  }
 			 );
     card.addEventListener("mouseout", function()
 			  {
-			      desc.innerHTML = "<br>";
-			      card.setAttribute("width", 200);
-			      card.setAttribute("height", 200);
+			      card.setAttribute("width", 150);
+			      card.setAttribute("height", 150);
 
 			      for (i = 0; i < player_hand.length; i++)
 			      {
@@ -158,7 +151,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	    }
 	}
     }
-    
+
     var shuffle = function(deck)
     {
 	var i, j, k;
@@ -213,7 +206,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	    {
 		card = deck.pop();
 	    }
-	    
+
 	    card.setAttribute("x", i * 150);
   	    card.setAttribute("y", opponent_y);
 	    opponent_hand.push(card);
@@ -234,7 +227,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
   	var card = nursery[i];
   	c.appendChild(card);
     }
-    
+
     for (i = 0; i < 5; i++)
     {
   	var card = player_hand[i];
