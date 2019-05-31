@@ -1,3 +1,8 @@
+#cont {
+    text-align: center;
+}
+
 #c {
+    display: inline-block;
     margin: 0 auto;
 }

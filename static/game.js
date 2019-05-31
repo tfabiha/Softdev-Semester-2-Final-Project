@@ -13,7 +13,7 @@ var mode = "draw";
 var discarding = false;
 
 var svg_width = c.getAttribute("width");
-var x_shift = 250;
+var x_shift = 200;
 var card_width = 150;
 var stable_shift = 125;
 
