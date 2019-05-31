@@ -145,8 +145,16 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	var j;
 	for (j = 0; j < d[i]["quantity"]; j++)
 	{
-	    var x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["phases"]);
-
+    var x = null
+    try {
+	    x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["phases"]);
+    } catch(err) {
+      try {
+        x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["effect"]);
+      } catch(err) {
+        x = make_card(d[i]["card_name"], d[i]["card_type"]);
+      }
+    }
 	    if (d[i]["card_type"] == "baby_uni")
 	    {
     x.setAttribute("y", nursery_y);
