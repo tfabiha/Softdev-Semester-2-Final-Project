@@ -138,24 +138,32 @@ var play = function(e)
 
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
 
-  var dragHandler = d3.drag()
-	    .on("drag", function ()
-	        {
-		        d3.select(this)
-		          .attr("x", d3.event.x)
-		          .attr("y", d3.event.y);
-	        }
-	       );
+var dragHandler = d3.drag()
+	.on("drag", function ()
+	    {
+		d3.select(this)
+		    .attr("x", d3.event.x)
+		    .attr("y", d3.event.y);
+	    }
+	   );
 
-  var i;
-  for (i = 0; i < d.length; i++)
-  {
+    var i;
+    for (i = 0; i < d.length; i++)
+    {
 
-	  var j;
-	  for (j = 0; j < d[i]["quantity"]; j++)
-	  {
-	    var x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["phases"]);
-
+	var j;
+	for (j = 0; j < d[i]["quantity"]; j++)
+	{
+    var x = null
+    try {
+	    x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["phases"]);
+    } catch(err) {
+      try {
+        x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["effect"]);
+      } catch(err) {
+        x = make_card(d[i]["card_name"], d[i]["card_type"]);
+      }
+    }
 	    if (d[i]["card_type"] == "baby_uni")
 	    {
         x.setAttribute("y", nursery_y);
