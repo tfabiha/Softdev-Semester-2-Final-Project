@@ -13,8 +13,8 @@ var mode = "draw";
 var discarding = false;
 
 var svg_width = c.getAttribute("width");
-var x_shift = 200;
 var card_width = 108.16;
+var x_shift = card_width * 1.5;
 var stable_shift = 125;
 
 var opponent_y = 0;
@@ -88,7 +88,7 @@ var discard = function(e)
 	    player_hand[i].setAttribute("x", i * card_width + x_shift);
 	  }
 
-    card.setAttribute("x", svg_width - card_width - 50);
+    card.setAttribute("x", svg_width - card_width);
     card.setAttribute("y", discard_y);
     card.setAttribute("width", card_width);
     card.setAttribute("height", 150);
