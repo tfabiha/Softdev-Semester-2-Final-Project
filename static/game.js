@@ -26,8 +26,8 @@ var player_y = 450 + stable_shift;
 var make_card = function(name, type, att){
     var card = document.createElementNS("http://www.w3.org/2000/svg", "image");
     card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
-    card.setAttribute("width",150);
-    card.setAttribute("height",card_width);
+    card.setAttribute("width",card_width);
+    card.setAttribute("height",150);
     card.setAttribute("x", 0);
     card.setAttribute("y", gen_y);
     card.setAttribute("name", name);
