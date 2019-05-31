@@ -14,7 +14,7 @@ var discarding = false;
 
 var svg_width = c.getAttribute("width");
 var x_shift = 200;
-var card_width = 150;
+var card_width = 108.16;
 var stable_shift = 125;
 
 var opponent_y = 0;
@@ -38,31 +38,33 @@ var make_card = function(name, type, att){
 			  {
 			      if (card.getAttribute("player") == "t") //"t" == true
 			      {
-				  card.setAttribute("width",450);
-				  card.setAttribute("height",450);
+				  card.setAttribute("width",card_width * 3);
+				      card.setAttribute("height",450);
+              card.setAttribute("y", player_y - 150);
 			      }
 
 			      var adder = 0
 			      for (i = 0; i < player_hand.length; i++)
 			      {
-				  player_hand[i].setAttribute("x", 150 * i + adder + x_shift);
+				  player_hand[i].setAttribute("x", card_width * i + adder + x_shift);
 				  player_hand[i].setAttribute("align", "left");
 
 				  if (player_hand[i] == card)
 				  {
-				      adder = 275;
+				    adder = card_width * 2;
 				  }
 			      }
 			  }
 			 );
     card.addEventListener("mouseout", function()
 			  {
-			      card.setAttribute("width", 150);
+			      card.setAttribute("width", card_width);
 			      card.setAttribute("height", 150);
+            card.setAttribute("y", player_y);
 
 			      for (i = 0; i < player_hand.length; i++)
 			      {
-				  player_hand[i].setAttribute("x", 150 * i + x_shift);
+				  player_hand[i].setAttribute("x", card_width * i + x_shift);
 				  player_hand[i].setAttribute("align", "left");
 			      }
 			  }
@@ -80,7 +82,7 @@ var discard = function(e)
 	var i;
 	for(i = 0; i < player_hand.length; i++)
 	{
-	    player_hand[i].setAttribute("x", i * 150 + x_shift);
+	    player_hand[i].setAttribute("x", i * card_width + x_shift);
 	}
 
   card.setAttribute("x", svg_width - card_width - 50);
@@ -106,7 +108,7 @@ var play = function(e)
 	var i;
 	for(i = 0; i < player_hand.length; i++)
 	{
-	    player_hand[i].setAttribute("x", i * 150 + x_shift);
+	    player_hand[i].setAttribute("x", i * card_width + x_shift);
 	}
 
 	card.setAttribute("x", svg_width - card_width);
@@ -189,7 +191,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 		card = deck.pop();
 	    }
 
-	    card.setAttribute("x", i * 150 + x_shift);
+	    card.setAttribute("x", i * card_width + x_shift);
   	    card.setAttribute("y", player_y);
 	    card.setAttribute("player","t");
 	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
@@ -214,7 +216,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 		card = deck.pop();
 	    }
 
-	    card.setAttribute("x", i * 150 + x_shift);
+	    card.setAttribute("x", i * card_width + x_shift);
   	    card.setAttribute("y", opponent_y);
 	    opponent_hand.push(card);
 	}
@@ -254,7 +256,7 @@ drawbutton.addEventListener('click', function()
 					if (mode == "play")
 					{
 					    var card = deck.pop();
-					    card.setAttribute("x", player_hand.length * 150 + x_shift);
+					    card.setAttribute("x", player_hand.length * card_width + x_shift);
 					    card.setAttribute("y", player_y);
 					    card.setAttribute("player", "t");
 					    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
@@ -277,7 +279,7 @@ drawbutton.addEventListener('click', function()
 					else
 					{
 					    var card = deck.pop();
-					    card.setAttribute("x", player_hand.length * 150 + x_shift);
+					    card.setAttribute("x", player_hand.length * card_width + x_shift);
 					    card.setAttribute("y", player_y);
 					    card.setAttribute("player", "t");
 					    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
@@ -293,7 +295,7 @@ drawbutton.addEventListener('click', function()
 					if(!discarding)
 					{
 					    var card = deck.pop();
-					    card.setAttribute("x", opponent_hand.length * 150 + x_shift);
+					    card.setAttribute("x", opponent_hand.length * card_width + x_shift);
 					    card.setAttribute("y", 0);
 					    opponent_hand.push(card);
 					    turn.innerHTML = "OPPONENT IS PLAYING";
@@ -305,7 +307,7 @@ drawbutton.addEventListener('click', function()
 							       opponent_hand = opponent_hand.filter(function(n) {return n != c});
 							       var i;
 							       for(i = 0; i < opponent_hand.length; i++) {
-								   opponent_hand[i].setAttribute("x", i * 150 + x_shift);
+								   opponent_hand[i].setAttribute("x", i * card_width + x_shift);
 							       }
 							       c.setAttribute("x", svg_width - card_width);
 							       c.setAttribute("y", discard_y);
@@ -317,7 +319,7 @@ drawbutton.addEventListener('click', function()
 								       opponent_hand = opponent_hand.filter(function(n) {return n != c});
 								       var i;
 								       for(i = 0; i < opponent_hand.length; i++) {
-									   opponent_hand[i].setAttribute("x", i * 150 + x_shift);
+									   opponent_hand[i].setAttribute("x", i * card_width + x_shift);
 								       }
 								       c.setAttribute("x", svg_width - card_width);
 								       c.setAttribute("y", discard_y);
@@ -333,7 +335,7 @@ drawbutton.addEventListener('click', function()
 							       }
 							   }else{
 							       var card = deck.pop();
-							       card.setAttribute("x", opponent_hand.length * 150 + x_shift);
+							       card.setAttribute("x", opponent_hand.length * card_width + x_shift);
 							       card.setAttribute("y", 0);
 							       opponent_hand.push(card);
 							       if (opponent_hand.length > 7) {
@@ -344,7 +346,7 @@ drawbutton.addEventListener('click', function()
 									   opponent_hand = opponent_hand.filter(function(n) {return n != c});
 									   var i;
 									   for(i = 0; i < opponent_hand.length; i++) {
-									       opponent_hand[i].setAttribute("x", i * 150 + x_shift);
+									       opponent_hand[i].setAttribute("x", i * card_width + x_shift);
 									   }
                      c.setAttribute("x", svg_width - card_width);
 									   c.setAttribute("y", discard_y);
