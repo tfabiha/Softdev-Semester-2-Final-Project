@@ -516,7 +516,7 @@
 	"card_type" : "magic",
 	"quantity" : 3,
 	"description" : "DESTROY a Unicorn card.",
-	"phases" : ["destroy_uni"]
+	"effect" : ["destroy_uni"]
     },
     {
 	"card_name" : "backkick",
@@ -544,21 +544,21 @@
 	"card_type" : "magic",
 	"quantity" : 2,
 	"description" : "Move a Unicorn card in your Stable to any other player's Stable, then STEAL a Unicorn card from that player's Stable.",
-	"phases" : ["move_uni_to_other", "steal_uni"]
+	"effect" : ["move_uni_to_other", "steal_uni"]
     },
     {
 	"card_name" : "retarget",
 	"card_type" : "magic",
 	"quantity" : 2,
 	"description" : "Move an Upgrade or Downgrade card from any player's Stable to any other player's Stable.",
-	"phases" : ["other_move_up_down_to_other"]
+	"effect" : ["other_move_up_down_to_other"]
     },
     {
 	"card_name" : "unfairbargain",
 	"card_type" : "magic",
 	"quantity" : 2,
 	"description" : "Trade hands with any other player.",
-	"phases" : ["switch_hand"]
+	"effect" : ["switch_hand"]
     },
     {
 	"card_name" : "twoforone",
