@@ -523,7 +523,7 @@
 	"card_type" : "magic",
 	"quantity" : 3,
 	"description" : "Choose any player. Return a card in that player's Stable to their hand. That player must DISCARD a card.",
-	"phases" : ["other_ret_all_hand", "other_discard_all"]
+	"effect" : ["other_ret_all_hand", "other_discard_all"]
     },
     {
 	"card_name" : "changeofluck",
@@ -572,21 +572,21 @@
 	"card_type" : "magic",
 	"quantity" : 1,
 	"description" : "Choose any player. Move all of that player's Unicorn cards to the discard pile without triggering any of their effects, then bring the same number of Baby Unicorn cards from the Nursery directly into that player's Stable.",
-	"phases" : ["other_discard_all_uni", "other_add_baby_to_stable"]
+	"effect" : ["other_discard_all_uni", "other_add_baby_to_stable"]
     },
     {
 	"card_name" : "gooddeal",
 	"card_type" : "magic",
 	"quantity" : 1,
 	"description" : "DRAW 3 cards and DISCARD a card.",
-	"phases" : ["draw", "draw", "draw", "discard_all"]
+	"effect" : ["draw", "draw", "draw", "discard_all"]
     },
     {
 	"card_name" : "shakeup",
 	"card_type" : "magic",
 	"quantity" : 1,
 	"description" : "Shuffle this card, your hand, and the discard pile into the deck. DRAW 5 cards.",
-	"phases" : ["this_to_deck", "hand_to_deck", "shuffle_deck", "draw", "draw", "draw", "draw", "draw"]
+	"effect" : ["this_to_deck", "hand_to_deck", "shuffle_deck", "draw", "draw", "draw", "draw", "draw"]
     }
     
 ]
