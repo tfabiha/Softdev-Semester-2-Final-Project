@@ -118,6 +118,8 @@ var play = function(e)
 
 	  card.setAttribute("x", svg_width - card_width);
 	  card.setAttribute("y", discard_y);
+    card.setAttribute("width", card_width);
+    card.setAttribute("height", 150);
 	  card.setAttribute("player", "f");
 
 	  if (player_hand.length > 7)
