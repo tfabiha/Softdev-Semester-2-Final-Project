@@ -38,7 +38,7 @@ var make_card = function(name, type, att){
 			  {
 			      if (card.getAttribute("player") == "t") //"t" == true
 			      {
-				  card.setAttribute("width",card_width * 3);
+			    	  card.setAttribute("width",card_width * 3);
 				      card.setAttribute("height",450);
               card.setAttribute("y", player_y - 150);
 			      }
@@ -57,10 +57,13 @@ var make_card = function(name, type, att){
 			  }
 			 );
     card.addEventListener("mouseout", function()
-			  {
-			      card.setAttribute("width", card_width);
-			      card.setAttribute("height", 150);
-            card.setAttribute("y", player_y);
+			                    {
+            if (card.getAttribute("player") == "t") //"t" == true
+			      {
+			    	  card.setAttribute("width", card_width);
+			        card.setAttribute("height", 150);
+              card.setAttribute("y", player_y);
+			      }
 
 			      for (i = 0; i < player_hand.length; i++)
 			      {
