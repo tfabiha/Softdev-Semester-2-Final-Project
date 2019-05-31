@@ -385,15 +385,9 @@ drawbutton.addEventListener('click', function()
 			                      });
 
 
-var switch_turns = function(){
-  if (myturn == false)
-  {
-	  myturn = true;
-  }
-  else
-  {
-	  myturn = false;
-  }
+var switch_turns = function()
+{
+    myturn = !myturn;
 };
 
 
