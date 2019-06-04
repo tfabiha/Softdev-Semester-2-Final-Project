@@ -116,12 +116,15 @@ var play = function(e)
 	    player_hand[i].setAttribute("x", i * card_width + x_shift);
 	  }
 
-	  card.setAttribute("x", svg_width - card_width);
-	  card.setAttribute("y", discard_y);
+    card.setAttribute("y", nursery_y);
     card.setAttribute("width", card_width);
     card.setAttribute("height", 150);
 	  card.setAttribute("player", "f");
-
+    player_stable.push(card);
+    for(i = 0; i < player_stable.length; i++)
+	  {
+	    player_stable[i].setAttribute("x", i * card_width + x_shift);
+	  }
 	  if (player_hand.length > 7)
 	  {
 	    turn.innerHTML = "DISCARD A CARD";
@@ -317,16 +320,23 @@ drawbutton.addEventListener('click', function()
 					                          discarding = true;
 					                          setTimeout(function()
 						                                   {
-							                                   if (Math.floor(Math.random() * 10) <= 4) {
+							                                   if (Math.floor(Math.random() * 10) <= 7) {
 							                                     var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
 							                                     opponent_hand = opponent_hand.filter(function(n) {return n != c});
 							                                     var i;
 							                                     for(i = 0; i < opponent_hand.length; i++) {
 								                                     opponent_hand[i].setAttribute("x", i * card_width + x_shift);
 							                                     }
-							                                     c.setAttribute("x", svg_width - card_width);
-							                                     c.setAttribute("y", discard_y);
-							                                     c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
+                                                   c.setAttribute("y", gen_y);
+                                                   c.setAttribute("width", card_width);
+                                                   c.setAttribute("height", 150);
+                                               	   c.setAttribute("player", "f");
+                                                   c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
+                                                   opponent_stable.push(c);
+                                                   for(i = 0; i < opponent_stable.length; i++)
+                                               	   {
+                                               	    opponent_stable[i].setAttribute("x", i * card_width + x_shift);
+                                               	   }
 							                                     if (opponent_hand.length > 7) {
 								                                     turn.innerHTML = "OPPONENT IS DISCARDING CARD";
 								                                     setTimeout(function() {
