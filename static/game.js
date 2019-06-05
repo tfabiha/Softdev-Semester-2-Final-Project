@@ -25,14 +25,22 @@ var player_y = 450 + stable_shift;
 
 var card_atts = {};
 
+var card_coords = function(card, c_x, c_y){
+  card.setAttribute("x", c_x);
+  card.setAttribute("y", c_y);
+}
+
+var card_dimensions = function(card, c_width, c_height){
+  card.setAttribute("width", c_width);
+  card.setAttribute("height",c_height);
+}
+
 var make_card = function(name, type, att){
     // set all the attributes for the cards
     var card = document.createElementNS("http://www.w3.org/2000/svg", "image");
     card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
-    card.setAttribute("width",card_width);
-    card.setAttribute("height",150);
-    card.setAttribute("x", 0);
-    card.setAttribute("y", gen_y);
+    card_dimensions(card, card_width, 150);
+    card_coords(card, 0, gen_y);
     card.setAttribute("name", name);
     card.setAttribute("type", type);
     card.setAttribute("att", att);
@@ -42,9 +50,8 @@ var make_card = function(name, type, att){
 			      // all card alignment
 			      if (card.getAttribute("player") == "t") //"t" == true
 			      {
-			    	  card.setAttribute("width",card_width * 3);
-				  card.setAttribute("height",450);
-				  card.setAttribute("y", player_y - 150);
+              card_dimensions(card, card_width * 3, 450);
+              card_coords(card, card.getAttribute("x"), player_y - 150);
 			      }
 
 			      var adder = 0
@@ -64,10 +71,9 @@ var make_card = function(name, type, att){
 			  {
 			      // fix card alignment
                               if (card.getAttribute("player") == "t") //"t" == true
-			      {
-			    	  card.setAttribute("width", card_width);
-			          card.setAttribute("height", 150);
-				  card.setAttribute("y", player_y);
+			    {
+            card_dimensions(card, card_width, 150);
+            card_coords(card, card.getAttribute("x"), player_y);
 			      }
 
 			      for (i = 0; i < player_hand.length; i++)
@@ -94,10 +100,8 @@ var discard = function(e)
 	    player_hand[i].setAttribute("x", i * card_width + x_shift);
 	}
 
-	card.setAttribute("x", svg_width - card_width);
-	card.setAttribute("y", discard_y);
-	card.setAttribute("width", card_width);
-	card.setAttribute("height", 150);
+  card_dimensions(card, card_width, 150);
+  card_coords(card, svg_width - card_width, discard_y);
 	card.setAttribute("player", "f");
   discard_pile.push(card);
 	if (player_hand.length <= 7)
@@ -126,10 +130,9 @@ var play = function(e)
   console.log(t);
   if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni")
   {
-  	card.setAttribute("y", nursery_y);
-  	card.setAttribute("width", card_width);
-  	card.setAttribute("height", 150);
-  	card.setAttribute("player", "f");
+    card_dimensions(card, card_width, 150);
+    card_coords(card, card.getAttribute("x"), nursery_y);
+    card.setAttribute("player", "f");
   	player_stable.push(card);
   	console.log(card);
 
@@ -138,10 +141,8 @@ var play = function(e)
   	    player_stable[i].setAttribute("x", i * card_width + x_shift);
   	}
   }else {
-    card.setAttribute("y", discard_y);
-    card.setAttribute("x", svg_width - card_width);
-  	card.setAttribute("width", card_width);
-  	card.setAttribute("height", 150);
+    card_dimensions(card, card_width, 150);
+    card_coords(card, svg_width - card_width, discard_y);
     card.setAttribute("player", "f");
     discard_pile.push(card);
     console.log(card);
@@ -236,9 +237,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	    {
 		card = deck.pop();
 	    }
-
-	    card.setAttribute("x", i * card_width + x_shift);
-  	    card.setAttribute("y", player_y);
+      card_coords(card, i * card_width + x_shift, player_y);
 	    card.setAttribute("player","t");
 	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
 	    card.addEventListener("click", discard);
@@ -261,9 +260,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	    {
 		card = deck.pop();
 	    }
-
-	    card.setAttribute("x", i * card_width + x_shift);
-  	    card.setAttribute("y", opponent_y);
+      card_coords(card, i * card_width + x_shift, opponent_y);
 	    opponent_hand.push(card);
 	}
     }
@@ -302,8 +299,7 @@ drawbutton.addEventListener('click', function()
 					if (mode == "play")
 					{
 					    var card = deck.pop();
-					    card.setAttribute("x", player_hand.length * card_width + x_shift);
-					    card.setAttribute("y", player_y);
+              card_coords(card, player_hand.length * card_width + x_shift, player_y);
 					    card.setAttribute("player", "t");
 					    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
 					    card.addEventListener("click", discard);
@@ -325,8 +321,7 @@ drawbutton.addEventListener('click', function()
 					else
 					{
 					    var card = deck.pop();
-					    card.setAttribute("x", player_hand.length * card_width + x_shift);
-					    card.setAttribute("y", player_y);
+              card_coords(card, player_hand.length * card_width + x_shift, player_y);
 					    card.setAttribute("player", "t");
 					    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
 					    card.addEventListener("click", discard);
@@ -341,8 +336,7 @@ drawbutton.addEventListener('click', function()
 					if(!discarding)
 					{
 					    var card = deck.pop();
-					    card.setAttribute("x", opponent_hand.length * card_width + x_shift);
-					    card.setAttribute("y", 0);
+              card_coords(card, opponent_hand.length * card_width + x_shift, 0);
 					    opponent_hand.push(card);
 					    turn.innerHTML = "OPPONENT IS PLAYING";
 					    discarding = true;
@@ -358,9 +352,8 @@ drawbutton.addEventListener('click', function()
                      var t = c.getAttribute("type");
                      if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni")
                      {
-                       c.setAttribute("y", gen_y);
-  							       c.setAttribute("width", card_width);
-  							       c.setAttribute("height", 150);
+                       card_coords(c, c.getAttribute("x"), gen_y);
+                       card_dimensions(c, card_width, 150);
                        c.setAttribute("player", "f");
   							       c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
   							       opponent_stable.push(c);
@@ -369,10 +362,8 @@ drawbutton.addEventListener('click', function()
                                                  			   opponent_stable[i].setAttribute("x", i * card_width + x_shift);
                                                  		       }
                      }else {
-                       c.setAttribute("y", discard_y);
-                       c.setAttribute("x", svg_width - card_width);
-                     	 c.setAttribute("width", card_width);
-                     	 c.setAttribute("height", 150);
+                       card_dimensions(c, card_width, 150);
+                       card_coords(c, svg_width - card_width, discard_y);
                        c.setAttribute("player", "f");
                        c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
                        discard_pile.push(c);
@@ -388,8 +379,7 @@ drawbutton.addEventListener('click', function()
 								       for(i = 0; i < opponent_hand.length; i++) {
 									   opponent_hand[i].setAttribute("x", i * card_width + x_shift);
 								       }
-								       c.setAttribute("x", svg_width - card_width);
-								       c.setAttribute("y", discard_y);
+                       card_coords(c, svg_width - card_width, discard_y);
 								       c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
                        discard_pile.push(c);
                        turn.innerHTML = "PLAYER TURN";
@@ -407,8 +397,7 @@ drawbutton.addEventListener('click', function()
 							   else
 							   {
 							       var card = deck.pop();
-							       card.setAttribute("x", opponent_hand.length * card_width + x_shift);
-							       card.setAttribute("y", 0);
+                     card_coords(card, opponent_hand.length * card_width + x_shift, 0);
 							       opponent_hand.push(card);
 							       if (opponent_hand.length > 7)
 							       {
@@ -424,8 +413,7 @@ drawbutton.addEventListener('click', function()
 										      {
 											  opponent_hand[i].setAttribute("x", i * card_width + x_shift);
 										      }
-									   c.setAttribute("x", svg_width - card_width);
-									   c.setAttribute("y", discard_y);
+                     card_coords(c, svg_width - card_width, discard_y);
 									   c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
 								       }
 								       turn.innerHTML = "PLAYER TURN";
