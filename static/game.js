@@ -43,23 +43,21 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	var j;
 	for (j = 0; j < d[i]["quantity"]; j++)
 	{
-	    var x = null
-	    try
-	    {
-		x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["phases"]);
-	    }
-	    catch(err)
-	    {
-		try
-		{
-		    x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["effect"]);
-		}
-		catch(err)
-		{
-		    x = make_card(d[i]["card_name"], d[i]["card_type"]);
-		}
-	    }
-
+    var x = null;
+    if (Object.keys(d[i]).includes("phases"))
+    {
+      x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["phases"]);
+    }
+    else if (Object.keys(d[i]).includes("effect"))
+    {
+      x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["effect"]);
+    }
+    else
+    {
+      x = make_card(d[i]["card_name"], d[i]["card_type"]);
+    }
+    console.log(x.getAttribute("att"));
+    
 	    if (d[i]["card_type"] == "baby_uni")
 	    {
 		x.setAttribute("y", nursery_y);
