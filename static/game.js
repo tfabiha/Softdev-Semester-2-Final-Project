@@ -58,7 +58,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
     var x = null;
     if (Object.keys(d[i]).includes("phases"))
     {
-      x = make_card(d[i]["card_name"], d[i]["card_type"], d[i]["phases"]);
+      x = make_card(d[i]["card_name"], d[i]["card_type"], eval(d[i]["phases"]));
     }
     else if (Object.keys(d[i]).includes("effect"))
     {
@@ -68,7 +68,6 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
     {
       x = make_card(d[i]["card_name"], d[i]["card_type"]);
     }
-    console.log(x.getAttribute("att"));
 
 	    if (d[i]["card_type"] == "baby_uni")
 	    {
