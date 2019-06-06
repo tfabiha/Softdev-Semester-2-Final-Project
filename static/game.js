@@ -246,21 +246,25 @@ start.addEventListener("click", function(e)
 			   start.innerHTML = "NEXT PHASE";
 		       });
 
+// activates all the begin of turn effects of cards in the stable
 var beg_of_turn = function(e)
 {
 
 };
 
+// draw a card
 var draw_turn = function(e)
 {
     
 };
 
+// play at least one card or draw a card
 var action_turn = function(e)
 {
 
 };
 
+// makes sure that the current player has only 7 cards at most in their hand
 var end_of_turn = function(e)
 {
     if (opponent_hand.length > 7) {
