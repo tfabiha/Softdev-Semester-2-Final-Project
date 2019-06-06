@@ -267,23 +267,28 @@ var action_turn = function(e)
 // makes sure that the current player has only 7 cards at most in their hand
 var end_of_turn = function(e)
 {
-    if (opponent_hand.length > 7) {
-	turn.innerHTML = "OPPONENT IS DISCARDING CARD";
-	setTimeout(function() {
-	    var c = opponent_hand[Math.floor(Math.random() * 8)];
-	    opponent_hand = opponent_hand.filter(function(n) {return n != c});
-	    var i;
-	    for(i = 0; i < opponent_hand.length; i++) {
-		opponent_hand[i].setAttribute("x", i * card_width + x_shift);
+
+    if (myturn)
+    {}
+    else
+    {
+	// works but need to adjust opponents cards
+	while (opponent_hand.length > 3)
+	{
+	    var c = opponent_hand[ Math.floor( Math.random() * opponent_hand.length ) ];
+	    opponent_hand = opponent_hand.filter( function(n) {return n != c} );
+	    
+	    for (var i = 0; i < opponent_hand; i++)
+	    {
+		opponent_hand[i].setAttribute( "x", i * card_width + x_shift );
 	    }
+	    
 	    card_coords(c, svg_width - card_width, discard_y);
 	    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINK_HEAD + c.getAttribute("name") + ".jpg");
 	    discard_pile.push(c);
-	    turn.innerHTML = "PLAYER TURN";
-	    switch_turns();
-	    discarding = false;
-	}, 1500);
+	}
     }
+    
 };
 
 
