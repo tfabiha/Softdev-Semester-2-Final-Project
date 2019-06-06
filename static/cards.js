@@ -1,3 +1,14 @@
+var svg_width = c.getAttribute("width");
+var card_width = 108.16;
+var x_shift = card_width * 1.5;
+var stable_shift = 125;
+
+var opponent_y = 0;
+var gen_y = 125 + (stable_shift / 2);
+var nursery_y = 325 + (stable_shift / 2);
+var discard_y = 225 + (stable_shift / 2);
+var player_y = 450 + stable_shift;
+
 var card_coords = function(card, c_x, c_y){
   card.setAttribute("x", c_x);
   card.setAttribute("y", c_y);
@@ -51,44 +62,14 @@ var make_card = function(name, type, att){
 
             for (i = 0; i < player_hand.length; i++)
             {
-          player_hand[i].setAttribute("x", card_width * i + x_shift);
-          player_hand[i].setAttribute("align", "left");
+		player_hand[i].setAttribute("x", card_width * i + x_shift);
+		player_hand[i].setAttribute("align", "left");
             }
         }
-       );
+			 );
     return card
 };
 
-// discard a card
-var discard = function(e)
-{
-    if (mode == "discard" || mode == "discard_effect")
-    {
-  var card = e.target;
-  player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand
-
-  var i;
-  for(i = 0; i < player_hand.length; i++)
-  {
-      player_hand[i].setAttribute("x", i * card_width + x_shift);
-  }
-
-  card_dimensions(card, card_width, 150);
-  card_coords(card, svg_width - card_width, discard_y);
-  card.setAttribute("player", "f");
-  discard_pile.push(card);
-  if (mode == "discard") {
-    if (player_hand.length <= 7)
-      {
-          mode = "draw";
-          turn.innerHTML = "OPPONENT TURN";
-          switch_turns();
-      }
-    }else{
-      mode = "activate";
-    }
-    }
-}
 
 // play a card
 async function play(e)
@@ -157,11 +138,14 @@ async function discard_effect(player) {
 }
 
 var check_end = function() {
-  if(mode != "activate") {
-    setTimout(check_end(), 100);
-  }else{
-    return
-  }
+    if(mode != "activate")
+    {
+	setTimout(check_end(), 100);
+    }
+    else
+    {
+	return
+    }
 }
 
 async function activate(att, type) {
