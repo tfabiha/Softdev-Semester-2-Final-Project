@@ -58,7 +58,8 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
     var x = null;
     if (Object.keys(d[i]).includes("phases"))
     {
-      x = make_card(d[i]["card_name"], d[i]["card_type"], eval(d[i]["phases"]));
+      console.log(eval(d[i]["phases"]));
+      x = make_card(d[i]["card_name"], d[i]["card_type"], JSON.stringify(eval(d[i]["phases"])));
     }
     else if (Object.keys(d[i]).includes("effect"))
     {

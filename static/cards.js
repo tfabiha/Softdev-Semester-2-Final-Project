@@ -120,6 +120,14 @@ var play = function(e)
     discard_pile.push(card);
     console.log(card);
   }
+  if (t == "magical_uni")
+  {
+    activate(card.getAttribute("att"), "uni");
+  }
+  else if (t == "magic")
+  {
+    activate(card.getAttribute("att"), "magic");
+  }
   if (player_hand.length > 7)
   {
       turn.innerHTML = "DISCARD A CARD";
@@ -134,6 +142,17 @@ var play = function(e)
     }
 }
 
+var activate = function(att, type) {
+  var x = null;
+  if (type == "uni")
+  {
+    x = JSON.parse(att);
+  }
+  else
+  {
+    x = att.split(',');
+  }
+}
 var switch_turns = function()
 {
     myturn = !myturn;
