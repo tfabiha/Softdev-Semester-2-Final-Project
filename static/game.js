@@ -25,6 +25,18 @@ var player_y = 450 + stable_shift;
 
 var card_atts = {};
 
+var shuffle = function(deck)
+{
+var i, j;
+for(i = deck.length - 1; i > 0; i--)
+{
+  j = Math.floor(Math.random() * (i+1));
+  temp = deck[i];
+  deck[i] = deck[j];
+  deck[j] = temp;
+}
+};
+
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
 
     var dragHandler = d3.drag()
@@ -57,7 +69,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
       x = make_card(d[i]["card_name"], d[i]["card_type"]);
     }
     console.log(x.getAttribute("att"));
-    
+
 	    if (d[i]["card_type"] == "baby_uni")
 	    {
 		x.setAttribute("y", nursery_y);
@@ -69,18 +81,6 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	    }
 	}
     }
-
-    var shuffle = function(deck)
-    {
-	var i, j;
-	for(i = deck.length - 1; i > 0; i--)
-	{
-	    j = Math.floor(Math.random() * (i+1));
-	    temp = deck[i];
-	    deck[i] = deck[j];
-	    deck[j] = temp;
-	}
-    };
 
     shuffle(nursery);
     shuffle(deck);
@@ -151,6 +151,21 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
     }
 });
 
+var draw = function(player) {
+  if (player == "player") {
+    var card = deck.pop();
+    card_coords(card, player_hand.length * card_width + x_shift, player_y);
+    card.setAttribute("player", "t");
+    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
+    card.addEventListener("click", discard);
+    card.addEventListener("click", play);
+    player_hand.push(card);
+  }else{
+    var card = deck.pop();
+    card_coords(card, opponent_hand.length * card_width + x_shift, 0);
+    opponent_hand.push(card);
+  }
+}
 drawbutton.addEventListener('click', function()
 			    {
 				console.log(myturn);
@@ -160,14 +175,7 @@ drawbutton.addEventListener('click', function()
 				    {
 					if (mode == "play")
 					{
-					    var card = deck.pop();
-              card_coords(card, player_hand.length * card_width + x_shift, player_y);
-					    card.setAttribute("player", "t");
-					    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
-					    card.addEventListener("click", discard);
-					    card.addEventListener("click", play);
-					    player_hand.push(card);
-
+            draw("player");
 					    if (player_hand.length > 7)
 					    {
 						mode = "discard";
@@ -182,13 +190,7 @@ drawbutton.addEventListener('click', function()
 					}
 					else
 					{
-					    var card = deck.pop();
-              card_coords(card, player_hand.length * card_width + x_shift, player_y);
-					    card.setAttribute("player", "t");
-					    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
-					    card.addEventListener("click", discard);
-					    card.addEventListener("click", play);
-					    player_hand.push(card);
+					    draw("player");
 					    mode = "play";
 					    turn.innerHTML = "PLAY A CARD OR DRAW";
 					}
@@ -197,9 +199,7 @@ drawbutton.addEventListener('click', function()
 				    {
 					if(!discarding)
 					{
-					    var card = deck.pop();
-              card_coords(card, opponent_hand.length * card_width + x_shift, 0);
-					    opponent_hand.push(card);
+					    draw("opponent");
 					    turn.innerHTML = "OPPONENT IS PLAYING";
 					    discarding = true;
 					    setTimeout(function()
@@ -258,9 +258,7 @@ drawbutton.addEventListener('click', function()
 							   }
 							   else
 							   {
-							       var card = deck.pop();
-                     card_coords(card, opponent_hand.length * card_width + x_shift, 0);
-							       opponent_hand.push(card);
+							       draw("opponent");
 							       if (opponent_hand.length > 7)
 							       {
 								   turn.innerHTML = "OPPONENT IS DISCARDING";
