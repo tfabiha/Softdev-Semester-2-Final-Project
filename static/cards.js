@@ -62,7 +62,7 @@ var make_card = function(name, type, att){
 // discard a card
 var discard = function(e)
 {
-    if (mode == "discard" || mode == "discard_effect")
+    if (mode == "discard")
     {
   var card = e.target;
   player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand
@@ -77,21 +77,17 @@ var discard = function(e)
   card_coords(card, svg_width - card_width, discard_y);
   card.setAttribute("player", "f");
   discard_pile.push(card);
-  if (mode == "discard") {
-    if (player_hand.length <= 7)
-      {
-          mode = "draw";
-          turn.innerHTML = "OPPONENT TURN";
-          switch_turns();
-      }
-    }else{
-      mode = "activate";
-    }
+  if (player_hand.length <= 7)
+  {
+      mode = "draw";
+      turn.innerHTML = "OPPONENT TURN";
+      switch_turns();
+  }
     }
 }
 
 // play a card
-async function play(e)
+var play = function(e)
 {
     if (mode == "play")
     {
@@ -124,14 +120,13 @@ async function play(e)
     discard_pile.push(card);
     console.log(card);
   }
-  mode = "activate";
   if (t == "magical_uni")
   {
-    await activate(card.getAttribute("att"), "uni");
+    activate(card.getAttribute("att"), "uni");
   }
   else if (t == "magic")
   {
-    await activate(card.getAttribute("att"), "magic");
+    activate(card.getAttribute("att"), "magic");
   }
   if (player_hand.length > 7)
   {
@@ -147,24 +142,7 @@ async function play(e)
     }
 }
 
-async function discard_effect(player) {
-  if (player == "player")
-  {
-    turn.innerHTML = "DISCARD A CARD";
-    mode = "discard";
-    await check_end();
-  }
-}
-
-var check_end = function() {
-  if(mode != "activate") {
-    setTimout(check_end(), 100);
-  }else{
-    return
-  }
-}
-
-async function activate(att, type) {
+var activate = function(att, type) {
   var x = null;
   if (type == "uni")
   {
@@ -173,16 +151,6 @@ async function activate(att, type) {
   else
   {
     x = att.split(',');
-    for (var i in x)
-    {
-      if (x[i] == "draw")
-      {
-        await draw("player");
-      }
-      if(x[i] == "discard_all") {
-        await discard_effect("player");
-      }
-    }
   }
 }
 var switch_turns = function()
