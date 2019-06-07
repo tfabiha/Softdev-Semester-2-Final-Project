@@ -1,3 +1,4 @@
+
 import os, random
 from flask import Flask, render_template, request, session, url_for, redirect, flash
 from flask_socketio import SocketIO, join_room, leave_room, emit, send
@@ -147,6 +148,13 @@ def create_game():
         flash("Max players has defaulted to " + str(max_players))
         return redirect('/game/{code}'.format(code=inv_code))
     return redirect('/game/{code}'.format(code=inv_code))
+
+@app.route('/winner')
+def winner():
+    '''
+    game template -- unfinished
+    '''
+    return render_template("win.html")
 
 @app.route('/user')
 def user():

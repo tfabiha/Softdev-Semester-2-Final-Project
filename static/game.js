@@ -8,6 +8,7 @@ var mode = "beg_of_turn"; //modes: beg_of_turn, draw, action, end_of_turn
 var event = "none"
 var LINK_HEAD = "https://raw.githubusercontent.com/tfabiha/unstablepics/master/";
 var most_cards = 7;
+var cards_to_win = 1;
 
 var deck = [];
 var nursery = [];
@@ -20,6 +21,7 @@ var discard_pile = [];
 var myturn = true;
 var inphase = true;
 var discarding = false;
+var max_in_stable = false;
 
 var card_atts = {};
 
@@ -420,7 +422,7 @@ start.addEventListener("click", function(e)
 			       }
 			   }
 
-			   
+			   check_for_win();
 			   start.innerHTML = "NEXT PHASE";
 		       });
 
@@ -479,6 +481,24 @@ var end_of_turn = function(e)
     }
     
 };
+
+var check_for_win = function()
+{
+  if (opponent_stable.length >= cards_to_win)
+  {
+    //comm.innerHTML += "opponent won";
+    //inphase = false;
+    //drawbutton.removeEventListener("click");
+    window.location.href = "/winner";
+  }
+  if (player_stable.length >= cards_to_win)
+  {
+    //comm.innerHTML += "player won";
+    //inphase = false;
+    //drawbutton.removeEventListener("click");
+    window.location.href = "/winner";
+  }
+}
 
 drawbutton.addEventListener("click", function()
 			    {
