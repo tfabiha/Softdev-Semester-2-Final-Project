@@ -2,7 +2,7 @@ var start = document.getElementById("start");
 var drawbutton = document.getElementById('draw');
 var c = document.getElementById("c");
 var turn = document.getElementById('turn');
-var comm = document.getElementById('command');
+var comm = document.getElementById('commands');
 
 var mode = "beg_of_turn"; //modes: beg_of_turn, draw, action, end_of_turn
 var event = "none"
@@ -39,7 +39,7 @@ var events = function(e)
     
     if (event == "discard")
     {
-	discard(e);
+	discard(e, "hand");
     }
     else if (event == "play")
     {
@@ -54,6 +54,7 @@ var play_effects = function(type, li)
     {
 	li.pop(0);
     }
+    
     if (type == "magic")
     {
 	li = li.split(",");
@@ -71,6 +72,10 @@ var play_effects = function(type, li)
 	    {
 		draw("opponent");
 	    }
+	}
+	else if (li[i] == "shuffle_deck")
+	{
+	    shuffle(deck);
 	}
     }
 };
@@ -107,12 +112,16 @@ var draw = function(player) {
     }
 }
 
-var discard = function(e)
+var discard = function(e, type)
 {
     console.log("here is discard");
-    if (myturn)
+    console.log(type);
+    if (myturn && type == "hand")
     {
 	var card = e.target;
+	console.log( "is card in hand" );
+	comm.innerHTML = "card removed"
+
 	player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand                              
 	
 	var i;
@@ -135,11 +144,13 @@ var discard = function(e)
 		mode = "beg_of_turn";
 		myturn = !myturn;
 		inphase = !inphase;
+
+		comm.innerHTML = "FINISHED END OF TURN PHASE FOR PLAYER. YOU MAY NOW MOVE TO THE NEXT PHASE";			       
 	    }
 	}
 	
     }
-    else
+    else if (!myturn && type == "hand")
     {
 	var c = opponent_hand[ Math.floor( Math.random() * opponent_hand.length ) ];
 	    opponent_hand = opponent_hand.filter( function(n) {return n != c} );
@@ -215,6 +226,8 @@ var play_card = function(e)
 	{
 	    mode = "end_of_turn";
 	    inphase = !inphase;
+	    
+	    comm.innerHTML = "FINISHED ACTION PHASE FOR PLAYER. YOU MAY NOW MOVE TO THE NEXT PHASE";			       
 	}
     }
     else
@@ -349,10 +362,14 @@ start.addEventListener("click", function(e)
 			   {
 			       turn.innerHTML = "BEGINNING OF " + person + "'S TURN";
 			       start.innerHTML = "PLAYING PHASE";
+
+			       comm.innerHTML = "PLAYING ALL EFFECTS IN "+person+"'S STABLE";			       
 			       
 			       beg_of_turn(e);
 			       mode = "draw";			       
 			       inphase = !inphase;
+
+			       comm.innerHTML = "FINISHED PLAYING ALL EFFECTS IN "+person+"'S STABLE. YOU MAY NOW MOVE TO THE NEXT PHASE";			       
 			   }
 			   else if (mode == "draw" && inphase == false)
 			   {
@@ -362,11 +379,14 @@ start.addEventListener("click", function(e)
 			       draw_turn(e);
 			       mode = "action";
 			       inphase = !inphase;
+
+			       comm.innerHTML = "FINISHED DRAWING FOR "+person+". YOU MAY NOW MOVE TO THE NEXT PHASE";			       
 			   }
 			   else if (mode == "action" && inphase == false)
 			   {
 			       turn.innerHTML = person + "'S ACTION TURN";
 			       start.innerHTML = "PLAYING PHASE";
+			       comm.innerHTML = "STARTED ACTION PHASE FOR "+person+". YOU MAY DRAW OR PLAY A CARD";			       
 			       
 			       action_turn(e);
 
@@ -374,6 +394,8 @@ start.addEventListener("click", function(e)
 			       {
 				   mode = "end_of_turn";
 				   inphase = !inphase;
+
+				   comm.innerHTML = "FINISHED ACTION PHASE FOR "+person+". YOU MAY NOW MOVE TO THE NEXT PHASE";			       
 			       }
 			   }
 			   else if (mode == "end_of_turn" && inphase == false)
@@ -393,6 +415,8 @@ start.addEventListener("click", function(e)
 				   mode = "beg_of_turn";			      
 				   myturn = !myturn;			       
 				   inphase = !inphase;
+
+				   comm.innerHTML = "FINISHED END OF PHASE FOR "+person+". YOU MAY NOW MOVE TO THE NEXT PHASE";			       
 			       }
 			   }
 
@@ -441,7 +465,7 @@ var end_of_turn = function(e)
 	if (player_hand.length > most_cards)
 	{	    
 	    event = "discard";
-	    comm.inner = "please discard a card";
+	    comm.inner = "Please remove cards until you have only "+most_cards+"left";
 	}
 			
     }
@@ -450,7 +474,7 @@ var end_of_turn = function(e)
 	// works but need to adjust opponents cards
 	while (opponent_hand.length > most_cards)
 	{
-	    discard(e);
+	    discard(e, "hand");
 	}
     }
     
@@ -464,6 +488,8 @@ drawbutton.addEventListener("click", function()
 
 				    mode = "end_of_turn";
 				    inphase = !inphase;
+
+				    comm.innerHTML = "FINISHED ACTION PHASE FOR PLAYER. YOU MAY NOW MOVE TO THE NEXT PHASE";			       
 				}
 			    });
 
