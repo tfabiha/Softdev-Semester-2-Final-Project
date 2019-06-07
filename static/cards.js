@@ -175,6 +175,31 @@ var switch_turns = function()
     myturn = !myturn;
 };
 
+var shift = function(hand){
+  var i;
+	for(i = 0; i < hand.length; i++)
+	{
+    hand[i].setAttribute("x", i * card_width + x_shift);
+	}
+}
+
+var switch_hands = function()
+{
+  var p_hand = player_hand;
+  player_hand = opponent_hand;
+  opponent_hand = p_hand;
+};
+
+var ret_hand = function(stable, hand, card, card_y)
+{
+  if (stable.includes(card)) {
+    card_coords(card, hand.length * card_width + x_shift, card_y);
+    hand.push(card);
+  }
+  stable = stable.filter(function(n) {return n != card});
+  shift(hand);
+  console.log("shifted hand");
+}
 
 //card_dimensions(card, card_width, 150);
 //card_coords(card, card.getAttribute("x"), player_y);

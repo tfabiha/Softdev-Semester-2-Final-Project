@@ -8,7 +8,7 @@ var mode = "beg_of_turn"; //modes: beg_of_turn, draw, action, end_of_turn
 var event = "none"
 var LINK_HEAD = "https://raw.githubusercontent.com/tfabiha/unstablepics/master/";
 var most_cards = 7;
-var cards_to_win = 1;
+var cards_to_win = 6;
 
 var deck = [];
 var nursery = [];
@@ -126,12 +126,14 @@ var discard = function(e, type)
 
 	player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand                              
 	
-	var i;
-	for(i = 0; i < player_hand.length; i++)
-	{
-            player_hand[i].setAttribute("x", i * card_width + x_shift);
-	}
-	
+	//var i;
+	//for(i = 0; i < player_hand.length; i++)
+	//{
+  //          player_hand[i].setAttribute("x", i * card_width + x_shift);
+	//}
+
+  shift(player_hand);
+      
 	card_dimensions(card, card_width, 150);
 	card_coords(card, svg_width - card_width, discard_y);
 	card.setAttribute("player", "f");
@@ -156,11 +158,9 @@ var discard = function(e, type)
     {
 	var c = opponent_hand[ Math.floor( Math.random() * opponent_hand.length ) ];
 	    opponent_hand = opponent_hand.filter( function(n) {return n != c} );
-	    
-	    for (var i = 0; i < opponent_hand; i++)
-	    {
-		opponent_hand[i].setAttribute( "x", i * card_width + x_shift );
-	    }
+      
+	    shift(opponent_hand);
+
 	    
 	    card_coords(c, svg_width - card_width, discard_y);
 	    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINK_HEAD + c.getAttribute("name") + ".jpg");
@@ -175,12 +175,14 @@ var play_card = function(e)
 	var card = e.target;
 	player_hand = player_hand.filter(function(n) {return n != card}); // removes the played card from the hand                            
 
-	var i;
-	for(i = 0; i < player_hand.length; i++)
-	{
-            player_hand[i].setAttribute("x", i * card_width + x_shift);
-	}
+	//var i;
+	//for(i = 0; i < player_hand.length; i++)
+	//{
+  //          player_hand[i].setAttribute("x", i * card_width + x_shift);
+	//}
 
+  shift(player_hand);
+      
 	var t = card.getAttribute("type");
 	console.log(t);
 
@@ -214,7 +216,6 @@ var play_card = function(e)
             card_coords(card, svg_width - card_width, discard_y);
             card.setAttribute("player", "f");
             discard_pile.push(card);
-            console.log(card);
 
 	    var att = card.getAttribute("att");
 	    console.log(att);
@@ -498,7 +499,7 @@ var check_for_win = function()
     //drawbutton.removeEventListener("click");
     window.location.href = "/winner";
   }
-}
+};
 
 drawbutton.addEventListener("click", function()
 			    {
