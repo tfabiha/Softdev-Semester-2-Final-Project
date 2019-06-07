@@ -404,7 +404,8 @@ start.addEventListener("click", function(e)
 			   else if (mode == "end_of_turn" && inphase == false)
 			   {
 			       turn.innerHTML = "END OF " + person + "'S TURN";
-			       start.innerHTML = "PLAYING PHASE";
+		  	     start.innerHTML = "PLAYING PHASE";
+             comm.innerHTML = "STARTED ACTION PHASE FOR "+person+". YOU MAY DRAW OR PLAY A CARD";
 
 			       end_of_turn(person);
 
