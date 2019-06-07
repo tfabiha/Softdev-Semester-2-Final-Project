@@ -12,37 +12,16 @@ var discard_pile = [];
 var mode = "draw"; //modes: beg_of_turn, draw, action, end_of_turn
 var discarding = false;
 
-var svg_width = c.getAttribute("width");
-var card_width = 108.16;
-var x_shift = card_width * 1.5;
-var stable_shift = 125;
-
-var opponent_y = 0;
-var gen_y = 125 + (stable_shift / 2);
-var nursery_y = 325 + (stable_shift / 2);
-var discard_y = 225 + (stable_shift / 2);
-var player_y = 450 + stable_shift;
-
 var card_atts = {};
-
-var shuffle = function(deck) {
-  var i, j;
-  for(i = deck.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i+1));
-    temp = deck[i];
-    deck[i] = deck[j];
-    deck[j] = temp;
-  }
-};
 
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
 
-  var dragHandler = d3.drag()
-	.on("drag", function () {
-		d3.select(this)
-		  .attr("x", d3.event.x)
-		  .attr("y", d3.event.y);
-	});
+  // var dragHandler = d3.drag()
+	// .on("drag", function () {
+	// 	d3.select(this)
+	// 	  .attr("x", d3.event.x)
+	// 	  .attr("y", d3.event.y);
+	// });
 
   var i;
   for (i = 0; i < d.length; i++) {
@@ -147,7 +126,10 @@ var draw = function(player) {
 
 drawbutton.addEventListener('click', function() {
 	console.log(myturn);
+
 	if (mode == "draw" || mode == "play") {
+
+    // player's turn
 		if (myturn) {
 			if (mode == "play") {
         draw("player");
@@ -167,20 +149,25 @@ drawbutton.addEventListener('click', function() {
 				turn.innerHTML = "PLAY A CARD OR DRAW";
 			}
 		}
+
+    // opponent's turn
 		else {
 			if(!discarding) {
 				draw("opponent");
 				turn.innerHTML = "OPPONENT IS PLAYING";
 				discarding = true;
+
 				setTimeout(function() {
 					if (Math.floor(Math.random() * 10) <= 7) {
 						var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
 						opponent_hand = opponent_hand.filter(function(n) {return n != c});
+
 						var i;
 						for(i = 0; i < opponent_hand.length; i++) {
 							opponent_hand[i].setAttribute("x", i * card_width + x_shift);
 						}
             var t = c.getAttribute("type");
+
             if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni") {
               card_coords(c, c.getAttribute("x"), gen_y);
               card_dimensions(c, card_width, 150);
@@ -191,6 +178,7 @@ drawbutton.addEventListener('click', function() {
                 opponent_stable[i].setAttribute("x", i * card_width + x_shift);
               }
             }
+
             else {
               card_dimensions(c, card_width, 150);
               card_coords(c, svg_width - card_width, discard_y);
@@ -202,6 +190,7 @@ drawbutton.addEventListener('click', function() {
 
 						if (opponent_hand.length > 7) {
 							turn.innerHTML = "OPPONENT IS DISCARDING CARD";
+
 							setTimeout(function() {
 								var c = opponent_hand[Math.floor(Math.random() * 8)];
 								opponent_hand = opponent_hand.filter(function(n) {return n != c});
@@ -217,12 +206,14 @@ drawbutton.addEventListener('click', function() {
 								discarding = false;
 							}, 1500);
 						}
+
 						else {
 							turn.innerHTML = "PLAYER TURN";
 							switch_turns();
 							discarding = false;
 						}
 					}
+
 					else {
 						draw("opponent");
 						if (opponent_hand.length > 7) {
@@ -243,6 +234,7 @@ drawbutton.addEventListener('click', function() {
 								discarding = false;
 							}, 1500);
 						}
+
 						else {
 							turn.innerHTML = "PLAYER TURN";
 							switch_turns();

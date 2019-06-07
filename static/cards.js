@@ -1,8 +1,42 @@
+var svg_width = c.getAttribute("width");
+var card_width = 108.16;
+var x_shift = card_width * 1.5;
+var stable_shift = 125;
+
+var opponent_y = 0;
+var gen_y = 125 + (stable_shift / 2);
+var nursery_y = 325 + (stable_shift / 2);
+var discard_y = 225 + (stable_shift / 2);
+var player_y = 450 + stable_shift;
+
+
+
+// shift card deck (i.e. hands, stables) over -- discarding / destroying / sacrificing cards
+var shift = function(card_deck) {
+  var i;
+  for(i = 0; i < card_deck.length; i++) {
+    card_deck[i].setAttribute("x", i * card_width + x_shift);
+  }
+}
+
+// shuffle deck
+var shuffle = function(deck) {
+  var i, j;
+  for(i = deck.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i+1));
+    temp = deck[i];
+    deck[i] = deck[j];
+    deck[j] = temp;
+  }
+};
+
+// change coordinates of cards
 var card_coords = function(card, c_x, c_y) {
   card.setAttribute("x", c_x);
   card.setAttribute("y", c_y);
 }
 
+// change dimensions of cards (i.e. when a player hovers over their hand)
 var card_dimensions = function(card, c_width, c_height) {
   card.setAttribute("width", c_width);
   card.setAttribute("height",c_height);
@@ -24,7 +58,6 @@ var make_card = function(name, type, att) {
       card_dimensions(card, card_width * 3, 450);
       card_coords(card, card.getAttribute("x"), player_y - 150);
     }
-
     var adder = 0
     for (i = 0; i < player_hand.length; i++) {
       player_hand[i].setAttribute("x", card_width * i + adder + x_shift);
@@ -166,33 +199,6 @@ async function activate(att, type) {
 var switch_turns = function() {
   myturn = !myturn;
 };
-
-// shift card deck (i.e. hands, stables) over -- discarding / destroying / sacrificing cards
-var shift = function(card_deck) {
-  var i;
-  for(i = 0; i < card_deck.length; i++) {
-    card_deck[i].setAttribute("x", i * card_width + x_shift);
-  }
-}
-
-// swap hands with the opponent -- magic / magical uni cards
-var switch_hands = function() {
-  var p_hand = player_hand;
-  player_hand = opponent_hand;
-  opponent_hand = p_hand;
-};
-
-
-// return a card to hand from stable
-var ret_hand = function(stable, hand, card, card_y) {
-  if (stable.includes(card)) {
-    card_coords(card, hand.length * card_width + x_shift, card_y);
-    hand.push(card);
-  }
-  stable = stable.filter(function(n) {return n != card});
-  shift(hand);
-  console.log("shifted hand");
-}
 
 //card_dimensions(card, card_width, 150);
 //card_coords(card, card.getAttribute("x"), player_y);
