@@ -501,7 +501,7 @@ var end_of_turn = function(e)
 	if (player_hand.length > most_cards)
 	{
 	    event = "discard";
-	    comm.inner = "Please remove cards until you have only "+most_cards+"left";
+	    comm.innerHTML = "Please remove cards until you have only "+most_cards+" left";
 	}
 
     }
