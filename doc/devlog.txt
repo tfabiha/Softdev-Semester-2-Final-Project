@@ -80,6 +80,9 @@ fabihaT -- 2019-05-21 18:00
 - fixed bugs
 - added game mechanisms using sockets
 
+rachelN -- 2019-05-22 22:48
+- requirements.txt
+
 fabihaT -- 2019-05-25 11:00
 - continued to explore implementation of sockets on droplet
 - consulted team write illegibly to figure out how they implemented
@@ -96,19 +99,33 @@ imadB -- 2019-05-27 23:30
 - Made cards and deck
 - Made player hands
 
+rachelN -- 2019-05-28 16:19
+- card spacing
+- added descriptions to box
+
 imadB -- 2019-05-30 22:00
 - Created turns between player and opponent
 - Drawing cards works
 - Discarding cards works
 
+rachelN -- 2019-05-30 23:19
+- removed descriptions of card on hover
+
 fabihaT -- 2019-05-31 12:00
 - planned beg_of_phase, draw_phase, action_phase, and end_phase and
   how to implement these functions
+
+rachelN -- 2019-05-31 19:30
+- rearranged cards
 
 imadB -- 2019-06-03 22:30
 - Can play unicorn cards to stable
 - Can play magic cards to discard
 - Setting up for card effects
+
+rachelN -- 2019-06-05 20:54
+- modularized code
+- added functions so it's easier to read
 
 imadB -- 2019-06-05 21:00
 - Opponent plays card or draws on turn
@@ -126,3 +143,7 @@ fabihaT -- 2019-06-06 18:00
 imadB -- 2019-06-07 2:00
 - Trying to rework effects back in to new implementation
 - Reworking opponent mechanics
+
+rachelN -- 2019-06-07 3:00
+- action phase stuff
+- functions for magic / action cards
