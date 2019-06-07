@@ -76,55 +76,55 @@ async function play(e)
 {
     if (mode == "play")
     {
-  var card = e.target;
-  player_hand = player_hand.filter(function(n) {return n != card}); // removes the played card from the hand
+	var card = e.target;
+	player_hand = player_hand.filter(function(n) {return n != card}); // removes the played card from the hand
 
-  var i;
-  for(i = 0; i < player_hand.length; i++)
-  {
-      player_hand[i].setAttribute("x", i * card_width + x_shift);
-  }
-  var t = card.getAttribute("type");
-  console.log(t);
-  if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni")
-  {
-    card_dimensions(card, card_width, 150);
-    card_coords(card, card.getAttribute("x"), nursery_y);
-    card.setAttribute("player", "f");
-    player_stable.push(card);
-    console.log(card);
+	var i;
+	for(i = 0; i < player_hand.length; i++)
+	{
+	    player_hand[i].setAttribute("x", i * card_width + x_shift);
+	}
+	var t = card.getAttribute("type");
+	console.log(t);
+	if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni")
+	{
+	    card_dimensions(card, card_width, 150);
+	    card_coords(card, card.getAttribute("x"), nursery_y);
+	    card.setAttribute("player", "f");
+	    player_stable.push(card);
+	    console.log(card);
 
-    for(i = 0; i < player_stable.length; i++)
-    {
-        player_stable[i].setAttribute("x", i * card_width + x_shift);
-    }
-  }else {
-    card_dimensions(card, card_width, 150);
-    card_coords(card, svg_width - card_width, discard_y);
-    card.setAttribute("player", "f");
-    discard_pile.push(card);
-    console.log(card);
-  }
-  mode = "activate";
-  if (t == "magical_uni")
-  {
-    await activate(card.getAttribute("att"), "uni");
-  }
-  else if (t == "magic")
-  {
-    await activate(card.getAttribute("att"), "magic");
-  }
-  if (player_hand.length > 7)
-  {
-      turn.innerHTML = "DISCARD A CARD";
-      mode = "discard";
-  }
-  else
-  {
-      turn.innerHTML = "OPPONENT TURN";
-      switch_turns();
-      mode = "draw";
-  }
+	    for(i = 0; i < player_stable.length; i++)
+	    {
+		player_stable[i].setAttribute("x", i * card_width + x_shift);
+	    }
+	}else {
+	    card_dimensions(card, card_width, 150);
+	    card_coords(card, svg_width - card_width, discard_y);
+	    card.setAttribute("player", "f");
+	    discard_pile.push(card);
+	    console.log(card);
+	}
+	mode = "activate";
+	if (t == "magical_uni")
+	{
+	    await activate(card.getAttribute("att"), "uni");
+	}
+	else if (t == "magic")
+	{
+	    await activate(card.getAttribute("att"), "magic");
+	}
+	if (player_hand.length > 7)
+	{
+	    turn.innerHTML = "DISCARD A CARD";
+	    mode = "discard";
+	}
+	else
+	{
+	    turn.innerHTML = "OPPONENT TURN";
+	    switch_turns();
+	    mode = "draw";
+	}
     }
 }
 
@@ -149,26 +149,27 @@ var check_end = function() {
 }
 
 async function activate(att, type) {
-  var x = null;
-  if (type == "uni")
-  {
-    x = JSON.parse(att);
-  }
-  else
-  {
-    x = att.split(',');
-    for (var i in x)
+    var x = null;
+    if (type == "uni")
     {
-      if (x[i] == "draw")
-      {
-        await draw("player");
-      }
-      if(x[i] == "discard_all") {
-        await discard_effect("player");
-      }
+	x = JSON.parse(att);
     }
-  }
+    else
+    {
+	x = att.split(',');
+	for (var i in x)
+	{
+	    if (x[i] == "draw")
+	    {
+		await draw("player");
+	    }
+	    if(x[i] == "discard_all") {
+		await discard_effect("player");
+	    }
+	}
+    }
 }
+
 var switch_turns = function()
 {
     myturn = !myturn;

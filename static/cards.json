@@ -530,7 +530,7 @@
 	"card_type" : "magic",
 	"quantity" : 2,
 	"description" : "DRAW 2 cards and DISCARD 3 cards, then take another turn.",
-	"effect" : ["draw", "draw", "discar_all", "discard_all", "discard_all", "repeat_turn"]
+	"effect" : ["draw", "draw", "discard_all", "discard_all", "discard_all", "repeat_turn"]
     },
     {
 	"card_name" : "glittertornado",

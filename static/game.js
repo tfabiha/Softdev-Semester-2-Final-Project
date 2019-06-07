@@ -2,9 +2,12 @@ var start = document.getElementById("start");
 var drawbutton = document.getElementById('draw');
 var c = document.getElementById("c");
 var turn = document.getElementById('turn');
+var comm = document.getElementById('command');
 
 var mode = "beg_of_turn"; //modes: beg_of_turn, draw, action, end_of_turn
+var event = "none"
 var LINK_HEAD = "https://raw.githubusercontent.com/tfabiha/unstablepics/master/";
+var most_cards = 7;
 
 var deck = [];
 var nursery = [];
@@ -21,6 +24,57 @@ var discarding = false;
 var card_atts = {};
 
 // CARD FUNCTIONS
+
+// captures major cards events
+// when a card is clicked and we know that we need to do something to it,
+// such as discarding it or playing it into the stable
+// the appropriate function will be called to act on that card
+var events = function(e)
+{
+    c = e.target;
+    console.log( c );
+    console.log( c.getAttribute("type") );
+    console.log( c.getAttribute("name") );
+    console.log( c.getAttribute("att") );
+    
+    if (event == "discard")
+    {
+	discard(e);
+    }
+    else if (event == "play")
+    {
+	play_card(e);
+    }
+};
+
+// covers the wild variety of effects called by cards 
+var play_effects = function(type, li)
+{
+    if (type == "magical_uni" && li[0] == "choice")
+    {
+	li.pop(0);
+    }
+    if (type == "magic")
+    {
+	li = li.split(",");
+    }
+    
+    for (var i = 0; i < li.length; i++)
+    {
+	if (li[i] == "draw")
+	{
+	    if (myturn)
+	    {
+		draw("player");
+	    }
+	    else
+	    {
+		draw("opponent");
+	    }
+	}
+    }
+};
+
 var shuffle = function(deck)
 {
     var i, j;
@@ -35,13 +89,14 @@ var shuffle = function(deck)
 
 var draw = function(player) {
     var card = deck.pop();
+    card.addEventListener("click", events);
     
     if (player == "player") {	
 	card_coords(card, player_hand.length * card_width + x_shift, player_y);
 	card.setAttribute("player", "t");
 	card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINK_HEAD + card.getAttribute("name") + ".jpg");
-	card.addEventListener("click", discard);
-	card.addEventListener("click", play);
+	//card.addEventListener("click", discard);
+	//card.addEventListener("click", play);
 	player_hand.push(card);
     }
     else
@@ -54,38 +109,119 @@ var draw = function(player) {
 
 var discard = function(e)
 {
-    if (mode == "discard" || mode == "discard_effect")
+    console.log("here is discard");
+    if (myturn)
     {
-        var card = e.target;
-        player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand                              
-
-        var i;
-        for(i = 0; i < player_hand.length; i++)
+	var card = e.target;
+	player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand                              
+	
+	var i;
+	for(i = 0; i < player_hand.length; i++)
 	{
             player_hand[i].setAttribute("x", i * card_width + x_shift);
-        }
+	}
+	
+	card_dimensions(card, card_width, 150);
+	card_coords(card, svg_width - card_width, discard_y);
+	card.setAttribute("player", "f");
+	discard_pile.push(card);
 
-        card_dimensions(card, card_width, 150);
-        card_coords(card, svg_width - card_width, discard_y);
-        card.setAttribute("player", "f");
-        discard_pile.push(card);
+	if (player_hand.length <= most_cards)
+	{
+	    event = "none";
 
-	if (mode == "discard")
-	{
-            if (player_hand.length <= 7)
-            {
-                mode = "draw";
-                turn.innerHTML = "OPPONENT TURN";
-                switch_turns();
-            }
-        }
-	else
-	{
-            mode = "activate";
-        }
+	    if (mode = "end_of_turn")
+	    {
+		mode = "beg_of_turn";
+		myturn = !myturn;
+		inphase = !inphase;
+	    }
+	}
+	
+    }
+    else
+    {
+	var c = opponent_hand[ Math.floor( Math.random() * opponent_hand.length ) ];
+	    opponent_hand = opponent_hand.filter( function(n) {return n != c} );
+	    
+	    for (var i = 0; i < opponent_hand; i++)
+	    {
+		opponent_hand[i].setAttribute( "x", i * card_width + x_shift );
+	    }
+	    
+	    card_coords(c, svg_width - card_width, discard_y);
+	    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINK_HEAD + c.getAttribute("name") + ".jpg");
+	    discard_pile.push(c);
     }
 }
 
+var play_card = function(e)
+{
+    if (myturn)
+    {
+	var card = e.target;
+	player_hand = player_hand.filter(function(n) {return n != card}); // removes the played card from the hand                            
+
+	var i;
+	for(i = 0; i < player_hand.length; i++)
+	{
+            player_hand[i].setAttribute("x", i * card_width + x_shift);
+	}
+
+	var t = card.getAttribute("type");
+	console.log(t);
+
+	if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni")
+	{
+            card_dimensions(card, card_width, 150);
+            card_coords(card, card.getAttribute("x"), nursery_y);
+            card.setAttribute("player", "f");
+            player_stable.push(card);
+            console.log(card);
+
+            for(i = 0; i < player_stable.length; i++)
+            {
+		player_stable[i].setAttribute("x", i * card_width + x_shift);
+            }
+
+	    if (t == "magical_uni")
+	    {
+		var att = card.getAttribute("att");
+		console.log(att);
+
+		if (att["enter"] != undefined)
+		{
+		    play_effects("magical_uni", att["enter"]);
+		}
+	    }
+	}
+	else
+	{
+            card_dimensions(card, card_width, 150);
+            card_coords(card, svg_width - card_width, discard_y);
+            card.setAttribute("player", "f");
+            discard_pile.push(card);
+            console.log(card);
+
+	    var att = card.getAttribute("att");
+	    console.log(att);
+
+	    play_effects("magic", att);
+	}
+
+	event = "none";
+	
+	if (mode == "action")
+	{
+	    mode = "end_of_turn";
+	    inphase = !inphase;
+	}
+    }
+    else
+    {
+	
+    }
+};
 
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
 
@@ -149,11 +285,12 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	    {
 		card = deck.pop();
 	    }
-      card_coords(card, i * card_width + x_shift, player_y);
+	    card_coords(card, i * card_width + x_shift, player_y);
 	    card.setAttribute("player","t");
 	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINK_HEAD + card.getAttribute("name") + ".jpg");
-	    card.addEventListener("click", discard);
-	    card.addEventListener("click", play);
+	    card.addEventListener("click", events);
+	    //card.addEventListener("click", discard);
+	    //card.addEventListener("click", play);
 	    dragHandler(d3.select(card.getAttribute("name")));
 	    player_hand.push(card);
 	}
@@ -215,6 +352,7 @@ start.addEventListener("click", function(e)
 			       
 			       beg_of_turn(e);
 			       mode = "draw";			       
+			       inphase = !inphase;
 			   }
 			   else if (mode == "draw" && inphase == false)
 			   {
@@ -223,6 +361,7 @@ start.addEventListener("click", function(e)
 			       
 			       draw_turn(e);
 			       mode = "action";
+			       inphase = !inphase;
 			   }
 			   else if (mode == "action" && inphase == false)
 			   {
@@ -230,7 +369,12 @@ start.addEventListener("click", function(e)
 			       start.innerHTML = "PLAYING PHASE";
 			       
 			       action_turn(e);
-			       mode = "end_of_turn";
+
+			       if (!myturn)
+			       {
+				   mode = "end_of_turn";
+				   inphase = !inphase;
+			       }
 			   }
 			   else if (mode == "end_of_turn" && inphase == false)
 			   {			    			       
@@ -238,61 +382,92 @@ start.addEventListener("click", function(e)
 			       start.innerHTML = "PLAYING PHASE";
 			       
 			       end_of_turn(person);
-			       mode = "beg_of_turn";			      
-			       myturn = !myturn;
+
+
+			       if (myturn && player_hand.length > most_cards)
+			       {
+				   
+			       }
+			       else
+			       {
+				   mode = "beg_of_turn";			      
+				   myturn = !myturn;			       
+				   inphase = !inphase;
+			       }
 			   }
 
-			   inphase = !inphase;
+			   
 			   start.innerHTML = "NEXT PHASE";
 		       });
 
 // activates all the begin of turn effects of cards in the stable
 var beg_of_turn = function(e)
 {
-
+    
 };
 
 // draw a card
 var draw_turn = function(e)
 {
-    
+    if (myturn)
+    {
+	draw("player");
+    }
+    else
+    {
+	draw("opponent");
+    }
 };
 
 // play at least one card or draw a card
 var action_turn = function(e)
 {
-
+    if (myturn)
+    {
+	event = "play";
+    }
+    else
+    {
+	draw("opponent");
+    }
 };
 
-// makes sure that the current player has only 7 cards at most in their hand
+// makes sure that the current player has only most_cards cards at most in their hand
 var end_of_turn = function(e)
 {
 
     if (myturn)
-    {}
+    {
+	if (player_hand.length > most_cards)
+	{	    
+	    event = "discard";
+	    comm.inner = "please discard a card";
+	}
+			
+    }
     else
     {
 	// works but need to adjust opponents cards
-	while (opponent_hand.length > 3)
+	while (opponent_hand.length > most_cards)
 	{
-	    var c = opponent_hand[ Math.floor( Math.random() * opponent_hand.length ) ];
-	    opponent_hand = opponent_hand.filter( function(n) {return n != c} );
-	    
-	    for (var i = 0; i < opponent_hand; i++)
-	    {
-		opponent_hand[i].setAttribute( "x", i * card_width + x_shift );
-	    }
-	    
-	    card_coords(c, svg_width - card_width, discard_y);
-	    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINK_HEAD + c.getAttribute("name") + ".jpg");
-	    discard_pile.push(c);
+	    discard(e);
 	}
     }
     
 };
 
+drawbutton.addEventListener("click", function()
+			    {
+				if (mode == "action")
+				{
+				    draw("player");
 
+				    mode = "end_of_turn";
+				    inphase = !inphase;
+				}
+			    });
 
+/*
 drawbutton.addEventListener('click', function()
 			    {
 				console.log(myturn);
@@ -303,7 +478,7 @@ drawbutton.addEventListener('click', function()
 					if (mode == "play")
 					{
 					    draw("player");
-					    if (player_hand.length > 7)
+					    if (player_hand.length > most_cards)
 					    {
 						mode = "discard";
 						turn.innerHTML = "PLEASE DISCARD A CARD";
@@ -331,7 +506,7 @@ drawbutton.addEventListener('click', function()
 					    discarding = true;
 					    setTimeout(function()
 						       {
-							   if (Math.floor(Math.random() * 10) <= 7) {
+							   if (Math.floor(Math.random() * 10) <= most_cards) {
 							       var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
 							       opponent_hand = opponent_hand.filter(function(n) {return n != c});
 							       var i;
@@ -359,7 +534,7 @@ drawbutton.addEventListener('click', function()
 								   console.log(c);
 							       }
 							       
-							       if (opponent_hand.length > 7) {
+							       if (opponent_hand.length > most_cards) {
 								   turn.innerHTML = "OPPONENT IS DISCARDING CARD";
 								   setTimeout(function() {
 								       var c = opponent_hand[Math.floor(Math.random() * 8)];
@@ -386,12 +561,12 @@ drawbutton.addEventListener('click', function()
 							   else
 							   {
 							       draw("opponent");
-							       if (opponent_hand.length > 7)
+							       if (opponent_hand.length > most_cards)
 							       {
 								   turn.innerHTML = "OPPONENT IS DISCARDING";
 								   setTimeout(function()
 									      {
-										  while(opponent_hand.length > 7)
+										  while(opponent_hand.length > most_cards)
 										  {
 										      var c = opponent_hand[Math.floor(Math.random() * 8)];
 										      opponent_hand = opponent_hand.filter(function(n) {return n != c});
@@ -423,7 +598,7 @@ drawbutton.addEventListener('click', function()
 			    });
 
 
-
+*/
 // opponent hand - check for any instant / upgrade / downgrade / magic cards in hand
 // draw cards
 // discard cards
