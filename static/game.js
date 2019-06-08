@@ -16,12 +16,12 @@ var card_atts = {};
 
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
 
-  // var dragHandler = d3.drag()
-	// .on("drag", function () {
-	// 	d3.select(this)
-	// 	  .attr("x", d3.event.x)
-	// 	  .attr("y", d3.event.y);
-	// });
+  var dragHandler = d3.drag()
+	.on("drag", function () {
+		d3.select(this)
+		  .attr("x", d3.event.x)
+		  .attr("y", d3.event.y);
+	});
 
   var i;
   for (i = 0; i < d.length; i++) {
