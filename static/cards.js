@@ -112,6 +112,25 @@ var discard = function(e) {
   }
 };
 
+//make opponent discard a card
+var opponent_discard = function(e) {
+  if (mode == "opponent_discard") {
+    var card = e.target;
+    opponent_stable = opponent_stable.filter(function(n) {return n != card}); // remove this card from opponent's hand
+
+    var i;
+    for(i = 0; i < opponent_stable.length; i++) {
+      player_hand[i].setAttribute("x", i * card_width + x_shift);
+    }
+
+    card_dimensions(card, card_width, 150);
+    card_coords(card, svg_width - card_width, discard_y);
+    card.setAttribute("player", "f");
+    discard_pile.push(card);
+    mode = "activate";
+  }
+}
+
 // play a card
 async function play(e) {
   if (mode == "play") {
@@ -133,6 +152,10 @@ async function play(e) {
 
       for(i = 0; i < player_stable.length; i++) {
         player_stable[i].setAttribute("x", i * card_width + x_shift);
+      }
+
+      if (player_stable.length >= 7) {
+        window.location.href = "/win";
       }
     }
     else {
@@ -164,18 +187,25 @@ async function play(e) {
 async function discard_effect(player) {
   if (player == "player") {
     turn.innerHTML = "DISCARD A CARD";
-    mode = "discard";
+    mode = "discard_effect";
     await check_end();
+  }else{
+    if (opponent_stable.length > 0) {
+      turn.innerHTML = "DESTROY ONE OF THE OPPONENT'S UNICORN CARDS";
+      mode = "opponent_discard";
+      await check_end();
+    }
   }
 }
 
-var check_end = function() {
-  if(mode != "activate") {
-    setTimeout(check_end(), 100);
-  }
-  else {
-    return
-  }
+async function check_end() {
+  await new Promise((resolve) => setTimeout(() => {
+    if(mode != "activate") {
+      return resolve(check_end());
+    }else{
+      return resolve();
+    }
+  }, 100));
 }
 
 async function activate(att, type) {
@@ -191,6 +221,9 @@ async function activate(att, type) {
       }
       if(x[i] == "discard_all") {
         await discard_effect("player");
+      }
+      if(x[i] == "destroy_uni") {
+        await discard_effect("opponent");
       }
     }
   }
