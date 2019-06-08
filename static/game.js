@@ -173,9 +173,13 @@ drawbutton.addEventListener('click', function() {
               card_dimensions(c, card_width, 150);
               c.setAttribute("player", "f");
   						c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
+              c.addEventListener("click", opponent_discard);
   						opponent_stable.push(c);
   						for(i = 0; i < opponent_stable.length; i++) {
                 opponent_stable[i].setAttribute("x", i * card_width + x_shift);
+              }
+              if (opponent_stable.length >= 7) {
+                window.location.href = "/win";
               }
             }
 
@@ -192,7 +196,7 @@ drawbutton.addEventListener('click', function() {
 							turn.innerHTML = "OPPONENT IS DISCARDING CARD";
 
 							setTimeout(function() {
-								var c = opponent_hand[Math.floor(Math.random() * 8)];
+								var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
 								opponent_hand = opponent_hand.filter(function(n) {return n != c});
 								var i;
 								for(i = 0; i < opponent_hand.length; i++) {
