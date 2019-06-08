@@ -342,7 +342,7 @@
 	"description" : "Basic Unicorn cards cannot enter any other player's Stable.",
 	"phases" :
 	{
-	    "all" : ["basic_banned_frm_others"]
+	    "all" : ["basic_banned_frm_other"]
 	}
     },
     {
@@ -537,7 +537,7 @@
 	"card_type" : "magic",
 	"quantity" : 2,
 	"description" : "Return a card in each player's Stable to that player's hand.",
-	"effect" : ["others_ret_all_to_hand"]
+	"effect" : ["other_ret_all_to_hand"]
     },
     {
 	"card_name" : "unicornswap",
@@ -565,7 +565,7 @@
 	"card_type" : "magic",
 	"quantity" : 2,
 	"description" : "SACRIFICE a card, then DESTROY 2 cards.",
-	"effect" : ["sacrifice_all"]
+	"effect" : ["sacrifice_all", "destroy_uni", "destroy,uni"]
     },
     {
 	"card_name" : "unicornshrinkray",
@@ -588,5 +588,5 @@
 	"description" : "Shuffle this card, your hand, and the discard pile into the deck. DRAW 5 cards.",
 	"effect" : ["this_to_deck", "hand_to_deck", "shuffle_deck", "draw", "draw", "draw", "draw", "draw"]
     }
-    
+
 ]
