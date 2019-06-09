@@ -212,16 +212,6 @@
 	}
     },
     {
-	"card_name" : "magicalkittencorn",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "This card cannot be destroyed or otherwise affected by Magic cards.",
-	"phases" :
-	{
-	    "all" : ["invincible"]
-	}
-    },
-    {
 	"card_name" : "stabby",
 	"card_type" : "magical_uni",
 	"quantity" : 1,
@@ -230,17 +220,6 @@
 	{
 	    "sacrificed" : ["choice", "destroy_uni"],
 	    "destroyed" : ["choice", "destroy_uni"]
-	}
-    },
-    {
-	"card_name" : "puppicorn",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "Each time any player begins their turn, move this card to that player's Stable. This card cannot be sacrificed or destroyed.",
-	"phases" :
-	{
-	    "all" : ["invincible"],
-	    "exit" : ["move_to_next"]
 	}
     },
     {
@@ -264,36 +243,6 @@
 	}
     },
     {
-	"card_name" : "extremelydestructive",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, each player must SACRIFICE a Unicorn card.",
-	"phases" :
-	{
-	    "enter" : ["each_sacrifice_uni"]
-	}
-    },
-    {
-	"card_name" : "chainsaw",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, you may SACRIFICE or DESTROY an Upgrade or Downgrade card.",
-	"phases" :
-	{
-	    "enter" : ["choice", "sacrifice_destroy_up_down"]
-	}
-    },
-    {
-	"card_name" : "llamacorn",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, each player must DISCARD a card. Shuffle the discard pile into the deck.",
-	"phases" :
-	{
-	    "enter" : ["discard_all"]
-	}
-    },
-    {
 	"card_name" : "americorn",
 	"card_type" : "magical_uni",
 	"quantity" : 1,
@@ -304,28 +253,6 @@
 	}
     },
     {
-	"card_name" : "ginormous",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "This card counts for 2 Unicorns. You cannot play any Instant cards.",
-	"phases" :
-	{
-	    "all" : ["no_instant", "2uni"]
-	}
-    },
-    {
-	"card_name" : "seductive",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, STEAL a Unicorn card. If this card leaves your Stable, return that Unicorn card to the Stable from which you stole it.",
-	"phases" :
-	{
-	    "enter" : ["steal_uni"],
-	    "sacrificed" : ["ret_uni_to_owner"],
-	    "destroyed" : ["ret_uni_to_owner"]
-	}
-    },
-    {
 	"card_name" : "angel",
 	"card_type" : "magical_uni",
 	"quantity" : 1,
@@ -333,16 +260,6 @@
 	"phases" :
 	{
 	    "in_stable" : ["choice", "sacrifice_this", "add_uni_frm_discard"]
-	}
-    },
-    {
-	"card_name" : "queenbee",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "Basic Unicorn cards cannot enter any other player's Stable.",
-	"phases" :
-	{
-	    "all" : ["basic_banned_frm_other"]
 	}
     },
     {
@@ -382,18 +299,6 @@
 	}
     },
     {
-	"card_name" : "swiftflying",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, you may choose an Instant card from the discard pile and add it to your hand. If this card would be sacrificed or destroyed, return it to your hand instead.",
-	"phases" :
-	{
-	    "enter" : ["choice", "add_instant_frm_discard"],
-	    "sacrificed" : ["ret_hand"],
-	    "destroyed" : ["ret_hand"]
-	}
-    },
-    {
 	"card_name" : "majesticflying",
 	"card_type" : "magical_uni",
 	"quantity" : 1,
@@ -428,20 +333,6 @@
 	}
     },
     {
-	"card_name" : "blackknight",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "If 1 of your Unicorn cards would be destroyed, you may SACRIFICE this card instead.",
-	"phases" :
-	{
-	    "condition" :
-	    {
-		"if" : ["uni_destroyed"],
-		"then" : ["sacrifice_this"]
-	    }
-	}
-    },
-    {
 	"card_name" : "sharkwithahorn",
 	"card_type" : "magical_uni",
 	"quantity" : 1,
@@ -452,36 +343,6 @@
 	}
     },
     {
-	"card_name" : "shabby",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, you may search the deck for a Downgrade card and add it to your hand. Shuffle the deck.",
-	"phases" :
-	{
-	    "enter" : ["add_up_down_frm_deck", "shuffle_deck"]
-	}
-    },
-    {
-	"card_name" : "narwhaltorpedo",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, SACRIFICE all Downgrade cards.",
-	"phases" :
-	{
-	    "enter" : ["sacrifice_all_down"]
-	}
-    },
-    {
-	"card_name" : "alluring",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, you may STEAL an Upgrade card.",
-	"phases" :
-	{
-	    "enter" : ["choice", "steal_up"]
-	}
-    },
-    {
 	"card_name" : "mermaid",
 	"card_type" : "magical_uni",
 	"quantity" : 1,
@@ -489,16 +350,6 @@
 	"phases" :
 	{
 	    "enter" : ["choice", "other_ret_all_to_hand"]
-	}
-    },
-    {
-	"card_name" : "classynarwhal",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, you may search the deck for an Upgrade card and add it to your hand. Shuffle the deck.",
-	"phases" :
-	{
-	    "enter" : ["choice", "add_up_frm_deck", "shuffle_deck"]
 	}
     },
     {
@@ -547,13 +398,6 @@
 	"effect" : ["move_uni_to_other", "steal_uni"]
     },
     {
-	"card_name" : "retarget",
-	"card_type" : "magic",
-	"quantity" : 2,
-	"description" : "Move an Upgrade or Downgrade card from any player's Stable to any other player's Stable.",
-	"effect" : ["other_move_up_down_to_other"]
-    },
-    {
 	"card_name" : "unfairbargain",
 	"card_type" : "magic",
 	"quantity" : 2,
@@ -565,14 +409,7 @@
 	"card_type" : "magic",
 	"quantity" : 2,
 	"description" : "SACRIFICE a card, then DESTROY 2 cards.",
-	"effect" : ["sacrifice_all", "destroy_uni", "destroy,uni"]
-    },
-    {
-	"card_name" : "unicornshrinkray",
-	"card_type" : "magic",
-	"quantity" : 1,
-	"description" : "Choose any player. Move all of that player's Unicorn cards to the discard pile without triggering any of their effects, then bring the same number of Baby Unicorn cards from the Nursery directly into that player's Stable.",
-	"effect" : ["other_discard_all_uni", "other_add_baby_to_stable"]
+	"effect" : ["sacrifice_all", "destroy_uni", "destroy_uni"]
     },
     {
 	"card_name" : "gooddeal",
@@ -586,7 +423,7 @@
 	"card_type" : "magic",
 	"quantity" : 1,
 	"description" : "Shuffle this card, your hand, and the discard pile into the deck. DRAW 5 cards.",
-	"effect" : ["this_to_deck", "hand_to_deck", "shuffle_deck", "draw", "draw", "draw", "draw", "draw"]
+	"effect" : ["this_to_deck", "hand_to_deck", "discard_to_deck", "shuffle_deck", "draw", "draw", "draw", "draw", "draw"]
     }
 
 ]

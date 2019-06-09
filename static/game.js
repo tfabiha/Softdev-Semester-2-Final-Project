@@ -12,6 +12,7 @@ var discard_pile = [];
 var mode = "draw"; //modes: beg_of_turn, draw, action, end_of_turn
 var discarding = false;
 
+var LINKHEAD = "https://raw.githubusercontent.com/tfabiha/unstablepics/master/";
 var card_atts = {};
 
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
@@ -64,7 +65,7 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	    }
       card_coords(card, i * card_width + x_shift, player_y);
 	    card.setAttribute("player","t");
-	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
+	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + card.getAttribute("name") + ".jpg");
 	    card.addEventListener("click", discard);
 	    card.addEventListener("click", play);
 	    dragHandler(d3.select(card.getAttribute("name")));
@@ -112,7 +113,7 @@ var draw = function(player) {
     var card = deck.pop();
     card_coords(card, player_hand.length * card_width + x_shift, player_y);
     card.setAttribute("player", "t");
-    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + card.getAttribute("name") + ".jpg");
+    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + card.getAttribute("name") + ".jpg");
     card.addEventListener("click", discard);
     card.addEventListener("click", play);
     player_hand.push(card);
@@ -172,7 +173,7 @@ drawbutton.addEventListener('click', function() {
               card_coords(c, c.getAttribute("x"), gen_y);
               card_dimensions(c, card_width, 150);
               c.setAttribute("player", "f");
-  						c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
+  						c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
               c.addEventListener("click", opponent_discard);
   						opponent_stable.push(c);
   						for(i = 0; i < opponent_stable.length; i++) {
@@ -187,7 +188,7 @@ drawbutton.addEventListener('click', function() {
               card_dimensions(c, card_width, 150);
               card_coords(c, svg_width - card_width, discard_y);
               c.setAttribute("player", "f");
-              c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
+              c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
               discard_pile.push(c);
               console.log(c);
             }
@@ -203,7 +204,7 @@ drawbutton.addEventListener('click', function() {
 									opponent_hand[i].setAttribute("x", i * card_width + x_shift);
 								}
                 card_coords(c, svg_width - card_width, discard_y);
-								c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
+								c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
                 discard_pile.push(c);
                 turn.innerHTML = "PLAYER TURN";
 								switch_turns();
@@ -231,7 +232,7 @@ drawbutton.addEventListener('click', function() {
 										opponent_hand[i].setAttribute("x", i * card_width + x_shift);
 									}
                   card_coords(c, svg_width - card_width, discard_y);
-									c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/" + c.getAttribute("name") + ".jpg");
+									c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
 								}
 								turn.innerHTML = "PLAYER TURN";
 								switch_turns();
