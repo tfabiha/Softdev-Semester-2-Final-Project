@@ -159,93 +159,110 @@ drawbutton.addEventListener('click', function() {
 				discarding = true;
 
 				setTimeout(function() {
-					if (Math.floor(Math.random() * 10) <= 7) {
-						var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
-						opponent_hand = opponent_hand.filter(function(n) {return n != c});
+				    if (Math.floor(Math.random() * 10) <= 7) {
+					var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
+					opponent_hand = opponent_hand.filter(function(n) {return n != c});
+					
+					var t = c.getAttribute("type");
+					
+					// add a unicorn to opponent's stable
+					if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni") {
+					    card_coords(c, c.getAttribute("x"), gen_y);
+					    card_dimensions(c, card_width, 150);
+					    c.setAttribute("player", "f");
+  					    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+					    c.addEventListener("click", opponent_discard);
+  					    opponent_stable.push(c);
 
-						var i;
-						for(i = 0; i < opponent_hand.length; i++) {
-							opponent_hand[i].setAttribute("x", i * card_width + x_shift);
-						}
-            var t = c.getAttribute("type");
-
-            if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni") {
-              card_coords(c, c.getAttribute("x"), gen_y);
-              card_dimensions(c, card_width, 150);
-              c.setAttribute("player", "f");
-  						c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
-              c.addEventListener("click", opponent_discard);
-  						opponent_stable.push(c);
-  						for(i = 0; i < opponent_stable.length; i++) {
-                opponent_stable[i].setAttribute("x", i * card_width + x_shift);
-              }
-              if (opponent_stable.length >= 7) {
-                window.location.href = "/win";
-              }
-            }
-
-            else {
-              card_dimensions(c, card_width, 150);
-              card_coords(c, svg_width - card_width, discard_y);
-              c.setAttribute("player", "f");
-              c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
-              discard_pile.push(c);
-              console.log(c);
-            }
-
-						if (opponent_hand.length > 7) {
-							turn.innerHTML = "OPPONENT IS DISCARDING CARD";
-
-							setTimeout(function() {
-								var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
-								opponent_hand = opponent_hand.filter(function(n) {return n != c});
-								var i;
-								for(i = 0; i < opponent_hand.length; i++) {
-									opponent_hand[i].setAttribute("x", i * card_width + x_shift);
-								}
-                card_coords(c, svg_width - card_width, discard_y);
-								c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
-                discard_pile.push(c);
-                turn.innerHTML = "PLAYER TURN";
-								switch_turns();
-								discarding = false;
-							}, 1500);
-						}
-
-						else {
-							turn.innerHTML = "PLAYER TURN";
-							switch_turns();
-							discarding = false;
-						}
+					    shift(opponent_stable);
+					    shift(opponent_hand);
+					    
+					    if (opponent_stable.length >= 7) {
+						    window.location.href = "/win";
+					    }
 					}
-
+					// play a magic card
 					else {
-						draw("opponent");
-						if (opponent_hand.length > 7) {
-							turn.innerHTML = "OPPONENT IS DISCARDING";
-							setTimeout(function() {
-								while(opponent_hand.length > 7) {
-									var c = opponent_hand[Math.floor(Math.random() * 8)];
-									opponent_hand = opponent_hand.filter(function(n) {return n != c});
-									var i;
-									for(i = 0; i < opponent_hand.length; i++) {
-										opponent_hand[i].setAttribute("x", i * card_width + x_shift);
-									}
-                  card_coords(c, svg_width - card_width, discard_y);
-									c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
-								}
-								turn.innerHTML = "PLAYER TURN";
-								switch_turns();
-								discarding = false;
-							}, 1500);
-						}
+					    card_dimensions(c, card_width, 150);
+					    card_coords(c, svg_width - card_width, discard_y);
+					    c.setAttribute("player", "f");
+					    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
 
-						else {
+					    // play opponent's magic card
+					    activate( c, c.getAttribute("att"), "magic", "magic" );
+					    discard_pile.push(c);
+					    shift(opponent_hand)
+					    console.log(c);
+					    }
+					
+					// remove a card if greater than 7
+					if (opponent_hand.length > 7) {
+					    turn.innerHTML = "OPPONENT IS DISCARDING CARD";
+					    
+					    setTimeout(function() {
+						var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];						
+
+						if ( t == "baby_uni" )
+						{
+						    ret_nursery( opponent_stable, opponent_hand, c );
+						}
+						else
+						{
+						    opponent_hand = opponent_hand.filter(function(n) {return n != c});
+						    shift(opponent_hand);
+						    
+						    discard_pile.push(c);
+						    card_coords(c, svg_width - card_width, discard_y);						
+						    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+						}
+						
+						turn.innerHTML = "PLAYER TURN";
+						switch_turns();
+						discarding = false;
+					    }, 1500);
+					}
+					
+					else {
+					    turn.innerHTML = "PLAYER TURN";
+					    switch_turns();
+					    discarding = false;
+					}
+				    }
+				    
+				    // opponent does not play but draws
+				    else {
+					draw("opponent");
+						if (opponent_hand.length > 7) {
+						    turn.innerHTML = "OPPONENT IS DISCARDING";
+						    setTimeout(function() {
+							while(opponent_hand.length > 7) {
+							    var c = opponent_hand[Math.floor(Math.random() * 8)];							    
+							    
+							    if ( t == "baby_uni" )
+							    {
+								ret_nursery( opponent_stable, opponent_hand, c );
+							    }
+							    else
+							    {
+								opponent_hand = opponent_hand.filter(function(n) {return n != c});
+								shift(opponent_hand);
+								discard_pile.push(c);
+								card_coords(c, svg_width - card_width, discard_y);						
+								c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+							    }
+							}
 							turn.innerHTML = "PLAYER TURN";
 							switch_turns();
 							discarding = false;
+						    }, 1500);
 						}
+					
+					else {
+					    turn.innerHTML = "PLAYER TURN";
+					    switch_turns();
+					    discarding = false;
 					}
+				    }
 				}, 1500);
 			}
 		}

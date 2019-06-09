@@ -4,27 +4,49 @@ var switch_hands = function()
     var p_hand = player_hand;
     player_hand = opponent_hand;
     opponent_hand = p_hand;
+
+    for (var i = 0; i < player_hand.length; i++)
+    {
+	card_coords( player_hand[i], svg_width - card_width, player_y);
+    }
+    for (var i = 0; i < opponent_hand.length; i++)
+    {
+	card_coords( opponent_hand[i], svg_width - card_width, opponent_y);
+    }
+
+    shift(player_hand);
+    shift(opponent_hand);
+    
     return true;
 };
 
 
 // return a card to hand from stable
 var ret_hand = function(stable, hand, card, card_y) {
-    if (stable.includes(card))
+    if (stable.includes(card) or discard_pile.includes(card))
     {
 	card_coords(card, hand.length * card_width + x_shift, card_y);
 
-	if (!myturn)
+	if (myturn)
 	{
 	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
 	}
+
+	if (card.getAttribute("type") == "baby_uni")
+	{
+	    ret_nursery(stable, hand, card);
+	}
+	else
+	{
+	    hand.push(card);
+	}
 	
-	hand.push(card);
 	stable = stable.filter(function(n) {return n != card});
+	discard_pile = discard_pile.filter(function(n) {return n != card});
 
 	shift(hand);
 	shift(stable);
-	console.log("shifted hand");
+	console.log("returning card to hand");
 
 	return true;
     }
@@ -32,7 +54,6 @@ var ret_hand = function(stable, hand, card, card_y) {
     return false;
 };
 
-// not implemented
 // return a baby unicorn from stable to nursery
 var ret_nursery = function(stable, hand, card) {
     if (stable.includes(card) && card.getAttribute("type") == "baby_uni")
@@ -51,7 +72,6 @@ var ret_nursery = function(stable, hand, card) {
 
 };
 
-// not implemented
 // adds a baby unicorn to the player's stable
 var add_baby_frm_nursery = function(stable, card_y)
 {
@@ -75,8 +95,8 @@ var add_baby_frm_nursery = function(stable, card_y)
 };
 
 // not implemented
-// checks if the card is a unicorn card and if so,
-// pulls from discard to stable
+// checks if the card is a basic unicorn card and if so,
+// pulls from hand to stable
 var add_basic_frm_hand = function(stable, hand, card, card_y)
 {
     if (hand.includes(card) && card.getAttribute("type") == "basic_uni")
@@ -93,7 +113,7 @@ var add_basic_frm_hand = function(stable, hand, card, card_y)
 	hand = hand.filter(function(n) {return n != card});
 	shift(hand);
 	console.log("added basic unicorn from hand to stable");
-
+	
 	return true;
     }
 

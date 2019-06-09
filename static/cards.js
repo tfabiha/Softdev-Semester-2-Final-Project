@@ -93,21 +93,22 @@ var discard = function(e) {
 	var card = e.target; // e is the card that we clicked on
 	player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand
 
-	// this should probably be shift( player_hand )
-
-	// IMAD DID NOT FINISH WRITING DISCARD EFFECT
+	shift(player_hand);
 	
-	var i;
-	for(i = 0; i < player_hand.length; i++)
-	{
-	    player_hand[i].setAttribute("x", i * card_width + x_shift);
-	}
-
 	card_dimensions(card, card_width, 150);
-	card_coords(card, svg_width - card_width, discard_y);
 	card.setAttribute("player", "f");
-	discard_pile.push(card);
-
+	
+	if (card.getAttribute("type") == "baby_uni")
+	{
+	    nursery.push(card);
+	    shuffle(nursery);
+	}
+	else
+	{
+	    card_coords(card, svg_width - card_width, discard_y);	    
+	    discard_pile.push(card);
+	}
+	
 	if (mode == "discard")
 	{
 	    if (player_hand.length <= 7)
@@ -118,115 +119,175 @@ var discard = function(e) {
 	    }
 	}
 	else
-	{
-	    // this is what's supposed to happen when we discard the opponents
-	    // we go through a bunch of stuff and then we change the mode to active
+	{	    	    
+	    // we now change the mode to active since we've finished
+	    // discarding our own cards
 	    // now go back to fxn [ discard_effects ]
 	    mode = "activate";
 	}
     }
 };
 
-//make opponent discard a card
-var opponent_discard = function(e) {
-  if (mode == "opponent_discard") {
-    var card = e.target;
-    opponent_stable = opponent_stable.filter(function(n) {return n != card}); // remove this card from opponent's hand
+// destroy an opponent's card
+async function opponent_discard(e) {
+    if (mode == "opponent_discard")
+    {
+	var card = e.target;
 
-    var i;
-    for(i = 0; i < opponent_stable.length; i++) {
-      player_hand[i].setAttribute("x", i * card_width + x_shift);
+	if (card.getAttribute("type") == "baby_uni")
+	{
+	    ret_nursery( opponent_stable, opponent_hand, card );
+	}
+	else
+	{
+	    
+	    opponent_stable = opponent_stable.filter(function(n) {return n != card}); // remove this card from opponent's stable
+	    
+	    shift(opponent_stable);
+	    
+	    card_dimensions(card, card_width, 150);
+	    
+	    card_coords(card, svg_width - card_width, discard_y);
+	    card.setAttribute("player", "f");
+
+	    discard_pile.push(card);
+
+	    if (card.getAttribute("type") == "magical_uni")
+	    {
+		await activate( card, card.getAttribute("att"), "uni", "destroyed" );
+	    }
+	}
+	
+	mode = "activate";
     }
-
-    card_dimensions(card, card_width, 150);
-    card_coords(card, svg_width - card_width, discard_y);
-    card.setAttribute("player", "f");
-    discard_pile.push(card);
-    mode = "activate";
-  }
 }
 
 // play a card
 async function play(e) {
-  if (mode == "play") {
-    var card = e.target;
-    player_hand = player_hand.filter(function(n) {return n != card}); // removes the played card from the hand
+    if (mode == "play") {
+	var card = e.target;
+	player_hand = player_hand.filter(function(n) {return n != card}); // removes the played card from the hand
+	
+	var t = card.getAttribute("type");
+	console.log(t);
+	if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni") {
+	    card_dimensions(card, card_width, 150);
+	    card_coords(card, card.getAttribute("x"), nursery_y);
+	    card.setAttribute("player", "f");
+	    player_stable.push(card);
+	    console.log(card);
+	    
+	    shift(player_stable);
+	    shift(player_hand)
+	    
+	    if (player_stable.length >= 7) {
+		window.location.href = "/win";
+	    }
+	}
+	else {
+	    card_dimensions(card, card_width, 150);
+	    card_coords(card, svg_width - card_width, discard_y);
+	    card.setAttribute("player", "f");
+	    discard_pile.push(card);
+	    console.log(card);
+	}
+	mode = "activate";
+	if (t == "magical_uni") {
+	    await activate( card, card.getAttribute("att"), "uni", "enter" );
+	}
+	else if (t == "magic") {
+	    await activate( card, card.getAttribute("att"), "magic", "magic" );
+	}
+	if (player_hand.length > 7) {
+	    turn.innerHTML = "DISCARD A CARD";
+	    mode = "discard";
+	}
+	else {
+	    turn.innerHTML = "OPPONENT TURN";
+	    switch_turns();
+	    mode = "draw";
+	}
+    }
+}
 
-    var i;
-    for(i = 0; i < player_hand.length; i++) {
-      player_hand[i].setAttribute("x", i * card_width + x_shift);
-    }
-    var t = card.getAttribute("type");
-    console.log(t);
-    if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni") {
-      card_dimensions(card, card_width, 150);
-      card_coords(card, card.getAttribute("x"), nursery_y);
-      card.setAttribute("player", "f");
-      player_stable.push(card);
-      console.log(card);
 
-      for(i = 0; i < player_stable.length; i++) {
-        player_stable[i].setAttribute("x", i * card_width + x_shift);
-      }
-
-      if (player_stable.length >= 7) {
-        window.location.href = "/win";
-      }
+async function basic_frm_hand()
+{
+    if (myturn)
+    {}
+    else
+    {
+	
     }
-    else {
-      card_dimensions(card, card_width, 150);
-      card_coords(card, svg_width - card_width, discard_y);
-      card.setAttribute("player", "f");
-      discard_pile.push(card);
-      console.log(card);
-    }
-    mode = "activate";
-    if (t == "magical_uni") {
-      await activate(card.getAttribute("att"), "uni");
-    }
-    else if (t == "magic") {
-      await activate(card.getAttribute("att"), "magic");
-    }
-    if (player_hand.length > 7) {
-      turn.innerHTML = "DISCARD A CARD";
-      mode = "discard";
-    }
-    else {
-      turn.innerHTML = "OPPONENT TURN";
-      switch_turns();
-      mode = "draw";
-    }
-  }
 }
 
 // only call this fxn if the player is getting rid of some card
 async function discard_effect(player)
 {
-    if (player == "player") // player has to get rid of their own card
+    if (myturn)
     {
-	turn.innerHTML = "DISCARD A CARD";
-
-	// changed mode to something else
-	// this correlates to a condition in an event listener
-	// go to fxn [ discard ] that is where this value for the mode is checked
-	mode = "discard_effect";
-
-	// so now that ur back, js isnt going to stop at the previous line
-	// it's going to want to continue regardless so we have to figure out to
-	// tell it how to wait 
-	await check_end();
-
-	// now we have finished waiting for check end
-	// our mode rn is == active so we can move on with our lives
-	// go to fx [ activate ]
-    }
-    else // player has to get rid of someone else's card
-    {
-	if (opponent_stable.length > 0)
+	if (player == "player") // player has to get rid of their own card
 	{
-	    turn.innerHTML = "DESTROY ONE OF THE OPPONENT'S UNICORN CARDS";
-	    mode = "opponent_discard";
+	    turn.innerHTML = "DISCARD A CARD";
+	    
+	    // changed mode to something else
+	    // this correlates to a condition in an event listener
+	    // go to fxn [ discard ] that is where this value for the mode is checked
+	    mode = "discard_effect";
+	    
+	    // so now that ur back, js isnt going to stop at the previous line
+	    // it's going to want to continue regardless so we have to figure out to
+	    // tell it how to wait 
 	    await check_end();
+	    
+	    // now we have finished waiting for check end
+	    // our mode rn is == active so we can move on with our lives
+	    // go to fx [ activate ]
+	}
+	else // player has to get rid of someone else's card
+	{
+	    if (opponent_stable.length > 0)
+	    {
+		turn.innerHTML = "DESTROY ONE OF THE OPPONENT'S UNICORN CARDS";
+		mode = "opponent_discard";
+		await check_end();
+	    }
+	}
+    }
+    else // if it's opponent's turn
+    {
+	if (player == "player")
+	{
+	    turn.innerHTML = "OPPONENT IS DISCARDING A CARD";
+
+	    setTimeout( function()
+			{
+			    var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
+                            opponent_hand = opponent_hand.filter(function(n) {return n != c});
+                            shift(opponent_hand);
+                            card_coords(c, svg_width - card_width, discard_y);
+                            c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+                            discard_pile.push(c);                            
+			    
+			}, 1500);
+	}
+	else
+	{
+	    setTimeout( async function()
+			{
+			    var c = player_stable[Math.floor(Math.random() * player_stable.length)];
+                            player_stable = player_stable.filter(function(n) {return n != c});
+                            shift(player_stable);
+                            card_coords(c, svg_width - card_width, discard_y);
+                            
+                            discard_pile.push(c);                            
+
+			    if (c.getAttribute("type") == "magical_uni")
+			    {
+				await activate( c, c.getAttribute("att"), "uni", "destroyed" );
+			    }
+				
+			}, 1500);
 	}
     }
 }
@@ -246,27 +307,84 @@ async function check_end() {
   }, 100));
 }
 
-async function activate(att, type) {
-  var x = null;
-  if (type == "uni") {
-    x = JSON.parse(att);
-  }
-  else {
-    x = att.split(',');
-    for (var i in x) {
-      if (x[i] == "draw") {
-        await draw("player"); // calls draw fxn and waits for it to finish running
-      }
-      if(x[i] == "discard_all") {
-          await discard_effect("player"); // calls discard_effect fxn and waits for it to finish running
-	  // we have come out of discard_effect finally and we can move on to the
-	  // next line of the code
-      }
-      if(x[i] == "destroy_uni") {
-        await discard_effect("opponent"); // calls discard_effect fxn and waits for it to finish running
-      }
+async function activate(card, att, type, moment) {
+    var x = null;
+    if (type == "uni")
+    {
+	x = JSON.parse(att);
+	x = x[moment];
     }
-  }
+    
+    if (type == "magic")
+    {
+	x = att.split(',');
+    }
+    
+    for (var i in x) {
+	if (x[i] == "draw")
+	{
+	    if (myturn)
+	    {
+		await draw("player"); // calls draw fxn and waits for it to finish running
+	    }
+	    else
+	    {
+		await draw("opponent");
+	    }
+	}
+	
+	if (x[i] == "discard_all")
+	{
+            await discard_effect("player"); // calls discard_effect fxn and waits for it to finish running
+	    // we have come out of discard_effect finally and we can move on to the
+	    // next line of the code
+	}
+	
+	if (x[i] == "destroy_uni")
+	{
+            await discard_effect("opponent"); // calls discard_effect fxn and waits for it to finish running
+	}
+
+	if (x[i] == "switch_hand")
+	{
+	    switch_hands();
+	}
+
+	if (x[i] == "ret_hand")
+	{
+	    if (moment == "destroyed")
+	    {
+		if (myturn)
+		{
+		    ret_hand( opponent_stable, opponent_hand, card, opponent_y );
+		}
+		else
+		{
+		    ret_hand( player_stable, player_hand, card, player_y );
+		}
+	    }
+	    else if (moment == "sacrificed")
+	    {}
+	}
+
+	if (x[i] == "add_baby_frm_nursery")
+	{
+	    if (myturn)
+	    {
+		add_baby_frm_nursery(player_stable, card);
+	    }
+	    else
+	    {
+		add_baby_frm_nurery(opponent_stable, card);
+	    }
+	}
+
+	if (x[i] == "add_basic_frm_hand")
+	{
+	    await basic_frm_hand(); // calls discard_effect fxn and waits for it to finish running
+	}
+    }
+
 }
 
 var switch_turns = function() {
