@@ -85,31 +85,46 @@ var make_card = function(name, type, att) {
 
 // discard a card
 var discard = function(e) {
-  if (mode == "discard" || mode == "discard_effect") {
-    var card = e.target;
-    player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand
+    // if we are in fact discarding a card
+    // this prevents ppl from discarding a card when they're supposed to be, say,
+    // playing it on to the stable
+    if (mode == "discard" || mode == "discard_effect") 
+    {
+	var card = e.target; // e is the card that we clicked on
+	player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand
 
-    var i;
-    for(i = 0; i < player_hand.length; i++) {
-      player_hand[i].setAttribute("x", i * card_width + x_shift);
-    }
+	// this should probably be shift( player_hand )
 
-    card_dimensions(card, card_width, 150);
-    card_coords(card, svg_width - card_width, discard_y);
-    card.setAttribute("player", "f");
-    discard_pile.push(card);
+	// IMAD DID NOT FINISH WRITING DISCARD EFFECT
+	
+	var i;
+	for(i = 0; i < player_hand.length; i++)
+	{
+	    player_hand[i].setAttribute("x", i * card_width + x_shift);
+	}
 
-    if (mode == "discard") {
-      if (player_hand.length <= 7) {
-        mode = "draw";
-        turn.innerHTML = "OPPONENT TURN";
-        switch_turns();
-      }
+	card_dimensions(card, card_width, 150);
+	card_coords(card, svg_width - card_width, discard_y);
+	card.setAttribute("player", "f");
+	discard_pile.push(card);
+
+	if (mode == "discard")
+	{
+	    if (player_hand.length <= 7)
+	    {
+		mode = "draw";
+		turn.innerHTML = "OPPONENT TURN";
+		switch_turns();
+	    }
+	}
+	else
+	{
+	    // this is what's supposed to happen when we discard the opponents
+	    // we go through a bunch of stuff and then we change the mode to active
+	    // now go back to fxn [ discard_effects ]
+	    mode = "activate";
+	}
     }
-    else {
-      mode = "activate";
-    }
-  }
 };
 
 //make opponent discard a card
@@ -184,20 +199,43 @@ async function play(e) {
   }
 }
 
-async function discard_effect(player) {
-  if (player == "player") {
-    turn.innerHTML = "DISCARD A CARD";
-    mode = "discard_effect";
-    await check_end();
-  }else{
-    if (opponent_stable.length > 0) {
-      turn.innerHTML = "DESTROY ONE OF THE OPPONENT'S UNICORN CARDS";
-      mode = "opponent_discard";
-      await check_end();
+// only call this fxn if the player is getting rid of some card
+async function discard_effect(player)
+{
+    if (player == "player") // player has to get rid of their own card
+    {
+	turn.innerHTML = "DISCARD A CARD";
+
+	// changed mode to something else
+	// this correlates to a condition in an event listener
+	// go to fxn [ discard ] that is where this value for the mode is checked
+	mode = "discard_effect";
+
+	// so now that ur back, js isnt going to stop at the previous line
+	// it's going to want to continue regardless so we have to figure out to
+	// tell it how to wait 
+	await check_end();
+
+	// now we have finished waiting for check end
+	// our mode rn is == active so we can move on with our lives
+	// go to fx [ activate ]
     }
-  }
+    else // player has to get rid of someone else's card
+    {
+	if (opponent_stable.length > 0)
+	{
+	    turn.innerHTML = "DESTROY ONE OF THE OPPONENT'S UNICORN CARDS";
+	    mode = "opponent_discard";
+	    await check_end();
+	}
+    }
 }
 
+// this fxn says that we promise that at some point the mode
+// is going to change to active but until then keep checking to
+// see if it's active or not
+// when mode == active then u can end the fxn
+// so go back to fxn [ discard_effect ]
 async function check_end() {
   await new Promise((resolve) => setTimeout(() => {
     if(mode != "activate") {
@@ -217,13 +255,15 @@ async function activate(att, type) {
     x = att.split(',');
     for (var i in x) {
       if (x[i] == "draw") {
-        await draw("player");
+        await draw("player"); // calls draw fxn and waits for it to finish running
       }
       if(x[i] == "discard_all") {
-        await discard_effect("player");
+          await discard_effect("player"); // calls discard_effect fxn and waits for it to finish running
+	  // we have come out of discard_effect finally and we can move on to the
+	  // next line of the code
       }
       if(x[i] == "destroy_uni") {
-        await discard_effect("opponent");
+        await discard_effect("opponent"); // calls discard_effect fxn and waits for it to finish running
       }
     }
   }
