@@ -289,11 +289,6 @@ async function sacrifice_all(stable, card)
 }
 
 
-/////////////////////////////////////////
-// ALL CARDS BELOW NOT YET IMPLEMENTED //
-/////////////////////////////////////////
-
-
 // put a card from the other player's stable to their hand
 var other_ret_all_to_hand = function(other_stable, other_hand, other_card, other_y )
 {
@@ -316,6 +311,10 @@ var other_ret_all_to_hand = function(other_stable, other_hand, other_card, other
 	shift(other_hand);
     }
 };
+
+/////////////////////////////////////////
+// ALL CARDS BELOW NOT YET IMPLEMENTED //
+/////////////////////////////////////////
 
 // move a unicorn from your stable to the other person's stable
 var move_uni_to_other = function(stable, other_stable, card, card_y)

@@ -19,7 +19,7 @@ var setup_to_hand = function(card)
 {
     card.addEventListener("click", discard);
     card.addEventListener("click", play);
-    card.addEventListener("click", add_basic);
+    card.addEventListener("click", basic_frm_hand_helper);
     card.addEventListener("mouseover", enlarge);
     card.addEventListener("mouseout", shrink);
 
@@ -29,9 +29,9 @@ var setup_remove_hand = function(card)
 {
     card.removeEventListener("click", discard);
     card.removeEventListener("click", play);
-    card.removeEventListener("click", add_basic);
-    card.addEventListener("mouseover", enlarge);
-    card.addEventListener("mouseout", shrink);
+    card.removeEventListener("click", basic_frm_hand_helper);
+    card.removeEventListener("mouseover", enlarge);
+    card.removeEventListener("mouseout", shrink);
 
 };
 
@@ -44,6 +44,7 @@ var setup_to_stable = function(player, card)
     else
     {
         card.addEventListener("click", opponent_discard);
+	card.addEventListener("click", other_ret_all_helper);
     }
 };
 
@@ -55,7 +56,8 @@ var setup_remove_stable = function(player, card)
     }
     else
     {
-        c.removeEventListener("click", opponent_discard);
+        card.removeEventListener("click", opponent_discard);
+	card.removeEventListener("click", other_ret_all_helper);
     }
 };
 

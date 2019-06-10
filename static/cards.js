@@ -224,22 +224,6 @@ async function play(e) {
     }
 }
 
-async function add_basic(e)
-{
-    var card = e.target;
-
-    if (mode == "add_basic" && card.getAttribute("type") == "basic_uni")
-    {
-      player_hand = player_hand.filter(function(n) {return n != card});
-      setup_to_stable("player", card);
-      card_dimensions(card, card_width, 150);
-      card_coords(card, player_stable.length * card_width + x_shift, nursery_y);
-      card.setAttribute("player", "f");
-      player_stable.push(card);
-	    mode = "activate";
-    }
-}
-
 async function basic_frm_hand()
 {
     if (myturn)
@@ -260,20 +244,64 @@ async function basic_frm_hand()
 	var basic = opponent_hand.filter(function(n) {return n.getAttribute("type") == "basic_uni" });
   if (basic.length > 0)
   {
-  	var c = basic[Math.floor(Math.random() * basic.length)];
-    opponent_stable = opponent_stable.filter(function(n) {return n != c});
-    card_coords(c, c.getAttribute("x"), gen_y);
-    card_dimensions(c, card_width, 150);
-    c.setAttribute("player", "f");
-    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+      var c = basic[Math.floor(Math.random() * basic.length)];
+      opponent_stable = opponent_stable.filter(function(n) {return n != c});
+      card_coords(c, c.getAttribute("x"), gen_y);
+      card_dimensions(c, card_width, 150);
+      c.setAttribute("player", "f");
+      c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
 
-    setup_to_stable("opponent", c);
+      setup_to_stable("opponent", c);
 
-    opponent_stable.push(c);
+      opponent_stable.push(c);
 
-    shift(opponent_stable);
-    shift(opponent_hand);
+      shift(opponent_stable);
+      shift(opponent_hand);
   }
+    }
+}
+
+async function basic_frm_hand_helper(e)
+{
+    var card = e.target;
+
+    if (mode == "add_basic" && card.getAttribute("type") == "basic_uni")
+    {
+	player_hand = player_hand.filter(function(n) {return n != card});
+	setup_to_stable("player", card);
+	card_dimensions(card, card_width, 150);
+	card_coords(card, player_stable.length * card_width + x_shift, nursery_y);
+	card.setAttribute("player", "f");
+	player_stable.push(card);
+	shift(player_stable);
+	mode = "activate";
+    }
+}
+
+async function other_ret_all()
+{
+    if (myturn)
+    {
+	turn.innerHTML = "CHOOSE A UNICORN TO RETURN TO THE OPPONENT'S HAND";
+	mode = "other_ret_all";
+	
+	await check_end();	
+    }
+    else
+    {
+	var c = player_hand[Math.floor(Math.random() * player_hand.length)];
+	other_ret_all_to_hand( player_stable, player_hand, c, player_y );
+    }
+}
+
+var other_ret_all_helper = function(e)
+{
+    if (mode == "other_ret_all")
+    {
+	var card = e.target;
+	
+	other_ret_all_hand( opponent_stable, opponent_hand, card, player_hand );
+	mode = "activate";
     }
 }
 
@@ -475,6 +503,11 @@ async function activate(card, att, type, moment) {
 	if (x[i] == "add_basic_frm_hand")
 	{
 	    await basic_frm_hand(); // calls discard_effect fxn and waits for it to finish running
+	}
+
+	if (x[i] == "other_ret_all_to_hand")
+	{
+	    await other_ret_all(); // calls discard_effect fxn and waits for it to finish running
 	}
 
 	if (x[i] == "sacrifice_this")
