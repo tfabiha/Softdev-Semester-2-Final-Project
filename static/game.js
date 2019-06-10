@@ -39,7 +39,7 @@ var setup_to_stable = function(player, card)
 {
     if (player == "player")
     {
-	
+
     }
     else
     {
@@ -169,7 +169,7 @@ var draw = function(player) {
 
 drawbutton.addEventListener('click', function() {
 	console.log(myturn);
-    
+
 	if (mode == "draw" || mode == "play") {
 
     // player's turn
@@ -204,15 +204,15 @@ drawbutton.addEventListener('click', function() {
 				    if (Math.floor(Math.random() * 10) <= 7) {
 					var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
 					opponent_hand = opponent_hand.filter(function(n) {return n != c});
-					
+
 					var t = c.getAttribute("type");
-					
+
 					// add a unicorn to opponent's stable
 					if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni") {
 					    card_coords(c, c.getAttribute("x"), gen_y);
 					    card_dimensions(c, card_width, 150);
 					    c.setAttribute("player", "f");
-  					    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+  					  c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
 
 					    setup_to_stable("opponent", c);
 
@@ -220,7 +220,7 @@ drawbutton.addEventListener('click', function() {
 
 					    shift(opponent_stable);
 					    shift(opponent_hand);
-					    
+
 					    if (opponent_stable.length >= 7) {
 						    window.location.href = "/win";
 					    }
@@ -238,13 +238,13 @@ drawbutton.addEventListener('click', function() {
 					    shift(opponent_hand)
 					    console.log(c);
 					    }
-					
+
 					// remove a card if greater than 7
 					if (opponent_hand.length > 7) {
 					    turn.innerHTML = "OPPONENT IS DISCARDING CARD";
-					    
+
 					    setTimeout(function() {
-						var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];						
+						var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
 
 						if ( t == "baby_uni" )
 						{
@@ -254,25 +254,25 @@ drawbutton.addEventListener('click', function() {
 						{
 						    opponent_hand = opponent_hand.filter(function(n) {return n != c});
 						    shift(opponent_hand);
-						    
+
 						    discard_pile.push(c);
-						    card_coords(c, svg_width - card_width, discard_y);						
+						    card_coords(c, svg_width - card_width, discard_y);
 						    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
 						}
-						
+
 						turn.innerHTML = "PLAYER TURN";
 						switch_turns();
 						discarding = false;
 					    }, 1500);
 					}
-					
+
 					else {
 					    turn.innerHTML = "PLAYER TURN";
 					    switch_turns();
 					    discarding = false;
 					}
 				    }
-				    
+
 				    // opponent does not play but draws
 				    else {
 					draw("opponent");
@@ -280,8 +280,8 @@ drawbutton.addEventListener('click', function() {
 						    turn.innerHTML = "OPPONENT IS DISCARDING";
 						    setTimeout(function() {
 							while(opponent_hand.length > 7) {
-							    var c = opponent_hand[Math.floor(Math.random() * 8)];							    
-							    
+							    var c = opponent_hand[Math.floor(Math.random() * 8)];
+
 							    if ( t == "baby_uni" )
 							    {
 								ret_nursery( opponent_stable, opponent_hand, c );
@@ -291,7 +291,7 @@ drawbutton.addEventListener('click', function() {
 								opponent_hand = opponent_hand.filter(function(n) {return n != c});
 								shift(opponent_hand);
 								discard_pile.push(c);
-								card_coords(c, svg_width - card_width, discard_y);						
+								card_coords(c, svg_width - card_width, discard_y);
 								c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
 							    }
 							}
@@ -300,7 +300,7 @@ drawbutton.addEventListener('click', function() {
 							discarding = false;
 						    }, 1500);
 						}
-					
+
 					else {
 					    turn.innerHTML = "PLAYER TURN";
 					    switch_turns();

@@ -104,7 +104,7 @@ var discard = function(e) {
 	card.setAttribute("player", "f");
 
 	setup_remove_hand(card);
-	
+
 	if (card.getAttribute("type") == "baby_uni")
 	{
 	    nursery.push(card);
@@ -142,7 +142,7 @@ async function opponent_discard(e) {
 	var card = e.target;
 
 	setup_remove_stable("opponent", card);
-	
+
 	if (card.getAttribute("type") == "baby_uni")
 	{
 	    ret_nursery( opponent_stable, opponent_hand, card );
@@ -177,16 +177,16 @@ async function play(e) {
 	var card = e.target;
 
 	setup_remove_hand(card);
-	
+
 	player_hand = player_hand.filter(function(n) {return n != card}); // removes the played card from the hand
 
 	var t = card.getAttribute("type");
 	console.log(t);
 	if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni") {
 	    setup_to_stable("player", card);
-	    
+
 	    card_dimensions(card, card_width, 150);
-	    card_coords(card, card.getAttribute("x"), nursery_y);
+	    card_coords(card, player_stable.length * card_width + x_shift, nursery_y);
 	    card.setAttribute("player", "f");
 	    player_stable.push(card);
 	    console.log(card);
@@ -226,13 +226,17 @@ async function play(e) {
 
 async function add_basic(e)
 {
-    card = e.target;
-    
+    var card = e.target;
+
     if (mode == "add_basic" && card.getAttribute("type") == "basic_uni")
     {
-	add_basic_frm_hand( player_stable, player_hand, card, gen_y + stable_shift );
-	
-	mode = "activate";
+      player_hand = player_hand.filter(function(n) {return n != card});
+      setup_to_stable("player", card);
+      card_dimensions(card, card_width, 150);
+      card_coords(card, player_stable.length * card_width + x_shift, nursery_y);
+      card.setAttribute("player", "f");
+      player_stable.push(card);
+	    mode = "activate";
     }
 }
 
@@ -248,15 +252,28 @@ async function basic_frm_hand()
 	    mode = "add_basic";
 
 	    await check_end();
-	    
+
 	}
     }
     else
     {
 	var basic = opponent_hand.filter(function(n) {return n.getAttribute("type") == "basic_uni" });
+  if (basic.length > 0)
+  {
+  	var c = basic[Math.floor(Math.random() * basic.length)];
+    opponent_stable = opponent_stable.filter(function(n) {return n != c});
+    card_coords(c, c.getAttribute("x"), gen_y);
+    card_dimensions(c, card_width, 150);
+    c.setAttribute("player", "f");
+    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
 
-	var c = basic[Math.floor(Math.random() * basic.length)];
-	add_basic_frm_hand( opponent_stable, opponent_hand, c, gen_y );
+    setup_to_stable("opponent", c);
+
+    opponent_stable.push(c);
+
+    shift(opponent_stable);
+    shift(opponent_hand);
+  }
     }
 }
 
@@ -310,7 +327,7 @@ async function discard_effect(player)
 
 			}, 1500);
 	}
-	else // opponent is getting rid of one of player's unicorn 
+	else // opponent is getting rid of one of player's unicorn
 	{
 	    setTimeout( async function()
 			{
@@ -374,14 +391,42 @@ async function activate(card, att, type, moment) {
 
 	if (x[i] == "discard_all")
 	{
+    if (myturn) {
             await discard_effect("player"); // calls discard_effect fxn and waits for it to finish running
 	    // we have come out of discard_effect finally and we can move on to the
 	    // next line of the code
+    }
+    else
+    {
+      var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
+      opponent_hand = opponent_hand.filter(function(n) {return n != c});
+      card_dimensions(c, card_width, 150);
+      card_coords(c, svg_width - card_width, discard_y);
+      c.setAttribute("player", "f");
+      c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+      discard_pile.push(c);
+      shift(opponent_hand);
+    }
 	}
 
 	if (x[i] == "destroy_uni")
 	{
+    if (myturn) {
             await discard_effect("opponent"); // calls discard_effect fxn and waits for it to finish running
+    }
+    else
+    {
+            if (player_stable.length > 0)
+            {
+              var c = player_hand[Math.floor(Math.random() * player_hand.length)];
+              player_hand = player_hand.filter(function(n) {return n != c});
+              card_dimensions(c, card_width, 150);
+              card_coords(c, svg_width - card_width, discard_y);
+              c.setAttribute("player", "f");
+              discard_pile.push(c);
+              shift(player_hand);
+            }
+    }
 	}
 
 	if (x[i] == "switch_hand")
@@ -498,7 +543,7 @@ var switch_turns = function() {
 
     for (var i = 0; i < stable.length; i++)
     {
-	activate( stable[i], stable.getAttribute("att"), stable.getAttribute("type"), "in_stable" );
+	activate( stable[i], stable[i].getAttribute("att"), stable[i].getAttribute("type"), "in_stable" );
     }
 };
 
