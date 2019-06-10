@@ -1,3 +1,21 @@
+async function add_basic(e)
+{
+    var card = e.target;
+
+    if (mode == "add_basic" && card.getAttribute("type") == "basic_uni")
+    {
+	player_hand = player_hand.filter(function(n) {return n != card});
+	setup_to_stable("player", card);
+	card_dimensions(card, card_width, 150);
+	card_coords(card, player_stable.length * card_width + x_shift, nursery_y);
+	card.setAttribute("player", "f");
+	player_stable.push(card);
+	mode = "activate";
+	if (player_stable.length >= 7) {
+	    window.location.href = "/winner";
+	}
+    }
+}
 
 // swap hands with the opponent -- magic / magical uni cards
 var switch_hands = function()
@@ -33,41 +51,64 @@ var switch_hands = function()
 
 
 // return a card to hand from stable
-var ret_hand = function(stable, hand, card, card_y) {
-    if (stable.includes(card) || discard_pile.includes(card))
-    {
-	card_coords(card, hand.length * card_width + x_shift, card_y);
-
-	if (myturn)
+var ret_hand = function(card, moment) {
+    // my card was destoryed or sacrificed
+    if (moment == "destroyed" && !myturn || moment == "sacrificed" && myturn)
+    {	
+	if (player_stable.includes(card) || discard_pile.includes(card))
 	{
-	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
-	    setup_remove_stable("opponent", card);
+	    card_coords(card, hand.length * card_width + x_shift, player_y);
+	    
+	    if (card.getAttribute("type") == "baby_uni")
+	    {
+		ret_nursery(stable, hand, card);
+	    }
+	    else
+	    {
+		player_hand.push(card);
+	    }
+
+	    player_stable = player_stable.filter(function(n) {return n != card});
+	    discard_pile = discard_pile.filter(function(n) {return n != card});
+
+	    shift(player_hand);
+	    shift(player_stable);
+	    console.log("returning card to hand");
 	}
-
-	if (card.getAttribute("type") == "baby_uni")
-	{
-	    ret_nursery(stable, hand, card);
-	}
-	else
-	{
-	    hand.push(card);
-	}
-
-	stable = stable.filter(function(n) {return n != card});
-	discard_pile = discard_pile.filter(function(n) {return n != card});
-
-	shift(hand);
-	shift(stable);
-	console.log("returning card to hand");
-
-	return true;
     }
+    // opponent's card was destroyed or sacrificed
+    else
+    {
+	if (opponentplayer_stable.includes(card) || discard_pile.includes(card))
+	{
+	    card_coords(card, hand.length * card_width + x_shift, opponent_y);
 
-    return false;
+	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
+	    setup_remove_stable("opponent", card);	    
+	    
+	    if (card.getAttribute("type") == "baby_uni")
+	    {
+		ret_nursery(stable, hand, card);
+	    }
+	    else
+	    {
+		opponent_hand.push(card);
+	    }
+
+	    opponent_stable = opponent_stable.filter(function(n) {return n != card});
+	    discard_pile = discard_pile.filter(function(n) {return n != card});
+
+	    shift(opponent_hand);
+	    shift(opponent_stable);
+	    console.log("returning card to hand");
+	}
+    
+    }
 };
 
 // return a baby unicorn from stable to nursery
 var ret_nursery = function(stable, hand, card) {
+    
     if (stable.includes(card) && card.getAttribute("type") == "baby_uni")
     {
 	nursery.push(card);
@@ -76,10 +117,15 @@ var ret_nursery = function(stable, hand, card) {
 	if (stable == opponent_stable)
 	{
 	    setup_remove_stable("opponent", card);
+	    opponent_stable = opponent_stable.filter(function(n) {return n != card});
+	    shift(opponent_stable);
 	}
+	else
+	{
+	    player_stable = player_stable.filter(function(n) {return n != card});
+	    shift(player_stable);
+	}	
 
-	stable = stable.filter(function(n) {return n != card});
-	shift(stable);
 	console.log("returned baby unicorn to nursery");
 
 	return true;
@@ -217,7 +263,7 @@ var sacrifice_this = function(stable, card)
 	    setup_remove_stable("opponent", card);
 	}
 
-	card_coords(card, hand.length * card_width + x_shift, discard_y);
+	card_coords(card, stable.length * card_width + x_shift, discard_y);
 	discard_pile.push(card);
     }
 };
@@ -245,35 +291,31 @@ var hand_to_deck = function()
     {
 	for (var i = 0; i < player_hand.length; i++)
 	{
-	    discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
-	    setup_remove_hand();
-
-	    deck = deck + player_hand;
-	    player_hand = [];
+	    player_hand[i].setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
+	    setup_remove_hand(player_hand[i]);
+      card_dimensions(player_hand[i], card_width, 150);
+      card_coords(player_hand[i], 0, gen_y);
+      player_hand[i].setAttribute("player", "f");
 	}
+  deck = deck.concat(player_hand);
+  console.log(deck);
+	player_hand = [];
     }
     else
     {
-	deck = deck + opponent_hand;
+	deck = deck.concat(opponent_hand);
+  for (var i = 0; i < deck.length; i++) {
+    if (deck[i].getAttribute("type") == "baby_uni") {
+      nursery.push(deck[i]);
+      card_coords(deck[i], 0, nursery_y);
+      deck = deck.filter(function(n) {return n != deck[i]});
+    }
+  }
 	opponent_hand = [];
     }
 
     shift(discard_pile);
-}
-
-
-// add the discard pile to the deck
-var discard_to_deck = function()
-{
-    for (var i = 0; i < discard_pile.length; i++)
-    {
-	discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
-    }
-
-    deck = deck + discard_pile;
-    discard_pile = [];
-    shift(discard_pile);
-}
+};
 
 // sacrifice a card
 async function sacrifice_all(stable, card)

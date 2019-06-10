@@ -19,7 +19,7 @@ var setup_to_hand = function(card)
 {
     card.addEventListener("click", discard);
     card.addEventListener("click", play);
-    card.addEventListener("click", basic_frm_hand_helper);
+    card.addEventListener("click", add_basic);
     card.addEventListener("mouseover", enlarge);
     card.addEventListener("mouseout", shrink);
 
@@ -29,7 +29,7 @@ var setup_remove_hand = function(card)
 {
     card.removeEventListener("click", discard);
     card.removeEventListener("click", play);
-    card.removeEventListener("click", basic_frm_hand_helper);
+    card.removeEventListener("click", add_basic);
     card.removeEventListener("mouseover", enlarge);
     card.removeEventListener("mouseout", shrink);
 
@@ -224,7 +224,7 @@ drawbutton.addEventListener('click', function() {
 					    shift(opponent_hand);
 
 					    if (opponent_stable.length >= 7) {
-						    window.location.href = "/win";
+						    window.location.href = "/winner";
 					    }
 					}
 					// play a magic card
