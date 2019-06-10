@@ -403,7 +403,16 @@ async function activate(card, att, type, moment) {
 		}
 	    }
 	    else if (moment == "sacrificed")
-	    {}
+	    {
+		if (myturn)
+		{
+		    ret_hand( player_stable, player_hand, card, player_y );
+		}
+		else
+		{
+		    ret_hand( opponent_stable, opponent_hand, card, opponent_y );
+		}
+	    }
 	}
 
 	if (x[i] == "add_baby_frm_nursery")
@@ -422,12 +431,75 @@ async function activate(card, att, type, moment) {
 	{
 	    await basic_frm_hand(); // calls discard_effect fxn and waits for it to finish running
 	}
+
+	if (x[i] == "sacrifice_this")
+	{
+	    if (myturn)
+	    {
+		sacrifice_this( player_stable, card );
+	    }
+	    else
+	    {
+		sacrifice_this( opponent_stable, card );
+	    }
+	}
+
+	if (x[i] == "ret_stable_if_hand_nempty")
+	{
+	    if (moment == "destroyed")
+	    {
+		if (myturn)
+		{
+		    ret_hand( opponent_stable, opponent_hand, card, gen_y );
+		}
+		else
+		{
+		    ret_hand( player_stable, player_hand, card, gen_y + stable_shift );
+		}
+	    }
+	    else if (moment == "sacrificed")
+	    {
+		if (myturn)
+		{
+		    ret_hand( player_stable, player_hand, card, gen_y );
+		}
+		else
+		{
+		    ret_hand( opponent_stable, opponent_hand, card, gen_y + stable_shift );
+		}
+	    }
+
+	}
+
+	if (x[i] == "hand_to_deck")
+	{
+	    hand_to_deck();
+	}
+
+	if (x[i] == "discard_to_deck")
+	{
+	    hand_to_deck();
+	}
     }
 
 }
 
 var switch_turns = function() {
-  myturn = !myturn;
+    myturn = !myturn;
+
+    if (myturn)
+    {
+	var stable = player_stable;
+    }
+    else
+    {
+	var stable = opponent_stable;
+    }
+
+    for (var i = 0; i < stable.length; i++)
+    {
+	activate( stable[i], stable.getAttribute("att"), stable.getAttribute("type"), "in_stable" );
+    }
 };
 
 //card_dimensions(card, card_width, 150);

@@ -225,10 +225,6 @@ var add_uni_frm_discard_to_hand = function(hand, card, card_y)
     return false;
 };
 
-/////////////////////////////////////////
-// ALL CARDS BELOW NOT YET IMPLEMENTED //
-/////////////////////////////////////////
-
 // sacrifice this card
 var sacrifice_this = function(stable, card)
 {
@@ -258,13 +254,69 @@ var ret_stable_if_hand_nempty = function(stable, hand, card, card_y)
 	if (hand.length > 0)
 	{
 	    discard_pile = discard_pile.filter(function(n) {return n != card});
-	    card_coords(card, hand.length * card_width + x_shift, card_y);
+	    card_coords(card, stable.length * card_width + x_shift, card_y);
 	    stable.push(card)
 	    shift(stable);
 	}
 	
     }
 };
+
+// add you're current hand to the deck
+var hand_to_deck = function()
+{
+    if (myturn)
+    {	
+	for (var i = 0; i < player_hand.length; i++)
+	{
+	    discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
+	    setup_remove_hand();
+
+	    deck = deck + player_hand;
+	    player_hand = [];
+	}
+    }
+    else
+    {
+	deck = deck + opponent_hand;
+	opponent_hand = [];
+    }
+	    
+    shift(discard_pile);
+}
+
+
+// add the discard pile to the deck
+var discard_to_deck = function()
+{
+    for (var i = 0; i < discard_pile.length; i++)
+    {
+	discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
+    }
+    
+    deck = deck + discard_pile;
+    discard_pile = [];
+    shift(discard_pile);
+}
+
+// sacrifice a card
+async function sacrifice_all(stable, card)
+{
+    if (stable.includes(card))
+    {
+	stable = stable.filter(function(n) {return n != card});\
+	card_coords(card, hand.length * card_width + x_shift, discard_y);	
+	discard.push(card)
+
+	await activate(card, card.getAttribute("att"), card.getAttribute("type"), "sacrificed");
+    }
+}
+
+
+/////////////////////////////////////////
+// ALL CARDS BELOW NOT YET IMPLEMENTED //
+/////////////////////////////////////////
+
 
 // put a card from the other player's stable to their hand
 var other_ret_all_to_hand = function(other_stable, other_hand, other_card, other_y )
@@ -318,52 +370,3 @@ var steal_uni = function(stable, other_stable, card, card_y)
 }
 
 
-// add you're current hand to the deck
-var hand_to_deck = function()
-{
-    if (myturn)
-    {	
-	for (var i = 0; i < player_hand.length; i++)
-	{
-	    discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
-	    setup_remove_hand();
-
-	    deck = deck + player_hand;
-	    player_hand = [];
-	}
-    }
-    else
-    {
-	deck = deck + opponent_hand;
-	opponent_hand = [];
-    }
-	    
-    shift(discard_pile);
-}
-
-
-// add the discard pile to the deck
-var discard_to_deck = function()
-{
-    for (var i = 0; i < discard_pile.length; i++)
-    {
-	discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
-    }
-    
-    deck = deck + discard_pile;
-    discard_pile = [];
-    shift(discard_pile);
-}
-
-// sacrifice a card
-async function sacrifice_all(stable, card)
-{
-    if (stable.includes(card))
-    {
-	stable = stable.filter(function(n) {return n != card});\
-	card_coords(card, hand.length * card_width + x_shift, discard_y);	
-	discard.push(card)
-
-	await activate(card, card.getAttribute("att"), card.getAttribute("type"), "sacrificed");
-    }
-}
