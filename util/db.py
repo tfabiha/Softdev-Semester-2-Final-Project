@@ -23,16 +23,17 @@ def auth_user(username, password):
         if row[0] == username and sha256_crypt.verify(password, row[1]):
             db.close()
             return True
-    db.close()
+    config.end_db(db)
     return False
 
 
 def get_id(username):
     db, c = config.start_db()
-    command = "SELECT id FROM users WHERE username = ?;"
-    c.execute(command,(username))
+    command = "SELECT username FROM users WHERE username = ?;"
+    params = (username,)
+    c.execute(command,params)
     id = c.fetchall()
-    db.close()
+    config.end_db(db)
     return id[0][0]
 
 def all_users():
@@ -40,7 +41,7 @@ def all_users():
     command = "SELECT username, password FROM users;"
     c.execute(command)
     all = c.fetchall()
-    db.close()
+    config.end_db(db)
     dict = {}
     for item in all:
         dict[item[0]] = item[1]

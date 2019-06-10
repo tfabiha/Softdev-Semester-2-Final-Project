@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+
+{% block title %}
+Leaderboard
+{% endblock %}
+
+{% block content %}
+<div class="container justify-content-center">
+  <table class="table table-borderless">
+    <thead>
+      <tr>
+        <th scope="col"><h5>Username</h5></th>
+        <th scope="col" class="text-center"><h5>Wins</h5></th>
+        <th scope="col" class="text-center"><h5>Losses</h5></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for player in users %}
+      {% if player['username'] == user %}
+      <tr class="table-active">
+        {% else %}
+      <tr>
+        {% endif %}
+        <th scope="row">{{ player['username'] }}</th>
+        <td class="text-center">{{ player['wins'] }}</td>
+        <td class="text-center">{{ player['losses'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
