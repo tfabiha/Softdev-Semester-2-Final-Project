@@ -1,3 +1,4 @@
+
 // swap hands with the opponent -- magic / magical uni cards
 var switch_hands = function()
 {
@@ -7,25 +8,21 @@ var switch_hands = function()
 
     for (var i = 0; i < player_hand.length; i++)
     {
-  var c = player_hand[i];
+	var c = player_hand[i];
 	card_coords( c, i * card_width + x_shift, player_y);
-  c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
-  c.addEventListener("click", play);
-  c.addEventListener("click", discard);
-  c.addEventListener("mouseover", enlarge)
-  c.addEventListener("mouseout", shrink);
-  c.setAttribute("player", "t");
+	c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+
+	setup_to_hand(c);
+	c.setAttribute("player", "t");
     }
     for (var i = 0; i < opponent_hand.length; i++)
     {
-  var c = opponent_hand[i];
+	var c = opponent_hand[i];
 	card_coords( c, i * card_width + x_shift, opponent_y);
-  c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
-  c.removeEventListener("click", play);
-  c.removeEventListener("click", discard);
-  c.removeEventListener("mouseover", enlarge);
-  c.removeEventListener("mouseout", shrink);
-  c.setAttribute("player", "f");
+	c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
+
+	setup_to_hand(c);
+	c.setAttribute("player", "f");
     }
 
     shift(player_hand);
@@ -44,6 +41,7 @@ var ret_hand = function(stable, hand, card, card_y) {
 	if (myturn)
 	{
 	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
+	    setup_remove_stable("opponent", card);
 	}
 
 	if (card.getAttribute("type") == "baby_uni")
@@ -75,6 +73,11 @@ var ret_nursery = function(stable, hand, card) {
 	nursery.push(card);
 	shuffle(nursery);
 
+	if (stable == opponent_stable)
+	{
+	    setup_remove_stable("opponent", card);
+	}
+	
 	stable = stable.filter(function(n) {return n != card});
 	shift(stable);
 	console.log("returned baby unicorn to nursery");
@@ -97,6 +100,7 @@ var add_baby_frm_nursery = function(stable, card_y)
 	if (myturn)
 	{
 	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + card.getAttribute("name") + ".jpg");
+	    setup_to_hand(card);
 	}
 
 	stable.push( card );
@@ -120,8 +124,7 @@ var add_basic_frm_hand = function(stable, hand, card, card_y)
 
 	if (myturn)
 	{
-	    card.removeEventListener("click", discard);
-	    card.removeEventListener("click", play);
+	    setup_remove_hand(card);
 	}
 
 	hand = hand.filter(function(n) {return n != card});
@@ -141,6 +144,11 @@ var add_uni_frm_discard = function(stable, card, card_y)
 {
     if (discard_pile.includes(card) && (card.getAttribute("type") == "basic_uni" || card.getAttribute("type") == "magical_uni"))
     {
+	if (!myturn)
+	{
+	    setup_to_stable("opponent", card);
+	}
+	
 	card_coords(card, hand.length * card_width + x_shift, card_y);
 	stable.push(card);
 
@@ -170,8 +178,7 @@ var add_magic_frm_discard = function(hand, card, card_y)
 	}
 	else
 	{
-	    card.addEventListener("click", discard);
-	    card.addEventListener("click", play);
+	    setup_to_hand(card);
 	}
 
 	discard_pile = discard_pile.filter(function(n) {return n != card});
@@ -200,8 +207,7 @@ var add_uni_frm_discard_to_hand = function(hand, card, card_y)
 	}
 	else
 	{
-	    card.addEventListener("click", discard);
-	    card.addEventListener("click", play);
+	    setup_to_hand(card);
 	}
 
 	discard_pile = discard_pile.filter(function(n) {return n != card});

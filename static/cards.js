@@ -98,12 +98,13 @@ var discard = function(e) {
     {
 	var card = e.target; // e is the card that we clicked on
 	player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand
-
 	shift(player_hand);
 
 	card_dimensions(card, card_width, 150);
 	card.setAttribute("player", "f");
 
+	setup_remove_hand(card);
+	
 	if (card.getAttribute("type") == "baby_uni")
 	{
 	    nursery.push(card);
@@ -128,7 +129,7 @@ var discard = function(e) {
 	{
 	    // we now change the mode to active since we've finished
 	    // discarding our own cards
-	    // now go back to fxn [ discard_effects ]
+	    // now go back to fxn [ discard_effect ]
 	    mode = "activate";
 	}
     }
@@ -140,6 +141,8 @@ async function opponent_discard(e) {
     {
 	var card = e.target;
 
+	setup_remove_stable("opponent", card);
+	
 	if (card.getAttribute("type") == "baby_uni")
 	{
 	    ret_nursery( opponent_stable, opponent_hand, card );
@@ -172,11 +175,16 @@ async function opponent_discard(e) {
 async function play(e) {
     if (mode == "play") {
 	var card = e.target;
+
+	setup_remove_hand(card);
+	
 	player_hand = player_hand.filter(function(n) {return n != card}); // removes the played card from the hand
 
 	var t = card.getAttribute("type");
 	console.log(t);
 	if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni") {
+	    setup_to_stable("player", card);
+	    
 	    card_dimensions(card, card_width, 150);
 	    card_coords(card, card.getAttribute("x"), nursery_y);
 	    card.setAttribute("player", "f");
@@ -216,14 +224,39 @@ async function play(e) {
     }
 }
 
+async function add_basic(e)
+{
+    card = e.target;
+    
+    if (mode == "add_basic" && card.getAttribute("type") == "basic_uni")
+    {
+	add_basic_frm_hand( player_stable, player_hand, card, gen_y + stable_shift );
+	
+	mode = "activate";
+    }
+}
 
 async function basic_frm_hand()
 {
     if (myturn)
-    {}
+    {
+	var basic = player_hand.filter(function(n) {return n.getAttribute("type") == "basic_uni" });
+
+	if (basic.length > 0)
+	{
+	    turn.innerHTML = "ADD A BASIC UNICORN FROM YOUR HAND TO THE STABLE";
+	    mode = "add_basic";
+
+	    await check_end();
+	    
+	}
+    }
     else
     {
+	var basic = opponent_hand.filter(function(n) {return n.getAttribute("type") == "basic_uni" });
 
+	var c = basic[Math.floor(Math.random() * basic.length)];
+	add_basic_frm_hand( opponent_stable, opponent_hand, c, gen_y );
     }
 }
 
@@ -277,7 +310,7 @@ async function discard_effect(player)
 
 			}, 1500);
 	}
-	else
+	else // opponent is getting rid of one of player's unicorn 
 	{
 	    setTimeout( async function()
 			{

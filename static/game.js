@@ -15,6 +15,51 @@ var discarding = false;
 var LINKHEAD = "https://raw.githubusercontent.com/tfabiha/unstablepics/master/";
 var card_atts = {};
 
+var setup_to_hand = function(card)
+{
+    card.addEventListener("click", discard);
+    card.addEventListener("click", play);
+    card.addEventListener("click", add_basic);
+    card.addEventListener("mouseover", enlarge);
+    card.addEventListener("mouseout", shrink);
+
+};
+
+var setup_remove_hand = function(card)
+{
+    card.removeEventListener("click", discard);
+    card.removeEventListener("click", play);
+    card.removeEventListener("click", add_basic);
+    card.addEventListener("mouseover", enlarge);
+    card.addEventListener("mouseout", shrink);
+
+};
+
+var setup_to_stable = function(player, card)
+{
+    if (player == "player")
+    {
+
+    }
+    else
+    {
+        card.addEventListener("click", opponent_discard);
+    }
+};
+
+var setup_remove_stable = function(player, card)
+{
+    if (player == "player")
+    {
+
+    }
+    else
+    {
+        c.removeEventListener("click", opponent_discard);
+    }
+};
+
+
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
 
   var dragHandler = d3.drag()
@@ -49,7 +94,6 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	    }
 	  }
   }
-
   shuffle(nursery);
   shuffle(deck);
 
@@ -63,13 +107,12 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 	    else {
 		    card = deck.pop();
 	    }
-      card_coords(card, i * card_width + x_shift, player_y);
-	    card.setAttribute("player","t");
-	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + card.getAttribute("name") + ".jpg");
-	    card.addEventListener("click", discard);
-	    card.addEventListener("click", play);
-	    dragHandler(d3.select(card.getAttribute("name")));
-	    player_hand.push(card);
+	      card_coords(card, i * card_width + x_shift, player_y);
+	      card.setAttribute("player","t");
+	      card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + card.getAttribute("name") + ".jpg");
+	      setup_to_hand(card);
+	      dragHandler(d3.select(card.getAttribute("name")));
+	      player_hand.push(card);
 	  }
   }
 
@@ -109,25 +152,24 @@ d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/car
 });
 
 var draw = function(player) {
-  if (player == "player") {
-    var card = deck.pop();
-    card_coords(card, player_hand.length * card_width + x_shift, player_y);
-    card.setAttribute("player", "t");
-    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + card.getAttribute("name") + ".jpg");
-    card.addEventListener("click", discard);
-    card.addEventListener("click", play);
-    player_hand.push(card);
-  }
-  else {
-    var card = deck.pop();
-    card_coords(card, opponent_hand.length * card_width + x_shift, 0);
+    if (player == "player") {
+	var card = deck.pop();
+	card_coords(card, player_hand.length * card_width + x_shift, player_y);
+	card.setAttribute("player", "t");
+	card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + card.getAttribute("name") + ".jpg");
+	setup_to_hand(card);
+	player_hand.push(card);
+    }
+    else {
+	var card = deck.pop();
+	card_coords(card, opponent_hand.length * card_width + x_shift, 0);
     opponent_hand.push(card);
-  }
+    }
 }
 
 drawbutton.addEventListener('click', function() {
 	console.log(myturn);
-
+    
 	if (mode == "draw" || mode == "play") {
 
     // player's turn
@@ -171,8 +213,10 @@ drawbutton.addEventListener('click', function() {
 					    card_dimensions(c, card_width, 150);
 					    c.setAttribute("player", "f");
   					    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
-					    c.addEventListener("click", opponent_discard);
-  					    opponent_stable.push(c);
+
+					    setup_to_stable("opponent", c);
+
+					    opponent_stable.push(c);
 
 					    shift(opponent_stable);
 					    shift(opponent_hand);
