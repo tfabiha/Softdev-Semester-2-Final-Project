@@ -3,7 +3,7 @@ import os, random
 from flask import Flask, render_template, request, session, url_for, redirect, flash
 from flask_socketio import SocketIO, join_room, leave_room, emit, send
 
-from util import config, db
+from util import config, db, leaderboard
 
 app = Flask(__name__) #create instance of class flask
 
@@ -17,10 +17,42 @@ config.create_table()
 
 @app.route('/')
 def root():
+    guest = 'user' not in session
+    user = None
+    if not guest: user = session['user']
+    return render_template("lobby.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
+
+@app.route('/leaderboard')
+def leader():
     '''
-    websockets testing
+    leaderboard testing
     '''
-    return render_template("lobby.html", guest='user' not in session)
+    guest = 'user' not in session
+    user = None
+    if not guest: user = session['user']
+    return render_template("leaderboard.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
+
+@app.route('/wins')
+def wins():
+    '''
+    leaderboard testing
+    '''
+    guest = 'user' not in session
+    user = None
+    if not guest: user = session['user']
+    if not guest: leaderboard.add_wins(user)
+    return render_template("leaderboard.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
+
+@app.route('/losses')
+def losses():
+    '''
+    leaderboard testing
+    '''
+    guest = 'user' not in session
+    user = None
+    if not guest: user = session['user']
+    if not guest: leaderboard.add_losses(user)
+    return render_template("leaderboard.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
 
 @socketio.on('joinRoom')
 def joinRoom(roomInfo):
