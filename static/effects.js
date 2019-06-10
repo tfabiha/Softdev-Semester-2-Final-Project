@@ -112,7 +112,6 @@ var add_baby_frm_nursery = function(stable, card_y)
     return false;
 };
 
-// not implemented
 // checks if the card is a basic unicorn card and if so,
 // pulls from hand to stable
 var add_basic_frm_hand = function(stable, hand, card, card_y)
@@ -135,12 +134,12 @@ var add_basic_frm_hand = function(stable, hand, card, card_y)
     }
 
     return false;
-}
+};
 
 // not implemented
 // checks if the card is a unicorn card and if so,
 // pulls from discard to stable
-var add_uni_frm_discard = function(stable, card, card_y)
+async function add_uni_frm_discard(stable, card, card_y)
 {
     if (discard_pile.includes(card) && (card.getAttribute("type") == "basic_uni" || card.getAttribute("type") == "magical_uni"))
     {
@@ -154,13 +153,19 @@ var add_uni_frm_discard = function(stable, card, card_y)
 
 	discard_pile = discard_pile.filter(function(n) {return n != card});
 	shift(hand);
+
+	if (card.getAttribute("type") == "magical_uni")
+	{
+	    await activate( card, card.getAttribute("att"), card.getAttribute("type"), "enter" );
+	}
+	
 	console.log("added magic card from discard pile to stable");
 
 	return true;
     }
 
     return false;
-}
+};
 
 // not implemented
 // checks if the card is a magic card and if so,
@@ -189,7 +194,7 @@ var add_magic_frm_discard = function(hand, card, card_y)
     }
 
     return false;
-}
+};
 
 // not implemented
 // checks if the card is a unicorn card and if so,
@@ -218,4 +223,147 @@ var add_uni_frm_discard_to_hand = function(hand, card, card_y)
     }
 
     return false;
+};
+
+/////////////////////////////////////////
+// ALL CARDS BELOW NOT YET IMPLEMENTED //
+/////////////////////////////////////////
+
+// sacrifice this card
+var sacrifice_this = function(stable, card)
+{
+    if (stable.includes(card))
+    {
+	stable = stable.filter(function(n) {return n != card});
+
+	if (myturn)
+	{
+	    setup_remove_stable("player", card);
+	}
+	else
+	{
+	    setup_remove_stable("opponent", card);
+	}
+	
+	card_coords(card, hand.length * card_width + x_shift, discard_y);
+	discard_pile.push(card);
+    }    
+};
+
+// return to the stable if player's hand is not empty
+var ret_stable_if_hand_nempty = function(stable, hand, card, card_y)
+{
+    if (stable.includes(card))
+    {
+	if (hand.length > 0)
+	{
+	    discard_pile = discard_pile.filter(function(n) {return n != card});
+	    card_coords(card, hand.length * card_width + x_shift, card_y);
+	    stable.push(card)
+	    shift(stable);
+	}
+	
+    }
+};
+
+// put a card from the other player's stable to their hand
+var other_ret_all_to_hand = function(other_stable, other_hand, other_card, other_y )
+{
+    if (other_stable.includes(other_card))
+    {
+	other_stable = other_stable.filter(function(n) {return n != card});
+
+	if (!myturn)
+	{
+	    setup_remove_stable("player", card);
+	    setup_to_hand(card);
+	}
+	else
+	{
+	    setup_remove_stable("opponent", card);
+	}
+
+	card_coords(card, hand.length * card_width + x_shift, other_y);
+	other_hand.push(card);
+	shift(other_hand);
+    }
+};
+
+// move a unicorn from your stable to the other person's stable
+var move_uni_to_other = function(stable, other_stable, card, card_y)
+{
+    if (stable.includes(card))
+    {
+	stable = stable.filter(function(n) {return n != card});
+	card_coords(card, hand.length * card_width + x_shift, card_y);
+	other_stable.push(card);
+
+	shift(stable);
+	shift(other_stable);
+    }
+};
+
+// steal_uni
+var steal_uni = function(stable, other_stable, card, card_y)
+{
+    if (other_stable.includes(card))
+    {
+	other_stable = other_stable.filter(function(n) {return n != card});
+	card_coords(card, hand.length * card_width + x_shift, card_y);
+	stable.push(card);
+
+	shift(stable);
+	shift(other_stable);
+    }
+}
+
+
+// add you're current hand to the deck
+var hand_to_deck = function()
+{
+    if (myturn)
+    {	
+	for (var i = 0; i < player_hand.length; i++)
+	{
+	    discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
+	    setup_remove_hand();
+
+	    deck = deck + player_hand;
+	    player_hand = [];
+	}
+    }
+    else
+    {
+	deck = deck + opponent_hand;
+	opponent_hand = [];
+    }
+	    
+    shift(discard_pile);
+}
+
+
+// add the discard pile to the deck
+var discard_to_deck = function()
+{
+    for (var i = 0; i < discard_pile.length; i++)
+    {
+	discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
+    }
+    
+    deck = deck + discard_pile;
+    discard_pile = [];
+    shift(discard_pile);
+}
+
+// sacrifice a card
+async function sacrifice_all(stable, card)
+{
+    if (stable.includes(card))
+    {
+	stable = stable.filter(function(n) {return n != card});\
+	card_coords(card, hand.length * card_width + x_shift, discard_y);	
+	discard.push(card)
+
+	await activate(card, card.getAttribute("att"), card.getAttribute("type"), "sacrificed");
+    }
 }

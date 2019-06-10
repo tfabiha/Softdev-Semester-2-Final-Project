@@ -39,7 +39,7 @@ var setup_to_stable = function(player, card)
 {
     if (player == "player")
     {
-
+	
     }
     else
     {
