@@ -217,7 +217,7 @@ var sacrifice_this = function(stable, card)
 	    setup_remove_stable("opponent", card);
 	}
 
-	card_coords(card, hand.length * card_width + x_shift, discard_y);
+	card_coords(card, stable.length * card_width + x_shift, discard_y);
 	discard_pile.push(card);
     }
 };
@@ -245,35 +245,31 @@ var hand_to_deck = function()
     {
 	for (var i = 0; i < player_hand.length; i++)
 	{
-	    discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
-	    setup_remove_hand();
-
-	    deck = deck + player_hand;
-	    player_hand = [];
+	    player_hand[i].setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
+	    setup_remove_hand(player_hand[i]);
+      card_dimensions(player_hand[i], card_width, 150);
+      card_coords(player_hand[i], 0, gen_y);
+      player_hand[i].setAttribute("player", "f");
 	}
+  deck = deck.concat(player_hand);
+  console.log(deck);
+	player_hand = [];
     }
     else
     {
-	deck = deck + opponent_hand;
+	deck = deck.concat(opponent_hand);
+  for (var i = 0; i < deck.length; i++) {
+    if (deck[i].getAttribute("type") == "baby_uni") {
+      nursery.push(deck[i]);
+      card_coords(deck[i], 0, nursery_y);
+      deck = deck.filter(function(n) {return n != deck[i]});
+    }
+  }
 	opponent_hand = [];
     }
 
     shift(discard_pile);
-}
-
-
-// add the discard pile to the deck
-var discard_to_deck = function()
-{
-    for (var i = 0; i < discard_pile.length; i++)
-    {
-	discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
-    }
-
-    deck = deck + discard_pile;
-    discard_pile = [];
-    shift(discard_pile);
-}
+};
 
 // sacrifice a card
 async function sacrifice_all(stable, card)

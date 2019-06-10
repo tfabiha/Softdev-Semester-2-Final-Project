@@ -195,7 +195,7 @@ async function play(e) {
 	    shift(player_hand)
 
 	    if (player_stable.length >= 7) {
-		window.location.href = "/win";
+		window.location.href = "/winner";
 	    }
 	}
 	else {
@@ -237,6 +237,9 @@ async function add_basic(e)
       card.setAttribute("player", "f");
       player_stable.push(card);
 	    mode = "activate";
+      if (player_stable.length >= 7) {
+		window.location.href = "/winner";
+	    }
     }
 }
 
@@ -262,7 +265,7 @@ async function basic_frm_hand()
   {
   	var c = basic[Math.floor(Math.random() * basic.length)];
     opponent_stable = opponent_stable.filter(function(n) {return n != c});
-    card_coords(c, c.getAttribute("x"), gen_y);
+    card_coords(c, opponent_stable.length * card_width + stable_shift, gen_y);
     card_dimensions(c, card_width, 150);
     c.setAttribute("player", "f");
     c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
@@ -273,6 +276,10 @@ async function basic_frm_hand()
 
     shift(opponent_stable);
     shift(opponent_hand);
+
+    if (opponent_stable.length >= 7) {
+  window.location.href = "/winner";
+    }
   }
     }
 }
@@ -367,6 +374,7 @@ async function activate(card, att, type, moment) {
     var x = null;
     if (type == "uni")
     {
+      console.log(att);
 	x = JSON.parse(att);
 	x = x[moment];
     }
@@ -379,6 +387,8 @@ async function activate(card, att, type, moment) {
     for (var i in x) {
 	if (x[i] == "draw")
 	{
+    console.log(mode);
+    console.log(myturn);
 	    if (myturn)
 	    {
 		await draw("player"); // calls draw fxn and waits for it to finish running
@@ -392,39 +402,47 @@ async function activate(card, att, type, moment) {
 	if (x[i] == "discard_all")
 	{
     if (myturn) {
+      console.log("player_discard");
+      if (player_hand.length > 0) {
             await discard_effect("player"); // calls discard_effect fxn and waits for it to finish running
 	    // we have come out of discard_effect finally and we can move on to the
 	    // next line of the code
+      }
     }
     else
     {
-      var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
-      opponent_hand = opponent_hand.filter(function(n) {return n != c});
-      card_dimensions(c, card_width, 150);
-      card_coords(c, svg_width - card_width, discard_y);
-      c.setAttribute("player", "f");
-      c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
-      discard_pile.push(c);
-      shift(opponent_hand);
+      if (opponent_hand.length > 0) {
+        console.log("opponent discard");
+        var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
+        opponent_hand = opponent_hand.filter(function(n) {return n != c});
+        card_dimensions(c, card_width, 150);
+        card_coords(c, svg_width - card_width, discard_y);
+        c.setAttribute("player", "f");
+        c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+        discard_pile.push(c);
+        shift(opponent_hand);
+      }
     }
 	}
 
 	if (x[i] == "destroy_uni")
 	{
     if (myturn) {
+      if (opponent_stable.length > 0) {
             await discard_effect("opponent"); // calls discard_effect fxn and waits for it to finish running
+      }
     }
     else
     {
             if (player_stable.length > 0)
             {
-              var c = player_hand[Math.floor(Math.random() * player_hand.length)];
-              player_hand = player_hand.filter(function(n) {return n != c});
+              var c = player_stable[Math.floor(Math.random() * player_stable.length)];
+              player_stable = player_stable.filter(function(n) {return n != c});
               card_dimensions(c, card_width, 150);
               card_coords(c, svg_width - card_width, discard_y);
               c.setAttribute("player", "f");
               discard_pile.push(c);
-              shift(player_hand);
+              shift(player_stable);
             }
     }
 	}
@@ -523,7 +541,7 @@ async function activate(card, att, type, moment) {
 
 	if (x[i] == "discard_to_deck")
 	{
-	    hand_to_deck();
+    //discard_to_deck();
 	}
     }
 

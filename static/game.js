@@ -222,7 +222,7 @@ drawbutton.addEventListener('click', function() {
 					    shift(opponent_hand);
 
 					    if (opponent_stable.length >= 7) {
-						    window.location.href = "/win";
+						    window.location.href = "/winner";
 					    }
 					}
 					// play a magic card
