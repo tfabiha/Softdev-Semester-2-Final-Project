@@ -7,23 +7,37 @@ var switch_hands = function()
 
     for (var i = 0; i < player_hand.length; i++)
     {
-	card_coords( player_hand[i], svg_width - card_width, player_y);
+  var c = player_hand[i];
+	card_coords( c, i * card_width + x_shift, player_y);
+  c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+  c.addEventListener("click", play);
+  c.addEventListener("click", discard);
+  c.addEventListener("mouseover", enlarge)
+  c.addEventListener("mouseout", shrink);
+  c.setAttribute("player", "t");
     }
     for (var i = 0; i < opponent_hand.length; i++)
     {
-	card_coords( opponent_hand[i], svg_width - card_width, opponent_y);
+  var c = opponent_hand[i];
+	card_coords( c, i * card_width + x_shift, opponent_y);
+  c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
+  c.removeEventListener("click", play);
+  c.removeEventListener("click", discard);
+  c.removeEventListener("mouseover", enlarge);
+  c.removeEventListener("mouseout", shrink);
+  c.setAttribute("player", "f");
     }
 
     shift(player_hand);
     shift(opponent_hand);
-    
+
     return true;
 };
 
 
 // return a card to hand from stable
 var ret_hand = function(stable, hand, card, card_y) {
-    if (stable.includes(card) or discard_pile.includes(card))
+    if (stable.includes(card) || discard_pile.includes(card))
     {
 	card_coords(card, hand.length * card_width + x_shift, card_y);
 
@@ -40,7 +54,7 @@ var ret_hand = function(stable, hand, card, card_y) {
 	{
 	    hand.push(card);
 	}
-	
+
 	stable = stable.filter(function(n) {return n != card});
 	discard_pile = discard_pile.filter(function(n) {return n != card});
 
@@ -60,7 +74,7 @@ var ret_nursery = function(stable, hand, card) {
     {
 	nursery.push(card);
 	shuffle(nursery);
-	
+
 	stable = stable.filter(function(n) {return n != card});
 	shift(stable);
 	console.log("returned baby unicorn to nursery");
@@ -84,7 +98,7 @@ var add_baby_frm_nursery = function(stable, card_y)
 	{
 	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + card.getAttribute("name") + ".jpg");
 	}
-	
+
 	stable.push( card );
 	shift(stable);
 
@@ -109,15 +123,15 @@ var add_basic_frm_hand = function(stable, hand, card, card_y)
 	    card.removeEventListener("click", discard);
 	    card.removeEventListener("click", play);
 	}
-	
+
 	hand = hand.filter(function(n) {return n != card});
 	shift(hand);
 	console.log("added basic unicorn from hand to stable");
-	
+
 	return true;
     }
 
-    return false;    
+    return false;
 }
 
 // not implemented
@@ -129,10 +143,10 @@ var add_uni_frm_discard = function(stable, card, card_y)
     {
 	card_coords(card, hand.length * card_width + x_shift, card_y);
 	stable.push(card);
-	
+
 	discard_pile = discard_pile.filter(function(n) {return n != card});
 	shift(hand);
-	console.log("added magic card from discard pile to stable");    
+	console.log("added magic card from discard pile to stable");
 
 	return true;
     }
@@ -159,10 +173,10 @@ var add_magic_frm_discard = function(hand, card, card_y)
 	    card.addEventListener("click", discard);
 	    card.addEventListener("click", play);
 	}
-	
+
 	discard_pile = discard_pile.filter(function(n) {return n != card});
 	shift(hand);
-	console.log("added magic card from discard pile to hand");    
+	console.log("added magic card from discard pile to hand");
 
 	return true;
     }
@@ -189,14 +203,13 @@ var add_uni_frm_discard_to_hand = function(hand, card, card_y)
 	    card.addEventListener("click", discard);
 	    card.addEventListener("click", play);
 	}
-	
+
 	discard_pile = discard_pile.filter(function(n) {return n != card});
 	shift(hand);
-	console.log("added magic card from discard pile to hand");    
+	console.log("added magic card from discard pile to hand");
 
 	return true;
     }
 
     return false;
 }
-

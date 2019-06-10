@@ -42,6 +42,38 @@ var card_dimensions = function(card, c_width, c_height) {
   card.setAttribute("height",c_height);
 }
 
+var enlarge = function(e) {
+  var card = e.target;
+  // all card alignment
+  if (card.getAttribute("player") == "t") { //"t" == true
+    card_dimensions(card, card_width * 3, 450);
+    card_coords(card, card.getAttribute("x"), player_y - 150);
+  }
+  var adder = 0
+  for (i = 0; i < player_hand.length; i++) {
+    player_hand[i].setAttribute("x", card_width * i + adder + x_shift);
+    player_hand[i].setAttribute("align", "left");
+
+    if (player_hand[i] == card) {
+      adder = card_width * 2;
+    }
+  }
+};
+
+var shrink = function(e) {
+  var card = e.target;
+  // fix card alignment
+  if (card.getAttribute("player") == "t") { //"t" == true
+    card_dimensions(card, card_width, 150);
+    card_coords(card, card.getAttribute("x"), player_y);
+  }
+
+  for (i = 0; i < player_hand.length; i++) {
+    player_hand[i].setAttribute("x", card_width * i + x_shift);
+    player_hand[i].setAttribute("align", "left");
+  }
+};
+
 var make_card = function(name, type, att) {
   // set all the attributes for the cards
   var card = document.createElementNS("http://www.w3.org/2000/svg", "image");
@@ -52,34 +84,8 @@ var make_card = function(name, type, att) {
   card.setAttribute("type", type);
   card.setAttribute("att", att);
   card.setAttribute("player", "f") //set player to false
-  card.addEventListener("mouseover", function() {
-    // all card alignment
-    if (card.getAttribute("player") == "t") { //"t" == true
-      card_dimensions(card, card_width * 3, 450);
-      card_coords(card, card.getAttribute("x"), player_y - 150);
-    }
-    var adder = 0
-    for (i = 0; i < player_hand.length; i++) {
-      player_hand[i].setAttribute("x", card_width * i + adder + x_shift);
-      player_hand[i].setAttribute("align", "left");
-
-      if (player_hand[i] == card) {
-        adder = card_width * 2;
-      }
-    }
-  });
-  card.addEventListener("mouseout", function() {
-    // fix card alignment
-    if (card.getAttribute("player") == "t") { //"t" == true
-      card_dimensions(card, card_width, 150);
-      card_coords(card, card.getAttribute("x"), player_y);
-    }
-
-    for (i = 0; i < player_hand.length; i++) {
-      player_hand[i].setAttribute("x", card_width * i + x_shift);
-      player_hand[i].setAttribute("align", "left");
-    }
-  });
+  card.addEventListener("mouseover", enlarge);
+  card.addEventListener("mouseout", shrink);
   return card
 };
 
@@ -88,16 +94,16 @@ var discard = function(e) {
     // if we are in fact discarding a card
     // this prevents ppl from discarding a card when they're supposed to be, say,
     // playing it on to the stable
-    if (mode == "discard" || mode == "discard_effect") 
+    if (mode == "discard" || mode == "discard_effect")
     {
 	var card = e.target; // e is the card that we clicked on
 	player_hand = player_hand.filter(function(n) {return n != card}); // remove this card from player's hand
 
 	shift(player_hand);
-	
+
 	card_dimensions(card, card_width, 150);
 	card.setAttribute("player", "f");
-	
+
 	if (card.getAttribute("type") == "baby_uni")
 	{
 	    nursery.push(card);
@@ -105,10 +111,10 @@ var discard = function(e) {
 	}
 	else
 	{
-	    card_coords(card, svg_width - card_width, discard_y);	    
+	    card_coords(card, svg_width - card_width, discard_y);
 	    discard_pile.push(card);
 	}
-	
+
 	if (mode == "discard")
 	{
 	    if (player_hand.length <= 7)
@@ -119,7 +125,7 @@ var discard = function(e) {
 	    }
 	}
 	else
-	{	    	    
+	{
 	    // we now change the mode to active since we've finished
 	    // discarding our own cards
 	    // now go back to fxn [ discard_effects ]
@@ -140,13 +146,13 @@ async function opponent_discard(e) {
 	}
 	else
 	{
-	    
+
 	    opponent_stable = opponent_stable.filter(function(n) {return n != card}); // remove this card from opponent's stable
-	    
+
 	    shift(opponent_stable);
-	    
+
 	    card_dimensions(card, card_width, 150);
-	    
+
 	    card_coords(card, svg_width - card_width, discard_y);
 	    card.setAttribute("player", "f");
 
@@ -157,7 +163,7 @@ async function opponent_discard(e) {
 		await activate( card, card.getAttribute("att"), "uni", "destroyed" );
 	    }
 	}
-	
+
 	mode = "activate";
     }
 }
@@ -167,7 +173,7 @@ async function play(e) {
     if (mode == "play") {
 	var card = e.target;
 	player_hand = player_hand.filter(function(n) {return n != card}); // removes the played card from the hand
-	
+
 	var t = card.getAttribute("type");
 	console.log(t);
 	if (t == "baby_uni" || t == "basic_uni" || t == "magical_uni") {
@@ -176,10 +182,10 @@ async function play(e) {
 	    card.setAttribute("player", "f");
 	    player_stable.push(card);
 	    console.log(card);
-	    
+
 	    shift(player_stable);
 	    shift(player_hand)
-	    
+
 	    if (player_stable.length >= 7) {
 		window.location.href = "/win";
 	    }
@@ -217,7 +223,7 @@ async function basic_frm_hand()
     {}
     else
     {
-	
+
     }
 }
 
@@ -229,17 +235,17 @@ async function discard_effect(player)
 	if (player == "player") // player has to get rid of their own card
 	{
 	    turn.innerHTML = "DISCARD A CARD";
-	    
+
 	    // changed mode to something else
 	    // this correlates to a condition in an event listener
 	    // go to fxn [ discard ] that is where this value for the mode is checked
 	    mode = "discard_effect";
-	    
+
 	    // so now that ur back, js isnt going to stop at the previous line
 	    // it's going to want to continue regardless so we have to figure out to
-	    // tell it how to wait 
+	    // tell it how to wait
 	    await check_end();
-	    
+
 	    // now we have finished waiting for check end
 	    // our mode rn is == active so we can move on with our lives
 	    // go to fx [ activate ]
@@ -267,8 +273,8 @@ async function discard_effect(player)
                             shift(opponent_hand);
                             card_coords(c, svg_width - card_width, discard_y);
                             c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
-                            discard_pile.push(c);                            
-			    
+                            discard_pile.push(c);
+
 			}, 1500);
 	}
 	else
@@ -279,14 +285,14 @@ async function discard_effect(player)
                             player_stable = player_stable.filter(function(n) {return n != c});
                             shift(player_stable);
                             card_coords(c, svg_width - card_width, discard_y);
-                            
-                            discard_pile.push(c);                            
+
+                            discard_pile.push(c);
 
 			    if (c.getAttribute("type") == "magical_uni")
 			    {
 				await activate( c, c.getAttribute("att"), "uni", "destroyed" );
 			    }
-				
+
 			}, 1500);
 	}
     }
@@ -314,12 +320,12 @@ async function activate(card, att, type, moment) {
 	x = JSON.parse(att);
 	x = x[moment];
     }
-    
+
     if (type == "magic")
     {
 	x = att.split(',');
     }
-    
+
     for (var i in x) {
 	if (x[i] == "draw")
 	{
@@ -332,14 +338,14 @@ async function activate(card, att, type, moment) {
 		await draw("opponent");
 	    }
 	}
-	
+
 	if (x[i] == "discard_all")
 	{
             await discard_effect("player"); // calls discard_effect fxn and waits for it to finish running
 	    // we have come out of discard_effect finally and we can move on to the
 	    // next line of the code
 	}
-	
+
 	if (x[i] == "destroy_uni")
 	{
             await discard_effect("opponent"); // calls discard_effect fxn and waits for it to finish running
