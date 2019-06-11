@@ -221,7 +221,7 @@ drawbutton.addEventListener('click', function() {
 				turn.innerHTML = "OPPONENT IS PLAYING";
 				discarding = true;
 
-				setTimeout(function() {
+				setTimeout(async function() {
 				    if (Math.floor(Math.random() * 10) <= 7) {
 					var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
 					opponent_hand = opponent_hand.filter(function(n) {return n != c});
@@ -238,14 +238,15 @@ drawbutton.addEventListener('click', function() {
 					    setup_to_stable("opponent", c);
 
 					    opponent_stable.push(c);
-              
+
               if (opponent_stable.length >= 7) {
 						    window.location.href = "/winner";
 					    }
 
-					    activate( c, c.getAttribute("att"), c.getAttribute("type"), "enter" );
 					    shift(opponent_stable);
 					    shift(opponent_hand);
+
+              await activate( c, c.getAttribute("att"), c.getAttribute("type"), "enter" );
 
 					    if (opponent_stable.length >= 7) {
 						    window.location.href = "/winner";
@@ -259,9 +260,9 @@ drawbutton.addEventListener('click', function() {
 					    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
 
 					    // play opponent's magic card
-					    activate( c, c.getAttribute("att"), "magic", "magic" );
-					    discard_pile.push(c);
+              discard_pile.push(c);
 					    shift(opponent_hand)
+              await activate( c, c.getAttribute("att"), "magic", "magic" );
 					    console.log(c);
 					    }
 

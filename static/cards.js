@@ -269,15 +269,24 @@ async function other_ret_all()
 {
     if (myturn)
     {
+      if (opponent_stable.length > 0) {
 	turn.innerHTML = "CHOOSE A UNICORN TO RETURN TO THE OPPONENT'S HAND";
 	mode = "other_ret_all";
 
 	await check_end();
+  }
     }
     else
     {
-	var c = player_hand[Math.floor(Math.random() * player_hand.length)];
-	other_ret_all_to_hand( player_stable, player_hand, c, player_y );
+      if (player_stable.length > 0) {
+  	var c = player_stable[Math.floor(Math.random() * player_stable.length)];
+    setup_to_hand(c);
+    player_stable = player_stable.filter(function(n) {return n != c});
+    card_coords(c, player_hand.length * card_width + x_shift, player_y);
+    player_hand.push(c);
+    shift(player_stable);
+  	mode = "activate";
+      }
     }
 }
 
@@ -286,8 +295,11 @@ var other_ret_all_helper = function(e)
     if (mode == "other_ret_all")
     {
 	var card = e.target;
-
-	other_ret_all_hand( opponent_stable, opponent_hand, card, player_hand );
+  opponent_stable = opponent_stable.filter(function(n) {return n != card});
+  setup_remove_stable("opponent", card);
+  card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
+  card_coords(card, opponent_hand.length * card_width + x_shift, opponent_y);
+  opponent_hand.push(card);
 	mode = "activate";
     }
 }
