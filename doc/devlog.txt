@@ -157,6 +157,14 @@ fabihaT -- 2019-06-09 15:00
 - implemented some effect functions
 - edited cards.json
 
+rachelN -- 2019-06-10 23:44
+- leaderboard (sqlite rip)
+- design of website (logo!!)
+- static header, links, etc. 
+- fixed joining games
+- won / lost pages
+- logout
+
 fabihaT -- 2019-06-11 00:28
 - fixed typos and other bugs
 - implemented some more effects
@@ -165,4 +173,3 @@ fabihaT -- 2019-06-11 00:28
 - wrote the script
 - reworked cards.json by removing some cards and adding more of others
 - wrote out instructions for game
-
