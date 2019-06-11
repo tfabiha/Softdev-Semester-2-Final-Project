@@ -146,49 +146,49 @@
     {
 	"card_name" : "basicred",
 	"card_type" : "basic_uni",
-	"quantity" : 3,
+	"quantity" : 4,
 	"description" : "Beards are like, so hot."
     },
     {
 	"card_name" : "basicorange",
 	"card_type" : "basic_uni",
-	"quantity" : 3,
+	"quantity" : 4,
 	"description" : "Pumpkin spice is the pumpkin spice of life."
     },
     {
 	"card_name" : "basicyellow",
 	"card_type" : "basic_uni",
-	"quantity" : 3,
+	"quantity" : 4,
 	"description" : "Dance like nobody’s watching."
     },
     {
 	"card_name" : "basicgreen",
 	"card_type" : "basic_uni",
-	"quantity" : 3,
+	"quantity" : 4,
 	"description" : "Vinyl records and mixtapes only."
     },
     {
 	"card_name" : "basicblue",
 	"card_type" : "basic_uni",
-	"quantity" : 3,
+	"quantity" : 4,
 	"description" : "Popped collars are for date nights only."
     },
     {
 	"card_name" : "basicindigo",
 	"card_type" : "basic_uni",
-	"quantity" : 3,
+	"quantity" : 4,
 	"description" : "💖🙌💅💖💁‍♀️💁‍♀️😂😂😂"
     },
     {
 	"card_name" : "basicpurple",
 	"card_type" : "basic_uni",
-	"quantity" : 3,
+	"quantity" : 4,
 	"description" : "#nomakeup #nofilter #sunnies #shameless #selfie #basic #TGIF #unicornhairdontcare"
     },
     {
 	"card_name" : "basicnarwhal",
 	"card_type" : "basic_uni",
-	"quantity" : 1,
+	"quantity" : 2,
 	"description" : "This card has no special powers, but it sure is cute!"
     },
     {
@@ -204,7 +204,7 @@
     {
 	"card_name" : "stabby",
 	"card_type" : "magical_uni",
-	"quantity" : 1,
+	"quantity" : 2,
 	"description" : "If this card is sacrificed or destroyed, you may DESTROY a Unicorn card.",
 	"phases" :
 	{
@@ -215,7 +215,7 @@
     {
 	"card_name" : "rainbow",
 	"card_type" : "magical_uni",
-	"quantity" : 1,
+	"quantity" : 2,
 	"description" : "When this card enters your Stable, you may bring a Basic Unicorn card from your hand directly into your Stable.",
 	"phases" :
 	{
@@ -235,7 +235,7 @@
     {
 	"card_name" : "angel",
 	"card_type" : "magical_uni",
-	"quantity" : 1,
+	"quantity" : 2,
 	"description" : "If this card is in your Stable at the beginning of your turn, you may SACRIFICE this card. If you do, choose a Unicorn card from the discard pile and bring it directly into your Stable.",
 	"phases" :
 	{
@@ -245,7 +245,7 @@
     {
 	"card_name" : "greedyflying",
 	"card_type" : "magical_uni",
-	"quantity" : 1,
+	"quantity" : 2,
 	"description" : "When this card enters your Stable, DRAW a card. If this card would be sacrificed or destroyed, return it to your hand instead.",
 	"phases" :
 	{
@@ -269,7 +269,7 @@
     {
 	"card_name" : "magicalflying",
 	"card_type" : "magical_uni",
-	"quantity" : 1,
+	"quantity" : 2,
 	"description" : "When this card enters your Stable, you may choose a Magic card from the discard pile and add it to your hand. If this card would be sacrificed or destroyed, return it to your hand instead.",
 	"phases" :
 	{
@@ -281,7 +281,7 @@
     {
 	"card_name" : "majesticflying",
 	"card_type" : "magical_uni",
-	"quantity" : 1,
+	"quantity" : 2,
 	"description" : "When this card enters your Stable, you may choose a Unicorn card from the discard pile and add it to your hand. If this card would be sacrificed or destroyed, return it to your hand instead.",
 	"phases" :
 	{
@@ -303,7 +303,7 @@
     {
 	"card_name" : "sharkwithahorn",
 	"card_type" : "magical_uni",
-	"quantity" : 1,
+	"quantity" : 2,
 	"description" : "When this card enters your Stable, you may SACRIFICE this card. If you do, DESTROY a Unicorn card.",
 	"phases" :
 	{
@@ -323,49 +323,42 @@
     {
 	"card_name" : "unicornpoison",
 	"card_type" : "magic",
-	"quantity" : 3,
+	"quantity" : 5,
 	"description" : "DESTROY a Unicorn card.",
 	"effect" : ["destroy_uni"]
     },
     {
 	"card_name" : "glittertornado",
 	"card_type" : "magic",
-	"quantity" : 2,
+	"quantity" : 4,
 	"description" : "Return a card in each player's Stable to that player's hand.",
 	"effect" : ["other_ret_all_to_hand"]
     },
     {
-	"card_name" : "unicornswap",
-	"card_type" : "magic",
-	"quantity" : 2,
-	"description" : "Move a Unicorn card in your Stable to any other player's Stable, then STEAL a Unicorn card from that player's Stable.",
-	"effect" : ["move_uni_to_other", "steal_uni"]
-    },
-    {
 	"card_name" : "unfairbargain",
 	"card_type" : "magic",
-	"quantity" : 2,
+	"quantity" : 4,
 	"description" : "Trade hands with any other player.",
 	"effect" : ["switch_hand"]
     },
     {
 	"card_name" : "twoforone",
 	"card_type" : "magic",
-	"quantity" : 2,
+	"quantity" : 4,
 	"description" : "SACRIFICE a card, then DESTROY 2 cards.",
 	"effect" : ["sacrifice_all", "destroy_uni", "destroy_uni"]
     },
     {
 	"card_name" : "gooddeal",
 	"card_type" : "magic",
-	"quantity" : 2,
+	"quantity" : 4,
 	"description" : "DRAW 3 cards and DISCARD a card.",
 	"effect" : ["draw", "draw", "draw", "discard_all"]
     },
     {
 	"card_name" : "shakeup",
 	"card_type" : "magic",
-	"quantity" : 1,
+	"quantity" : 3,
 	"description" : "Shuffle this card, your hand, and the discard pile into the deck. DRAW 5 cards.",
 	"effect" : ["this_to_deck", "hand_to_deck", "discard_to_deck", "shuffle_deck", "draw", "draw", "draw", "draw", "draw"]
     }

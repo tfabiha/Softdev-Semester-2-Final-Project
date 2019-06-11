@@ -113,7 +113,7 @@ var ret_nursery = function(stable, hand, card)
 
     if (stable.includes(card) && card.getAttribute("type") == "baby_uni")
     {
-	card_coors( card, nursery_y, card_y );
+	card_coords( card, nursery_y, card_y );
 	card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
 	nursery.push(card);
 	shuffle(nursery);
