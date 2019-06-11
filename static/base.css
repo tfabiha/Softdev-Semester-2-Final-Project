@@ -36,7 +36,6 @@ html{
 #logo {
     width: auto;
     height: 125px;
-    z-index: 1000;
     top: 10px;
     left: 20px;
     display: block;
