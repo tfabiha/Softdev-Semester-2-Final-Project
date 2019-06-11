@@ -569,9 +569,9 @@ async function activate(card, att, type, moment) {
 	    hand_to_deck();
 	}
 
-	if (x[i] == "discard_to_deck")
+	if (x[i] == "shuffle_deck")
 	{
-    //discard_to_deck();
+    shuffle(deck);
 	}
     }
 
