@@ -284,13 +284,6 @@
 	"effect" : ["destroy_uni"]
     },
     {
-	"card_name" : "glittertornado",
-	"card_type" : "magic",
-	"quantity" : 4,
-	"description" : "Return a card in each player's Stable to that player's hand.",
-	"effect" : ["other_ret_all_to_hand"]
-    },
-    {
 	"card_name" : "unfairbargain",
 	"card_type" : "magic",
 	"quantity" : 4,
