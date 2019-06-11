@@ -195,7 +195,7 @@ async function play(e) {
 	    shift(player_hand)
 
 	    if (player_stable.length >= 7) {
-		window.location.href = "/winner";
+		      window.location.href = "/winner";
 	    }
 	}
 	else {
@@ -212,6 +212,9 @@ async function play(e) {
 	else if (t == "magic") {
 	    await activate( card, card.getAttribute("att"), "magic", "magic" );
 	}
+  if (player_stable.length >= 7) {
+    window.location.href = "/winner";
+  }
 	if (player_hand.length > 7) {
 	    turn.innerHTML = "DISCARD A CARD";
 	    mode = "discard";
@@ -257,10 +260,6 @@ async function basic_frm_hand()
 
 	    shift(opponent_stable);
 	    shift(opponent_hand);
-
-	    if (opponent_stable.length >= 7) {
-		window.location.href = "/winner";
-	    }
 
 	}
     }
@@ -518,7 +517,7 @@ async function activate(card, att, type, moment) {
 		}
 	    }
 	}
-	
+
 	if (x[i] == "switch_hand")
 	{
 	    switch_hands();

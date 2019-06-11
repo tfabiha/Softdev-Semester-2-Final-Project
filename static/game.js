@@ -238,6 +238,10 @@ drawbutton.addEventListener('click', function() {
 					    setup_to_stable("opponent", c);
 
 					    opponent_stable.push(c);
+              
+              if (opponent_stable.length >= 7) {
+						    window.location.href = "/winner";
+					    }
 
 					    activate( c, c.getAttribute("att"), c.getAttribute("type"), "enter" );
 					    shift(opponent_stable);
