@@ -358,7 +358,7 @@
     {
 	"card_name" : "gooddeal",
 	"card_type" : "magic",
-	"quantity" : 2,
+	"quantity" : 20,
 	"description" : "DRAW 3 cards and DISCARD a card.",
 	"effect" : ["draw", "draw", "draw", "discard_all"]
     },
