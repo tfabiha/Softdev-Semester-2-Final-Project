@@ -303,13 +303,6 @@
 	"quantity" : 4,
 	"description" : "DRAW 3 cards and DISCARD a card.",
 	"effect" : ["draw", "draw", "draw", "discard_all"]
-    },
-    {
-	"card_name" : "shakeup",
-	"card_type" : "magic",
-	"quantity" : 3,
-	"description" : "Shuffle this card, your hand, and the discard pile into the deck. DRAW 5 cards.",
-	"effect" : ["this_to_deck", "hand_to_deck", "discard_to_deck", "shuffle_deck", "draw", "draw", "draw", "draw", "draw"]
     }
 
 ]
