@@ -84,7 +84,7 @@ var ret_hand = function(card, moment) {
 	{
 	    card_coords(card, hand.length * card_width + x_shift, opponent_y);
 
-	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
+	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
 	    setup_remove_stable("opponent", card);
 
 	    if (card.getAttribute("type") == "baby_uni")
@@ -113,8 +113,8 @@ var ret_nursery = function(stable, hand, card)
 
     if (stable.includes(card) && card.getAttribute("type") == "baby_uni")
     {
-	card_coords( card, nursery_y, card_y );
-	card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
+	card_coords( card, 0, nursery_y );
+	card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
 	nursery.push(card);
 	shuffle(nursery);
 
@@ -207,7 +207,7 @@ var add_magic_frm_discard = function(hand, card, card_y)
 
 	if (!myturn)
 	{
-	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
+	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
 	}
 	else
 	{
@@ -236,7 +236,7 @@ var add_uni_frm_discard_to_hand = function(hand, card, card_y)
 
 	if (!myturn)
 	{
-	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
+	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
 	}
 	else
 	{
