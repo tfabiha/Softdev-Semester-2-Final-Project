@@ -141,17 +141,24 @@ fabihaT -- 2019-06-06 18:00
 - fixed readme
 
 imadB -- 2019-06-07 2:00
-- Trying to rework effects back in to new implementation
-- Reworking opponent mechanics
+- Tried to rework effects back in to new implementation
+- Reworked opponent mechanics
 
 rachelN -- 2019-06-07 3:00
 - action phase stuff
 - functions for magic / action cards
 
+imadB -- 2019-06-08 12:00
+- Implemented promises for async functions
+- Implemented new effects
+
 fabihaT -- 2019-06-08 15:00
 - researched async, await, and promise
 - implemented effects
 - implemented effects upon enter for both opponent and player
+
+imadB -- 2019-06-09 12:00
+- Implemented/improved more effects
 
 fabihaT -- 2019-06-09 15:00
 - implemented some effect functions
@@ -160,10 +167,15 @@ fabihaT -- 2019-06-09 15:00
 rachelN -- 2019-06-10 23:44
 - leaderboard (sqlite rip)
 - design of website (logo!!)
-- static header, links, etc. 
+- static header, links, etc.
 - fixed joining games
 - won / lost pages
 - logout
+
+imadB -- 2019-06-011 00:30
+- Implemented/improved more effects
+- More async functions/promises
+- Allows for user choice
 
 fabihaT -- 2019-06-11 00:28
 - fixed typos and other bugs
