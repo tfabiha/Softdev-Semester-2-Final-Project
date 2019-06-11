@@ -2,6 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/lobby.css') }}">
 {% endblock %}
 
 {% block title %}
@@ -15,78 +16,16 @@ Game Lobby
     <div class="col-sm-4" style="margin: 20px; width: 100%;">
       <div class="row">
         <div class="col-sm">
-          <h2>Join a Game</h2>
-          <form action ="/join_game" method="POST">
-            <div class="form-row">
-              <div class="col-9">
-                <input type="text" class="form-control" id="inv_code" name="inv_code" placeholder="Enter invitation code">
-              </div>
-              <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-2" style="right: 0px;">Submit</button>
-              </div>
-            </div>
-          </form>
+          <a href="/create_game" style="text-decoration: none;"><div class="join"><h2 class="text-center">Join Game</h2></div></a>
         </div>
       </div>
       <div class="col-sm" style="height:30px;"></div>
-      <div class="row">
-        <div class="col-sm">
-          <h2>Create a Game</h2>
-          <div class ="container-fluid center" id="errorBox" style="padding: 0;">
-            {% with msgs = get_flashed_messages(category_filter=["create_game_error"]) %}
-            {% if msgs %}
-            {% for message in msgs %}
-            <div class="alert alert-info alert-dismissible" id="alertBox" role="alert">
-              {{ message }}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close" data-toggle="collapse" data-target="#demo">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-          </div>
-
-          <form action ="/create_game" method="POST">
-            <div class="form-group">
-              <input type="text" class="form-control" id="game_name" name="game_name" placeholder="Enter name">
-            </div>
-            <div class="form-row align-items-center" style="margin-top: -5px; margin-bottom: 9px;">
-              <div class="col-auto my-1">
-                <label class="mr-sm-2 sr-only" for="max_players">Preference</label>
-                <select class="custom-select mr-sm-4" id="max_players" name="max_players">
-                  <option value="0" selected>Players...</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
-              </div>
-              <div class="col-auto my-1 px-lg-5">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="private_game" name="private_game" style="vertical-align: center;">
-                  <label class="custom-control-label" for="private_game" data-toggle="tooltip" data-placement="right" title="You will receive an invitation code to invite other players">Private Game</label>
-                </div>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary" style="margin-top:10px;">Create</button>
-          </form>
-          {% set msgs = get_flashed_messages(category_filter=["inv_code"]) %}
-          {% for msg in msgs %}
-          <div class="alert" style="margin: 20px 0; padding:0;">
-            <div class="row">
-              <div class="col-sm-4">Invite Code:</div>
-              <div class="col-sm-8" style="word-break: break-all">{{ msg }}</div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
     </div>
 
     <div class="col-sm" style="margin: 20px; width: 100%;">
       <div class="row">
         <div class="col-sm">
-          <h2>Leaderboard</h2>
+          <h2 class="text-center">Leaderboard</h2>
         </div>
       </div>
       <div class="row">

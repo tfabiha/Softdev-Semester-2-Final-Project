@@ -60,3 +60,13 @@ html{
   -webkit-text-stroke: 30px #ffffff;
   user-select: none;
 }
+
+.github_link {
+    text-decoration:none;
+    color: #5a6168;
+}
+
+.github_link:hover {
+    text-decoration:none;
+    color: #484e53;
+}
