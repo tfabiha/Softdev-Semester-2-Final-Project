@@ -539,7 +539,7 @@ async function activate(card, att, type, moment) {
 
 	if (x[i] == "other_discard_all")
 	{
-	    if (my_turn)
+	    if (myturn)
 	    {
 		if (opponent_hand.length > 0) {
 		    console.log("opponent discard");

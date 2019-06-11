@@ -84,7 +84,7 @@ var ret_hand = function(card, moment) {
 	{
 	    card_coords(card, hand.length * card_width + x_shift, opponent_y);
 
-	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
+	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
 	    setup_remove_stable("opponent", card);
 
 	    if (card.getAttribute("type") == "baby_uni")
@@ -113,8 +113,8 @@ var ret_nursery = function(stable, hand, card)
 
     if (stable.includes(card) && card.getAttribute("type") == "baby_uni")
     {
-	card_coords( card, 0, nursery_y );
-	card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
+	card_coords( card, nursery_y, card_y );
+	card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
 	nursery.push(card);
 	shuffle(nursery);
 
@@ -145,7 +145,7 @@ var add_baby_frm_nursery = function(stable, card_y)
     if (nursery.length > 0)
     {
 	card = nursery.pop();
-	card_coors( card, stable.length * card_width + x_shift, card_y );
+	card_coords( card, stable.length * card_width + x_shift, card_y );
 
 	if (myturn)
 	{
@@ -207,7 +207,7 @@ var add_magic_frm_discard = function(hand, card, card_y)
 
 	if (!myturn)
 	{
-	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
+	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
 	}
 	else
 	{
@@ -236,7 +236,7 @@ var add_uni_frm_discard_to_hand = function(hand, card, card_y)
 
 	if (!myturn)
 	{
-	    card.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
+	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
 	}
 	else
 	{
@@ -258,7 +258,7 @@ var sacrifice_this = function(stable, card)
 {
     if (stable.includes(card))
     {
-	card_coords(card, svg_width - card_width, discard_y);
+	card_coords(card, svg_width - caard_width, discard_y);
 
 	if (myturn)
 	{
