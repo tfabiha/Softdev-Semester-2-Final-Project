@@ -420,49 +420,49 @@ async function activate(card, att, type, moment) {
 
 	if (x[i] == "discard_all")
 	{
-    if (myturn) {
-      console.log("player_discard");
-      if (player_hand.length > 0) {
-            await discard_effect("player"); // calls discard_effect fxn and waits for it to finish running
-	    // we have come out of discard_effect finally and we can move on to the
-	    // next line of the code
-      }
-    }
-    else
+	    if (myturn) {
+		console.log("player_discard");
+		if (player_hand.length > 0) {
+		    await discard_effect("player"); // calls discard_effect fxn and waits for it to finish running
+		    // we have come out of discard_effect finally and we can move on to the
+		    // next line of the code
+		}
+	    }
+	    else
     {
-      if (opponent_hand.length > 0) {
-        console.log("opponent discard");
-        var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
-        opponent_hand = opponent_hand.filter(function(n) {return n != c});
-        card_dimensions(c, card_width, 150);
-        card_coords(c, svg_width - card_width, discard_y);
-        c.setAttribute("player", "f");
-        c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
-        discard_pile.push(c);
-        shift(opponent_hand);
-      }
+	if (opponent_hand.length > 0) {
+            console.log("opponent discard");
+            var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
+            opponent_hand = opponent_hand.filter(function(n) {return n != c});
+            card_dimensions(c, card_width, 150);
+            card_coords(c, svg_width - card_width, discard_y);
+            c.setAttribute("player", "f");
+            c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+            discard_pile.push(c);
+            shift(opponent_hand);
+	}
     }
 	}
 
 	if (x[i] == "destroy_uni")
 	{
-    if (myturn) {
-      if (opponent_stable.length > 0) {
-            await discard_effect("opponent"); // calls discard_effect fxn and waits for it to finish running
-      }
-    }
-    else
+	    if (myturn) {
+		if (opponent_stable.length > 0) {
+		    await discard_effect("opponent"); // calls discard_effect fxn and waits for it to finish running
+		}
+	    }
+	    else
     {
-            if (player_stable.length > 0)
-            {
-              var c = player_stable[Math.floor(Math.random() * player_stable.length)];
-              player_stable = player_stable.filter(function(n) {return n != c});
-              card_dimensions(c, card_width, 150);
-              card_coords(c, svg_width - card_width, discard_y);
-              c.setAttribute("player", "f");
-              discard_pile.push(c);
-              shift(player_stable);
-            }
+        if (player_stable.length > 0)
+        {
+            var c = player_stable[Math.floor(Math.random() * player_stable.length)];
+            player_stable = player_stable.filter(function(n) {return n != c});
+            card_dimensions(c, card_width, 150);
+            card_coords(c, svg_width - card_width, discard_y);
+            c.setAttribute("player", "f");
+            discard_pile.push(c);
+            shift(player_stable);
+        }
     }
 	}
 
@@ -493,6 +493,32 @@ async function activate(card, att, type, moment) {
 	    }
 	}
 
+	if (x[i] == "other_discard_all")
+	{
+	    if (my_turn)
+	    {
+		if (opponent_hand.length > 0) {
+		    console.log("opponent discard");
+		    var c = opponent_hand[Math.floor(Math.random() * opponent_hand.length)];
+		    opponent_hand = opponent_hand.filter(function(n) {return n != c});
+		    card_dimensions(c, card_width, 150);
+		    card_coords(c, svg_width - card_width, discard_y);
+		    c.setAttribute("player", "f");
+		    c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+		    discard_pile.push(c);
+		    shift(opponent_hand);
+		}
+	    }
+	    else
+	    {
+		if (player_hand.length > 0) {
+		    await discard_effect("player"); // calls discard_effect fxn and waits for it to finish running
+		    // we have come out of discard_effect finally and we can move on to the
+		    // next line of the code
+		}
+	    }
+	}
+	
 	if (x[i] == "switch_hand")
 	{
 	    switch_hands();

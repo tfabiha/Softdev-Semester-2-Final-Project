@@ -322,7 +322,7 @@ var hand_to_deck = function()
     {
 	for (var i = 0; i < opponent_hand.length; i++)
 	{
-	    card_dimensions(oppnent_hand[i], card_width, 150);
+	    card_dimensions(opponent_hand[i], card_width, 150);
 	    card_coords(player_hand[i], 0, gen_y);
 	    player_hand[i].setAttribute("player", "f");
 	}
