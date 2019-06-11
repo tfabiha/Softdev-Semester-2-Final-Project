@@ -223,16 +223,6 @@
 	}
     },
     {
-	"card_name" : "angel",
-	"card_type" : "magical_uni",
-	"quantity" : 2,
-	"description" : "If this card is in your Stable at the beginning of your turn, you may SACRIFICE this card. If you do, choose a Unicorn card from the discard pile and bring it directly into your Stable.",
-	"phases" :
-	{
-	    "in_stable" : ["choice", "sacrifice_this", "add_uni_frm_discard"]
-	}
-    },
-    {
 	"card_name" : "greedyflying",
 	"card_type" : "magical_uni",
 	"quantity" : 2,
@@ -252,30 +242,6 @@
 	"phases" :
 	{
 	    "enter" : ["choice", "other_discard_all"],
-	    "sacrificed" : ["ret_hand"],
-	    "destroyed" : ["ret_hand"]
-	}
-    },
-    {
-	"card_name" : "magicalflying",
-	"card_type" : "magical_uni",
-	"quantity" : 2,
-	"description" : "When this card enters your Stable, you may choose a Magic card from the discard pile and add it to your hand. If this card would be sacrificed or destroyed, return it to your hand instead.",
-	"phases" :
-	{
-	    "enter" : ["choice", "add_magic_frm_discard"],
-	    "sacrificed" : ["ret_hand"],
-	    "destroyed" : ["ret_hand"]
-	}
-    },
-    {
-	"card_name" : "majesticflying",
-	"card_type" : "magical_uni",
-	"quantity" : 2,
-	"description" : "When this card enters your Stable, you may choose a Unicorn card from the discard pile and add it to your hand. If this card would be sacrificed or destroyed, return it to your hand instead.",
-	"phases" :
-	{
-	    "enter" : ["choice", "add_uni_frm_discard_to_hand"],
 	    "sacrificed" : ["ret_hand"],
 	    "destroyed" : ["ret_hand"]
 	}
