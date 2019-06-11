@@ -135,6 +135,18 @@ var discard = function(e) {
     }
 };
 
+var sacrifice = function(e) {
+  if (mode == "sacrifice") {
+    var card = e.target;
+    card.removeEventListener("click", sacrifice);
+    player_stable = player_stable.filter(function(n) {return n != card});
+    shift(player_stable);
+    card_coords(card, svg_width - card_width, discard_y);
+    card.setAttribute("player", "f");
+    discard_pile.push(card);
+    mode = "activate";
+  }
+}
 // destroy an opponent's card
 async function opponent_discard(e) {
     if (mode == "opponent_discard")
@@ -455,6 +467,27 @@ async function activate(card, att, type, moment) {
     }
 	}
 
+  if (x[i] == "sacrifice_all") {
+    if (myturn) {
+      if(player_stable.length > 0) {
+        turn.innerHTML = "SACRIFICE A UNICORN CARD";
+        mode = "sacrifice";
+        await check_end();
+      }
+    }else{
+      if (opponent_stable.length > 0) {
+        var c = opponent_stable[Math.floor(Math.random() * opponent_stable.length)];
+        setup_remove_stable("opponent", c);
+        opponent_stable = opponent_stable.filter(function(n) {return n != c});
+        card_dimensions(c, card_width, 150);
+        card_coords(c, svg_width - card_width, discard_y);
+        c.setAttribute("player", "f");
+        c.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", LINKHEAD + c.getAttribute("name") + ".jpg");
+        discard_pile.push(c);
+        shift(opponent_stable);
+      }
+    }
+  }
 	if (x[i] == "destroy_uni")
 	{
 	    if (myturn) {

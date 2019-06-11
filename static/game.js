@@ -43,7 +43,7 @@ var setup_to_stable = function(player, card)
 {
     if (player == "player")
     {
-
+      card.addEventListener("click", sacrifice);
     }
     else
     {
