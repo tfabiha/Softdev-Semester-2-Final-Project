@@ -1,12 +1,10 @@
-
-
 import os, random
 from flask import Flask, render_template, request, session, url_for, redirect, flash
 from flask_socketio import SocketIO, join_room, leave_room, emit, send
 
 from util import config, db, leaderboard
 
-app = Flask(__name__) #create instance of class flask
+app = Flask(__name__, static_url_path='/static') #create instance of class flask
 
 app.secret_key = os.urandom(32)
 socketio = SocketIO(app)
@@ -132,7 +130,8 @@ def base():
     guest = 'user' not in session
     user = None
     if not guest: user = session['user']
-    return render_template("base.html", guest = guest, user = user)
+    return render_template("base.html", guest = guest, user =
+                           user)
 
 @app.route('/lobby')
 def lobby():
