@@ -1,7 +1,14 @@
+@font-face {
+font-family: "silkscreen";
+src: url("silkscreen.ttf");
+}
+
+
 body{
     height: 100%;
     display: flex;
     flex-direction: column;
+    font-family: silkscreen;
 }
 
 html{
@@ -24,4 +31,28 @@ html{
 .form_block {
     width: 60%;
     margin: 0 auto;
+}
+
+#logo {
+    width: auto;
+    height: 125px;
+    z-index: 1000;
+    top: 10px;
+    left: 20px;
+    display: block;
+    position: fixed;
+}
+
+.nav_link {
+    font: 25px silkscreen;
+    margin-top: 20px;
+}
+
+.drop_link {
+    font: 20px silkscreen;
+}
+
+.dropdown-menu {
+    border: none;
+    background: #f8f9fa;
 }

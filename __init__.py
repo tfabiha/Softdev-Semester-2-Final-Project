@@ -1,4 +1,5 @@
 
+
 import os, random
 from flask import Flask, render_template, request, session, url_for, redirect, flash
 from flask_socketio import SocketIO, join_room, leave_room, emit, send
@@ -151,7 +152,7 @@ def game(code):
     guest = 'user' not in session
     user = None
     if not guest: user = session['user']
-    return render_template("index.html")
+    return render_template("index.html", guest=guest, user = user)
 
 @app.route('/join_game', methods = ['POST'])
 def join_game():
