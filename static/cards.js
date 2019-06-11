@@ -379,6 +379,16 @@ async function check_end() {
   }, 100));
 }
 
+async function check_choice() {
+  await new Promise((resolve) => setTimeout(() => {
+    if(mode != "yes" && mode != "no") {
+      return resolve(check_end());
+    }else{
+      return resolve();
+    }
+  }, 100));
+}
+
 async function activate(card, att, type, moment) {
     var x = null;
     if (type == "uni")
@@ -396,8 +406,8 @@ async function activate(card, att, type, moment) {
     for (var i in x) {
 	if (x[i] == "draw")
 	{
-    console.log(mode);
-    console.log(myturn);
+	    console.log(mode);
+	    console.log(myturn);
 	    if (myturn)
 	    {
 		await draw("player"); // calls draw fxn and waits for it to finish running
@@ -456,6 +466,34 @@ async function activate(card, att, type, moment) {
     }
 	}
 
+	if (x[i] == "choice")
+	{
+	    if (myturn)
+	    {
+		turn.innerHTML = "PRESS YES TO ACTIVATE THIS CARD OR NO TO NOT ACTIVATE IT"
+		mode = "waiting_choice";
+		
+		await check_choice();
+	    
+		if (mode == "no")
+		{
+		    mode = "activate";
+		    inner.HTML = "YOU MAY MOVE ON WITH YOUR LIFE";
+		return;
+		}
+		
+		inner.HTML = "THE REST OF THE CARD WILL PLAY";
+		mode = "activate";
+	    }
+	    else
+	    {
+		if (Math.floor(Math.random() * 10 < 4)
+		    {
+			return;
+		    }
+	    }
+	}
+	
 	if (x[i] == "switch_hand")
 	{
 	    switch_hands();

@@ -1,4 +1,8 @@
 var drawbutton = document.getElementById('draw');
+
+var yes = document.getElementById('yes');
+var no = document.getElementById('no');
+
 var c = document.getElementById("c");
 var myturn = true;
 var turn = document.getElementById('turn');
@@ -61,6 +65,21 @@ var setup_remove_stable = function(player, card)
     }
 };
 
+yes.addEventListener("click", function()
+		     {
+			 if (mode == "waiting_choice")
+			 {
+			     mode = "yes";
+			 }
+		     })
+
+no.addEventListener("click", function()
+		     {
+			 if (mode == "waiting_choice")
+			 {
+			     mode = "no";
+			 }
+		     })
 
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
 
@@ -220,6 +239,7 @@ drawbutton.addEventListener('click', function() {
 
 					    opponent_stable.push(c);
 
+					    activate( c, c.getAttribute("att"), c.getAttribute("type"), "enter" );
 					    shift(opponent_stable);
 					    shift(opponent_hand);
 

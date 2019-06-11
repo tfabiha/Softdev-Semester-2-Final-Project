@@ -192,16 +192,6 @@
 	"description" : "This card has no special powers, but it sure is cute!"
     },
     {
-	"card_name" : "rhinocorn",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "If this card is in your Stable at the beginning of your turn, you may DESTROY a Unicorn card. If you do, immediately skip to your End of Turn phase.",
-	"phases" :
-	{
-	    "in_stable" : ["choice", "destroy_uni", "end"]
-	}
-    },
-    {
 	"card_name" : "extremelyfertile",
 	"card_type" : "magical_uni",
 	"quantity" : 1,
@@ -230,16 +220,6 @@
 	"phases" :
 	{
 	    "enter" : ["choice", "add_basic_frm_hand"]
-	}
-    },
-    {
-	"card_name" : "zombie",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "If this card is in your Stable at the beginning of your turn, you may DISCARD a Unicorn card. If you do, choose a Unicorn card from the discard pile and bring it directly into your Stable, then immediately skip to your End of Turn phase.",
-	"phases" :
-	{
-	    "in_stable" : ["choice", "discard_uni", "add_uni_frm_discard", "end"]
 	}
     },
     {
@@ -311,18 +291,6 @@
 	}
     },
     {
-	"card_name" : "phoenix",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, DISCARD a card. If this card is sacrificed or destroyed, bring it directly back into your Stable if you have at least 1 card in your hand.",
-	"phasees" :
-	{
-	    "enter" : ["discard_all"],
-	    "sacrificed" : ["ret_stable_if_hand_nempty"],
-	    "destroyed" : ["ret_stable_if_hand_nempty"]
-	}
-    },
-    {
 	"card_name" : "unicornonthecob",
 	"card_type" : "magical_uni",
 	"quantity" : 1,
@@ -353,35 +321,11 @@
 	}
     },
     {
-	"card_name" : "thegreatnarwhal",
-	"card_type" : "magical_uni",
-	"quantity" : 1,
-	"description" : "When this card enters your Stable, you may search the deck for a card with 'Narwhal' in its name and add it to your hand. Shuffle the deck.",
-	"phases" :
-	{
-	    "enter" : ["choice", "add_narwhal_frm_deck", "shuffle_deck"]
-	}
-    },
-    {
 	"card_name" : "unicornpoison",
 	"card_type" : "magic",
 	"quantity" : 3,
 	"description" : "DESTROY a Unicorn card.",
 	"effect" : ["destroy_uni"]
-    },
-    {
-	"card_name" : "backkick",
-	"card_type" : "magic",
-	"quantity" : 3,
-	"description" : "Choose any player. Return a card in that player's Stable to their hand. That player must DISCARD a card.",
-	"effect" : ["other_ret_all_hand", "other_discard_all"]
-    },
-    {
-	"card_name" : "changeofluck",
-	"card_type" : "magic",
-	"quantity" : 2,
-	"description" : "DRAW 2 cards and DISCARD 3 cards, then take another turn.",
-	"effect" : ["draw", "draw", "discard_all", "discard_all", "discard_all", "repeat_turn"]
     },
     {
 	"card_name" : "glittertornado",
