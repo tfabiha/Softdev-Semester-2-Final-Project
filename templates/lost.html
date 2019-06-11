@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% block title %}
+Loser!
 {% endblock %}
 
-{% block title %}
-Leaderboard
-{% endblock %}
 
 {% block content %}
 <div class="container justify-content-center">
+
+  <h1 class="text-center">You lost :(</h1>
   <table class="table table-borderless">
     <thead>
       <tr>
@@ -33,4 +32,5 @@ Leaderboard
     </tbody>
   </table>
 </div>
+
 {% endblock %}

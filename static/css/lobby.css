@@ -1,0 +1,11 @@
+.join {
+    padding: 20px 20px 12px 20px;
+    background-color: #8b0000;
+    color: #ffffff;
+    transition: background-color .5s;
+}
+
+.join:hover{
+    text-decoration: none;
+    background-color: #770000;
+}

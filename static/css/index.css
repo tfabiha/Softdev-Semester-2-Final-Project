@@ -6,3 +6,11 @@
     display: inline-block;
     margin: 0 auto;
 }
+
+#turn {
+    font-size: 25px;
+}
+
+#game_controls {
+    margin: 0 auto 25px auto;
+}
