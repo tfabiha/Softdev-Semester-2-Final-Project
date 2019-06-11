@@ -14,3 +14,15 @@
 #game_controls {
     margin: 0 auto 25px auto;
 }
+
+.game_but {
+    padding: 10px 10px 7.5px 10px;
+    color: #ffffff;
+    background-color: #8b0000;
+    transition: background-color .5s;
+    margin: 0 2.5px;
+}
+
+.game_but:hover{
+    background-color: #770000;
+}

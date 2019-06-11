@@ -1,3 +1,4 @@
+
 import os, random
 from flask import Flask, render_template, request, session, url_for, redirect, flash
 from flask_socketio import SocketIO, join_room, leave_room, emit, send
@@ -20,7 +21,8 @@ def root():
     guest = 'user' not in session
     user = None
     if not guest: user = session['user']
-    return render_template("lobby.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
+    lead = sorted(leaderboard.get_wins_losses(), key=lambda k: k['wins']) 
+    return render_template("lobby.html", guest=guest, user = user, users = lead[::-1])
 
 @app.route('/leaderboard')
 def leader():
@@ -30,7 +32,8 @@ def leader():
     guest = 'user' not in session
     user = None
     if not guest: user = session['user']
-    return render_template("leaderboard.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
+    lead = sorted(leaderboard.get_wins_losses(), key=lambda k: k['wins']) 
+    return render_template("leaderboard.html", guest=guest, user = user, users = lead[::-1])
 
 @app.route('/winner')
 def won():
@@ -41,7 +44,8 @@ def won():
     user = None
     if not guest: user = session['user']
     if not guest: leaderboard.add_wins(user)
-    return render_template("win.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
+    lead = sorted(leaderboard.get_wins_losses(), key=lambda k: k['wins']) 
+    return render_template("win.html", guest=guest, user = user, users = lead[::-1])
 
 @app.route('/loser')
 def lost():
@@ -52,7 +56,8 @@ def lost():
     user = None
     if not guest: user = session['user']
     if not guest: leaderboard.add_losses(user)
-    return render_template("lost.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
+    lead = sorted(leaderboard.get_wins_losses(), key=lambda k: k['wins'])
+    return render_template("lost.html", guest=guest, user = user, users = lead[::-1])
 
 @app.route('/game/<code>')
 def game(code):
@@ -62,7 +67,7 @@ def game(code):
     guest = 'user' not in session
     user = None
     if not guest: user = session['user']
-    return render_template("index.html", guest=guest, user = user)
+    return render_template("index.html", guest=guest, user = user, ingame = True)
 
 @app.route('/join_game', methods = ['POST'])
 def join_game():
@@ -92,7 +97,8 @@ def user():
         return redirect("/login")
     user = None
     if not guest: user = session['user']
-    return render_template("user.html", guest=guest, user = user)
+    print(leaderboard.get_wins_losses_user(user))
+    return render_template("user.html", guest=guest, user = user, info = leaderboard.get_wins_losses_user(user))
 
 @app.route('/login')
 def login():
@@ -135,8 +141,12 @@ def register_auth():
     username = request.form['username']
     password = request.form['password']
     retyped_pass = request.form['repass']
+    print(db.registered(username))
     if username == "":
         flash("Enter a username")
+        return redirect(url_for('signup'))
+    if not db.registered(username):
+        flash("Choose a different username")
         return redirect(url_for('signup'))
     elif password == "":
         flash("Enter a password")

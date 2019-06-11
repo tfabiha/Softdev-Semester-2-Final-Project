@@ -14,6 +14,16 @@ def get_wins_losses():
         users.append({'username':item[0],'wins':item[1],'losses':item[2]})
     return users
 
+def get_wins_losses_user(username):
+    db, c = config.start_db()
+    command = "SELECT username,wins,losses FROM users WHERE username = ?;"
+    c.execute(command,(username,))
+    all = c.fetchall()
+    config.end_db(db)
+    users = []
+    for item in all:
+        users.append({'username':item[0],'wins':item[1],'losses':item[2]})
+    return users[0]
 
 def get_wins(username):
     db, c = config.start_db()

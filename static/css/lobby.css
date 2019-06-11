@@ -3,6 +3,7 @@
     background-color: #8b0000;
     color: #ffffff;
     transition: background-color .5s;
+    margin-top: 20px;
 }
 
 .join:hover{

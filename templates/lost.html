@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/lobby.css') }}">
+{% endblock %}
+
 {% block title %}
 Loser!
 {% endblock %}
@@ -9,6 +13,8 @@ Loser!
 <div class="container justify-content-center" style="margin-top: -50px;">
 
   <h1 class="text-center">You lost :(</h1>
+    <a href="/create_game" style="text-decoration: none;"><h4 class="text-center" style="margin: 35px 0 50px 0;"><span class="join">Play Again</span></h4></a>
+  <h1 class="text-center">Leaderboard</h1>
   <table class="table table-borderless">
     <thead>
       <tr>

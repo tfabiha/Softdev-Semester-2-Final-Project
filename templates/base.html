@@ -1,97 +1,105 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
 
-<title>{% block title %}{% endblock %} </title>
-{% block head %}
-{% endblock %}
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
-
-<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg" style="background: transparent;">
-    <a href="/"><img id="logo" src="{{ url_for('static', filename='catatonic_cereal_logo.png') }}"></a>
-  <div style="width: 200px;"></div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <!-- <li class="nav-item active">
-        <a class="nav-link nav_link" href="/instructions">Instructions</a>
-      </li> -->
-    </ul>
-    {% if not guest %}
-      <div class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle nav_link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ user }}
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item drop_link" href="/">Profile</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item drop_link" href="/logout">Logout</a>
-        </div>
-      </div>
-      {% else %}
-      <div class="nav-item">
-        <a class="nav-link nav_link" href="/login">Login</a>
-      </div>
-      <div class="nav-item">
-  <a class="nav-link nav_link" href="/signup">Register</a>
-      </div>
-      {% endif %}
-  </div>
-  </nav>
-
-
-<div class ="container container-fluid center" id="errorBox">
-  {% with msgs = get_flashed_messages(category_filter=["message"]) %}
-  {% if msgs %}
-  {% for message in msgs %}
-  <div class="alert alert-info alert-dismissible" id="alertBox" role="alert">
-    {{ message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" data-toggle="collapse" data-target="#demo">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  {% endfor %}
-  {% endif %}
-  {% endwith %}
-</div>
-
-<div class="content">
-    {% block content %}
+    <title>{% block title %}{% endblock %} </title>
+    {% block head %}
     {% endblock %}
-</div>
 
-{% block footer %}
-<div class="footer">
-  <div class="container center">
-    <span class="text-muted">Team Cereal Mafia &copy; 2019 <a class="github_link" href="https://github.com/tfabiha/">Fabiha</a>, <a class="github_link" href="https://github.com/ibelkebeer">Imad</a>, <a class="github_link" href="https://github.com/rachel-ng">Rachel</a>, <a class="github_link" href="https://github.com/MaiRachlevsky">Mai</a></span>
-  </div>
-</div>
-{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
-<script>
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
-</script>
 
-</body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg" style="background: transparent;">
+      <a href="/"><img id="logo" src="{{ url_for('static', filename='catatonic_cereal_logo.png') }}"></a>
+      <div style="width: 200px;"></div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" data-html="true" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            {% if ingame %}
+            <a id="instructions" href="#" class="nav-link nav_link" data-toggle="popover" data-html="true" data-placement="bottom" data-content="<img src='https://raw.githubusercontent.com/tfabiha/unstablepics/master/instructions.jpg' height='300'/>" style="border:none;">Instructions</a>
+            {% endif %}
+          </li>
+        </ul>
+        {% if not guest %}
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle nav_link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ user }}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item drop_link" href="/user">Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item drop_link" href="/logout">Logout</a>
+          </div>
+        </div>
+        {% else %}
+        <div class="nav-item">
+          <a class="nav-link nav_link" href="/login">Login</a>
+        </div>
+        <div class="nav-item">
+          <a class="nav-link nav_link" href="/signup">Register</a>
+        </div>
+        {% endif %}
+      </div>
+    </nav>
+
+
+    <div class ="container container-fluid center" id="errorBox">
+      {% with msgs = get_flashed_messages(category_filter=["message"]) %}
+      {% if msgs %}
+      {% for message in msgs %}
+      <div class="alert alert-info alert-dismissible" id="alertBox" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" data-toggle="collapse" data-target="#demo">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
+
+    <div class="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    {% block footer %}
+    <div class="footer">
+      <div class="container center">
+        <span class="text-muted">Team Cereal Mafia &copy; 2019 <a class="github_link" href="https://github.com/tfabiha/">Fabiha</a>, <a class="github_link" href="https://github.com/ibelkebeer">Imad</a>, <a class="github_link" href="https://github.com/rachel-ng">Rachel</a>, <a class="github_link" href="https://github.com/MaiRachlevsky">Mai</a></span>
+      </div>
+    </div>
+    {% endblock %}
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+      })
+      $('body').on('click', function (e) {
+        $('[data-toggle=popover]').each(function () {
+          if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

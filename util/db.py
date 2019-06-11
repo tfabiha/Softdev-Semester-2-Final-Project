@@ -27,14 +27,17 @@ def auth_user(username, password):
     return False
 
 
-def get_id(username):
+def registered(username):
     db, c = config.start_db()
-    command = "SELECT username FROM users WHERE username = ?;"
-    params = (username,)
-    c.execute(command,params)
-    id = c.fetchall()
+    command = "SELECT * FROM users;"
+    c.execute(command)
+    data = c.fetchall()
+    print(data)
+    for row in data:
+        if username == row[0]:
+            return False
     config.end_db(db)
-    return id[0][0]
+    return True
 
 def all_users():
     db, c = config.start_db()
