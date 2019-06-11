@@ -13,7 +13,7 @@ async function add_basic(e)
 	player_stable.push(card);
 	mode = "activate";
 	if (player_stable.length >= 7) {
-	    window.location.href = "/winner";
+	    window.location.href = "/won";
 	}
     }
 }
@@ -324,8 +324,8 @@ var hand_to_deck = function()
 	for (var i = 0; i < opponent_hand.length; i++)
 	{
 	    card_dimensions(opponent_hand[i], card_width, 150);
-	    card_coords(player_hand[i], 0, gen_y);
-	    player_hand[i].setAttribute("player", "f");
+	    card_coords(opponent_hand[i], 0, gen_y);
+	    opponent_hand[i].setAttribute("player", "f");
 	}
 	deck = deck.concat(opponent_hand);
 	console.log(deck);
