@@ -25,14 +25,14 @@ def root():
 @app.route('/leaderboard')
 def leader():
     '''
-    leaderboard testing
+    leaderboard
     '''
     guest = 'user' not in session
     user = None
     if not guest: user = session['user']
     return render_template("leaderboard.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
 
-@app.route('/won')
+@app.route('/winner')
 def won():
     '''
     leaderboard testing
@@ -43,7 +43,7 @@ def won():
     if not guest: leaderboard.add_wins(user)
     return render_template("win.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
 
-@app.route('/lost')
+@app.route('/loser')
 def lost():
     '''
     leaderboard testing
@@ -53,75 +53,6 @@ def lost():
     if not guest: user = session['user']
     if not guest: leaderboard.add_losses(user)
     return render_template("lost.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
-
-@socketio.on('joinRoom')
-def joinRoom(roomInfo):
-    '''
-    websockets -- make client join room, save room info based on the id of the socket
-    '''
-    if len(roomInfo) == 0:
-        return
-    #join_room(roomInfo)
-    join_room(request.sid)
-    rooms[request.sid] = roomInfo
-
-    if roomInfo in room_id:
-        room_id[roomInfo].append(request.sid)
-    else:
-        room_id[roomInfo] = [request.sid]
-        emit('myturn', "hi", room = request.sid)
-
-@socketio.on('disconnect')
-def disconn():
-    roomInfo = rooms[request.sid]
-    room_id[roomInfo].pop(request.sid)
-        
-@socketio.on('message')
-def message(msg):
-    '''
-    websockets -- send message to room that the client who sent it is in
-    '''
-    if len(msg) != 0:
-        send(msg, room = rooms[request.sid])
-
-@socketio.on('drawn')
-def drawn(msg):
-    print('msg received: card drawn')
-    print(room_id[ rooms[request.sid] ])
-    
-    for client in room_id[ rooms[request.sid] ]:
-        if client != request.sid:
-            emit('drawn', msg, room = client);
-
-@socketio.on('removed')
-def removed(msg):
-    print('msg received: card removed')
-    print(room_id[ rooms[request.sid] ])
-    
-    for client in room_id[ rooms[request.sid] ]:
-        if client != request.sid:
-            emit('removed', msg, room = client);
-
-@socketio.on('discarded')
-def discarded(msg):
-    print('msg received: card added to discard pile')
-    print(room_id[ rooms[request.sid] ])
-    
-    for client in room_id[ rooms[request.sid] ]:
-        emit('discarded', msg, room = client);
-
-@socketio.on('myturn')
-def myturn(msg):
-    print('msg received: must change turn')
-    print(room_id[ rooms[request.sid] ])
-
-    players = room_id[ rooms[request.sid] ]
-    currentPlayer = players.index( request.sid )
-    print(currentPlayer)
-    nextPlayer = (currentPlayer + 1 ) % ( len(players) )
-    print(nextPlayer)
-    
-    emit('myturn', msg, room = players[nextPlayer])
 
 @app.route('/game/<code>')
 def game(code):
@@ -223,14 +154,14 @@ def register_auth():
     session['user'] = username
     return redirect('/')    
 
-@app.route('/logout', methods = ['GET'])
+@app.route('/logout')
 def logout():
     '''
     logout
     '''
     if 'user' in session:
         session.pop('user')
-    return redirect(url_for('/'))
+    return redirect('/')
 
 
 if __name__ == '__main__':
