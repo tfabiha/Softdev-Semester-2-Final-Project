@@ -3,6 +3,7 @@
 Tabassum Fabiha (PM), Imad Belkebir, Rachel Ng, Mai Rachlevsky
 
 [Demo Video](https://youtu.be/mR4LYx6mD0k)
+[Meme Demo Video](https://youtu.be/9pRBHhTHaGg)
 
 ## Description
 
