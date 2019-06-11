@@ -147,3 +147,22 @@ imadB -- 2019-06-07 2:00
 rachelN -- 2019-06-07 3:00
 - action phase stuff
 - functions for magic / action cards
+
+fabihaT -- 2019-06-08 15:00
+- researched async, await, and promise
+- implemented effects
+- implemented effects upon enter for both opponent and player
+
+fabihaT -- 2019-06-09 15:00
+- implemented some effect functions
+- edited cards.json
+
+fabihaT -- 2019-06-11 00:28
+- fixed typos and other bugs
+- implemented some more effects
+- enabled effects in beginning of turn for both opponent and
+  player
+- wrote the script
+- reworked cards.json by removing some cards and adding more of others
+- wrote out instructions for game
+
