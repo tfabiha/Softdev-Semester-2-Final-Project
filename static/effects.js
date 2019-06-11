@@ -295,7 +295,7 @@ var hand_to_deck = function()
 {
     for (var i = 0; i < discard_pile.length; i++)
 	{
-	    discard_pile[i].removeAttributeNS("http://www.w3.org/1999/xlink","xlink:href");
+	    discard_pile[i].setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
 	    card_dimensions(discard_pile[i], card_width, 150);
 	    card_coords(discard_pile[i], 0, gen_y);
 	    discard_pile[i].setAttribute("player", "f");
@@ -308,7 +308,7 @@ var hand_to_deck = function()
     {
 	for (var i = 0; i < player_hand.length; i++)
 	{
-	    player_hand[i].removeAttributeNS("http://www.w3.org/1999/xlink","xlink:href");
+	    player_hand[i].setAttributeNS("http://www.w3.org/1999/xlink","xlink:href", "https://raw.githubusercontent.com/tfabiha/unstablepics/master/back.jpg");
 	    setup_remove_hand(player_hand[i]);
 	    card_dimensions(player_hand[i], card_width, 150);
 	    card_coords(player_hand[i], 0, gen_y);
@@ -322,7 +322,7 @@ var hand_to_deck = function()
     {
 	for (var i = 0; i < opponent_hand.length; i++)
 	{
-	    card_dimensions(oppnent_hand[i], card_width, 150);
+	    card_dimensions(opponent_hand[i], card_width, 150);
 	    card_coords(player_hand[i], 0, gen_y);
 	    player_hand[i].setAttribute("player", "f");
 	}
