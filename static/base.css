@@ -40,7 +40,7 @@ html{
     top: 10px;
     left: 20px;
     display: block;
-    position: fixed;
+    position: absolute;
 }
 
 .nav_link {
@@ -55,4 +55,9 @@ html{
 .dropdown-menu {
     border: none;
     background: #f8f9fa;
+}
+
+.outline {
+  -webkit-text-stroke: 30px #ffffff;
+  user-select: none;
 }
