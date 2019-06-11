@@ -2,6 +2,8 @@
 
 Tabassum Fabiha (PM), Imad Belkebir, Rachel Ng, Mai Rachlevsky
 
+[Demo Video](https://youtu.be/mR4LYx6mD0k)
+
 ## Description
 
 Catatonic Cereal is a digitized version of the popular card game, Unstable Unicorns. Users of the site will be able to play the base game of Unstable Unicorns against an AI. They will also be able to obtain their win/loss streak on their user profile and be able to compete on the leaderboards. 
