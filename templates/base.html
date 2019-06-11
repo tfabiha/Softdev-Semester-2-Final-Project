@@ -18,7 +18,7 @@
 
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background: transparent;">
+  <nav class="navbar navbar-expand-lg" style="background: transparent;">
     <a href="/"><img id="logo" src="{{ url_for('static', filename='catatonic_cereal_logo.png') }}"></a>
   <div style="width: 200px;"></div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,12 +28,12 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link nav_link" href="/"></a>
+        <a class="nav-link nav_link" href="/instructions">Instructions</a>
       </li>
     </ul>
     {% if not guest %}
       <div class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle nav_link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ user }}
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

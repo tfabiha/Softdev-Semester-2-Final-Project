@@ -12,6 +12,7 @@ socketio = SocketIO(app)
 rooms = {}
 room_id = {}
 
+
 config.create_table()
 
 @app.route('/')
@@ -40,7 +41,7 @@ def wins():
     user = None
     if not guest: user = session['user']
     if not guest: leaderboard.add_wins(user)
-    return render_template("leaderboard.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
+    return render_template("win.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
 
 @app.route('/losses')
 def losses():
@@ -51,7 +52,7 @@ def losses():
     user = None
     if not guest: user = session['user']
     if not guest: leaderboard.add_losses(user)
-    return render_template("leaderboard.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
+    return render_template("lost.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
 
 @socketio.on('joinRoom')
 def joinRoom(roomInfo):
@@ -162,23 +163,13 @@ def join_game():
     return redirect('/game/{code}'.format(code=inv_code))
 
 
-@app.route('/create_game', methods = ['POST'])
+@app.route('/create_game')
 def create_game():
     '''
     for creating games
     '''
     print(request.form)
-    game_name = request.form['game_name']
-    max_players = int(request.form['max_players'])
-    private_game = 'private_game' in request.form
-    if game_name == "":
-        flash("Enter a name",category="create_game_error")
-        return redirect(url_for('lobby'))
     inv_code = ''.join([random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")for n in range(32)])
-    if max_players == 0:
-        max_players = 2
-        flash("Max players has defaulted to " + str(max_players))
-        return redirect('/game/{code}'.format(code=inv_code))
     return redirect('/game/{code}'.format(code=inv_code))
 
 @app.route('/winner')

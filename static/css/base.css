@@ -3,7 +3,6 @@ font-family: "silkscreen";
 src: url("../silkscreen.ttf");
 }
 
-
 body{
     height: 100%;
     display: flex;
@@ -45,10 +44,21 @@ html{
 .nav_link {
     font: 25px silkscreen;
     margin-top: 20px;
+    color:#8b0000;
+    transition: color .5s;
+}
+
+.nav_link:hover {
+    color: #770000;
 }
 
 .drop_link {
     font: 20px silkscreen;
+}
+
+.drop_link:hover {
+    transition: color .5s;
+    color: #770000;
 }
 
 .dropdown-menu {
