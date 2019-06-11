@@ -9,6 +9,7 @@ async function add_basic(e)
 	card_dimensions(card, card_width, 150);
 	card_coords(card, player_stable.length * card_width + x_shift, nursery_y);
 	card.setAttribute("player", "f");
+  card.addEventListener('click', sacrifice);
 	player_stable.push(card);
 	mode = "activate";
 	if (player_stable.length >= 7) {
