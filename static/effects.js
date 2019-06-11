@@ -258,7 +258,7 @@ var sacrifice_this = function(stable, card)
 {
     if (stable.includes(card))
     {
-	card_coords(card, svg_width - caard_width, discard_y);
+	card_coords(card, svg_width - card_width, discard_y);
 
 	if (myturn)
 	{
