@@ -240,7 +240,7 @@ drawbutton.addEventListener('click', function() {
 					    opponent_stable.push(c);
 
               if (opponent_stable.length >= 7) {
-						    window.location.href = "/winner";
+						    window.location.href = "/lost";
 					    }
 
 					    shift(opponent_stable);
@@ -249,7 +249,7 @@ drawbutton.addEventListener('click', function() {
               await activate( c, c.getAttribute("att"), c.getAttribute("type"), "enter" );
 
 					    if (opponent_stable.length >= 7) {
-						    window.location.href = "/winner";
+						    window.location.href = "/lost";
 					    }
 					}
 					// play a magic card
