@@ -272,8 +272,8 @@ async function other_ret_all()
     {
 	turn.innerHTML = "CHOOSE A UNICORN TO RETURN TO THE OPPONENT'S HAND";
 	mode = "other_ret_all";
-	
-	await check_end();	
+
+	await check_end();
     }
     else
     {
@@ -287,7 +287,7 @@ var other_ret_all_helper = function(e)
     if (mode == "other_ret_all")
     {
 	var card = e.target;
-	
+
 	other_ret_all_hand( opponent_stable, opponent_hand, card, player_hand );
 	mode = "activate";
     }
@@ -381,10 +381,10 @@ async function check_end() {
 
 async function check_choice() {
   await new Promise((resolve) => setTimeout(() => {
-    if(mode != "yes" && mode != "no") {
-      return resolve(check_end());
-    }else{
+    if(mode == "yes" || mode == "no") {
       return resolve();
+    }else{
+      return resolve(check_choice());
     }
   }, 100));
 }
@@ -472,28 +472,27 @@ async function activate(card, att, type, moment) {
 	    {
 		turn.innerHTML = "PRESS YES TO ACTIVATE THIS CARD OR NO TO NOT ACTIVATE IT"
 		mode = "waiting_choice";
-		
+
 		await check_choice();
-	    
+    console.log("Henlo3");
 		if (mode == "no")
 		{
 		    mode = "activate";
-		    inner.HTML = "YOU MAY MOVE ON WITH YOUR LIFE";
+		    turn.innerHTML = "YOU MAY MOVE ON WITH YOUR LIFE";
 		return;
 		}
-		
-		inner.HTML = "THE REST OF THE CARD WILL PLAY";
+		turn.innerHTML = "THE REST OF THE CARD WILL PLAY";
 		mode = "activate";
 	    }
 	    else
 	    {
-		if (Math.floor(Math.random() * 10 < 4)
+		if (Math.floor(Math.random() * 10) < 4)
 		    {
 			return;
 		    }
 	    }
 	}
-	
+
 	if (x[i] == "switch_hand")
 	{
 	    switch_hands();

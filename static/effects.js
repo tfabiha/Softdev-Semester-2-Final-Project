@@ -54,11 +54,11 @@ var switch_hands = function()
 var ret_hand = function(card, moment) {
     // my card was destoryed or sacrificed
     if (moment == "destroyed" && !myturn || moment == "sacrificed" && myturn)
-    {	
+    {
 	if (player_stable.includes(card) || discard_pile.includes(card))
 	{
 	    card_coords(card, hand.length * card_width + x_shift, player_y);
-	    
+
 	    if (card.getAttribute("type") == "baby_uni")
 	    {
 		ret_nursery(stable, hand, card);
@@ -84,8 +84,8 @@ var ret_hand = function(card, moment) {
 	    card_coords(card, hand.length * card_width + x_shift, opponent_y);
 
 	    card.removeAttributeNS("http://www.w3.org/1999/xlink", "xlink:href");
-	    setup_remove_stable("opponent", card);	    
-	    
+	    setup_remove_stable("opponent", card);
+
 	    if (card.getAttribute("type") == "baby_uni")
 	    {
 		ret_nursery(stable, hand, card);
@@ -102,14 +102,14 @@ var ret_hand = function(card, moment) {
 	    shift(opponent_stable);
 	    console.log("returning card to hand");
 	}
-    
+
     }
 };
 
 // return a baby unicorn from stable to nursery
 var ret_nursery = function(stable, hand, card)
 {
-    
+
     if (stable.includes(card) && card.getAttribute("type") == "baby_uni")
     {
 	card_coors( card, nursery_y, card_y );
@@ -127,7 +127,7 @@ var ret_nursery = function(stable, hand, card)
 	{
 	    player_stable = player_stable.filter(function(n) {return n != card});
 	    shift(player_stable);
-	}	
+	}
 
 	console.log("returned baby unicorn to nursery");
 
@@ -258,7 +258,7 @@ var sacrifice_this = function(stable, card)
     if (stable.includes(card))
     {
 	card_coords(card, svg_width - caard_width, discard_y);
-	
+
 	if (myturn)
 	{
 	    setup_remove_stable("player", card);
@@ -303,7 +303,7 @@ var hand_to_deck = function()
 	deck = deck.concat(discard_pile);
 	console.log(deck);
 	discard_pile = [];
-    
+
     if (myturn)
     {
 	for (var i = 0; i < player_hand.length; i++)
@@ -331,8 +331,8 @@ var hand_to_deck = function()
 	opponent_hand = [];
     }
 
-    
-    
+
+
     for (var i = 0; i < deck.length; i++) {
 	    if (deck[i].getAttribute("type") == "baby_uni") {
 		nursery.push(deck[i]);
@@ -340,7 +340,7 @@ var hand_to_deck = function()
 		deck = deck.filter(function(n) {return n != deck[i]});
 	    }
     }
-    
+
 };
 
 // sacrifice a card
@@ -356,9 +356,9 @@ async function sacrifice_all(stable, card)
 	}
 	else
 	{
-	    opponent_stable = opponent_stable.filter(function(n) {return n != card});   
+	    opponent_stable = opponent_stable.filter(function(n) {return n != card});
 	}
-	
+
 	discard.push(card)
 
 	await activate(card, card.getAttribute("att"), card.getAttribute("type"), "sacrificed");

@@ -71,7 +71,7 @@ yes.addEventListener("click", function()
 			 {
 			     mode = "yes";
 			 }
-		     })
+     });
 
 no.addEventListener("click", function()
 		     {
@@ -79,7 +79,7 @@ no.addEventListener("click", function()
 			 {
 			     mode = "no";
 			 }
-		     })
+     });
 
 d3.json("https://raw.githubusercontent.com/tfabiha/cerealmafia/master/static/cards.json", function(error, d) {
 
