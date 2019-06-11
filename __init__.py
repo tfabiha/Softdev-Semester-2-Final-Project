@@ -32,8 +32,8 @@ def leader():
     if not guest: user = session['user']
     return render_template("leaderboard.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
 
-@app.route('/wins')
-def wins():
+@app.route('/won')
+def won():
     '''
     leaderboard testing
     '''
@@ -43,8 +43,8 @@ def wins():
     if not guest: leaderboard.add_wins(user)
     return render_template("win.html", guest=guest, user = user, users = leaderboard.get_wins_losses())
 
-@app.route('/losses')
-def losses():
+@app.route('/lost')
+def lost():
     '''
     leaderboard testing
     '''
@@ -123,27 +123,6 @@ def myturn(msg):
     
     emit('myturn', msg, room = players[nextPlayer])
 
-@app.route('/base')
-def base():
-    '''
-    base template
-    '''
-    guest = 'user' not in session
-    user = None
-    if not guest: user = session['user']
-    return render_template("base.html", guest = guest, user =
-                           user)
-
-@app.route('/lobby')
-def lobby():
-    '''
-    game lobby -- people can join and create games
-    '''
-    guest = 'user' not in session
-    user = None
-    if not guest: user = session['user']
-    return render_template("lobby.html", guest=guest, user = user)
-
 @app.route('/game/<code>')
 def game(code):
     '''
@@ -171,13 +150,6 @@ def create_game():
     print(request.form)
     inv_code = ''.join([random.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")for n in range(32)])
     return redirect('/game/{code}'.format(code=inv_code))
-
-@app.route('/winner')
-def winner():
-    '''
-    game template -- unfinished
-    '''
-    return render_template("win.html")
 
 @app.route('/user')
 def user():
