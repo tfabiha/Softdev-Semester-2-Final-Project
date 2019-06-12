@@ -1,10 +1,8 @@
-# cerealmafia
+# Catatonic Cereal by Team Cerealmafia
 
-Tabassum Fabiha (PM), Imad Belkebir, Rachel Ng, Mai Rachlevsky
+Tabassum Fabiha (PM), Imad Belkebir (JS game mechanics), Rachel Ng (implementation of visuals), Mai Rachlevsky (JS game mechanics)
 
-[Demo Video (5 min)](https://youtu.be/9pRBHhTHaGg)
-
-[Demo Video (12 min)](https://youtu.be/mR4LYx6mD0k)
+[Watch our video demo here](https://youtu.be/9pRBHhTHaGg)
 
 ## Description
 
