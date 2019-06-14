@@ -1,18 +1,11 @@
-
 import os, random
 from flask import Flask, render_template, request, session, url_for, redirect, flash
-from flask_socketio import SocketIO, join_room, leave_room, emit, send
 
 from util import config, db, leaderboard
 
 app = Flask(__name__, static_url_path='/static') #create instance of class flask
 
 app.secret_key = os.urandom(32)
-socketio = SocketIO(app)
-
-rooms = {}
-room_id = {}
-
 
 config.create_table()
 
@@ -175,4 +168,5 @@ def logout():
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug = True)
+    app.debug = True
+    app.run()
